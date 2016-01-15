@@ -1,12 +1,10 @@
 'use strict';
 
-angular.module('opendataapplication', ['ionic', 'ionic-material', 'ngCordova']).controller('appController', function($timeout, $scope, $http, ionicMaterialInk, ionicMaterialMotion){
+angular.module('opendataapplication', ['ionic', 'ionic-material', 'ngCordova'])
 
-      $scope.isExpanded = false;
-      $scope.hasHeaderFabLeft = false;
-      $scope.hasHeaderFabRight = false;
+.controller('appController', function($timeout, $scope, $http, ionicMaterialInk, ionicMaterialMotion, $ionicHistory){
 
-  ////////////////////////////////////////
+    //////////////////////////////////////
     // Layout Methods
     ////////////////////////////////////////
 
@@ -79,14 +77,14 @@ angular.module('opendataapplication', ['ionic', 'ionic-material', 'ngCordova']).
 
 .controller('homeController', function($timeout, $scope, $http, ionicMaterialInk, ionicMaterialMotion){
 
-  $scope.$parent.showHeader();
+  //$scope.$parent.showHeader();
   //$scope.$parent.clearFabs();
   //$scope.$parent.setHeaderFab('center');
 
-  $timeout(function () {
-    $scope.isExpanded = true;
-    $scope.$parent.setExpanded(true);
-  }, 100);
+  // $timeout(function () {
+  //   $scope.isExpanded = true;
+  //   $scope.$parent.setExpanded(true);
+  // }, 100);
 
   //ionicMaterialMotion.fadeSlideInRight();
 
@@ -95,7 +93,11 @@ angular.module('opendataapplication', ['ionic', 'ionic-material', 'ngCordova']).
 
 })
 
-.controller('mapController', function($scope, $state, $cordovaGeolocation, $ionicLoading){
+.controller('mapController', function($scope, $state, $timeout, $cordovaGeolocation, $ionicLoading, ionicMaterialInk, ionicMaterialMotion){
+
+  $timeout(function () {
+    $scope.isHideNavbar = true;
+  }, 100);
 
   var options = {timeout: 10000, enableHighAccuracy:true};
 
@@ -110,8 +112,11 @@ angular.module('opendataapplication', ['ionic', 'ionic-material', 'ngCordova']).
       };
 
       $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
-      console.log($scope.map);
+
   }, function(error){
     console.log("Could not get location");
   });
+
+  ionicMaterialInk.displayEffect();
+
 });
