@@ -2,16 +2,27 @@ angular.module('opendataapplication').config(function($stateProvider, $urlRouter
 
   $stateProvider.state('mainscreen',{
       url: '/mainscreen',
-      templateUrl: 'views/mainscreen.html',
+      templateUrl: 'templates/views/mainscreen.html',
       abstract: true,
       controller: 'appController'
     })
+
     .state('mainscreen.home', {
       url: '/home',
       views: {
-        'homeview': {
-          templateUrl: 'views/home.html',
+        'menucontentview': {
+          templateUrl: 'templates/views/home.html',
           controller: 'homeController'
+        }
+      }
+    })
+
+    .state('mainscreen.map', {
+      url: '/map',
+      views:{
+        'menucontentview':{
+          templateUrl: 'templates/views/map.html',
+          controller: 'mapController'
         }
       }
     });

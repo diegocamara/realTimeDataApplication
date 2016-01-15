@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('opendataapplication').controller('appController', function($timeout, $scope, $http, ionicMaterialInk, ionicMaterialMotion){
+angular.module('opendataapplication', ['ionic', 'ionic-material', 'ngCordova']).controller('appController', function($timeout, $scope, $http, ionicMaterialInk, ionicMaterialMotion){
 
       $scope.isExpanded = false;
       $scope.hasHeaderFabLeft = false;
@@ -93,4 +93,25 @@ angular.module('opendataapplication').controller('appController', function($time
   ionicMaterialInk.displayEffect();
 
 
+})
+
+.controller('mapController', function($scope, $state, $cordovaGeolocation, $ionicLoading){
+
+  var options = {timeout: 10000, enableHighAccuracy:true};
+
+  $cordovaGeolocation.getCurrentPosition(options).then(function(position){
+
+      var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+      var mapOptions = {
+        center: latLng,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+
+      $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+      console.log($scope.map);
+  }, function(error){
+    console.log("Could not get location");
+  });
 });
