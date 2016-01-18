@@ -1,13 +1,13 @@
 
-<<<<<<< HEAD
+
 var modulo = angular.module('opendataapplication');
 
 modulo.controller('appController', function($timeout, $scope, $http, ionicMaterialInk, ionicMaterialMotion, $ionicHistory){
-=======
+
 angular.module('opendataapplication', ['ionic', 'ionic-material', 'ngCordova'])
 
 .controller('appController', function($timeout, $scope, $http, ionicMaterialInk, ionicMaterialMotion, $ionicHistory){
->>>>>>> f2b9de54f589d54eb4ddc45aa69e683d1579a9bb
+
 
     //////////////////////////////////////
     // Layout Methods
@@ -80,11 +80,8 @@ angular.module('opendataapplication', ['ionic', 'ionic-material', 'ngCordova'])
 
 })
 
-<<<<<<< HEAD
 .controller('homeController', function($timeout, $scope, $http, ionicMaterialInk, ionicMaterialMotion, $ionicLoading, restService){
-=======
-.controller('homeController', function($timeout, $scope, $http, ionicMaterialInk, ionicMaterialMotion, $ionicLoading){
->>>>>>> f2b9de54f589d54eb4ddc45aa69e683d1579a9bb
+
 
   //$scope.$parent.showHeader();
   //$scope.$parent.clearFabs();
@@ -98,11 +95,11 @@ angular.module('opendataapplication', ['ionic', 'ionic-material', 'ngCordova'])
   //ionicMaterialMotion.fadeSlideInRight();
 
   executarLoadingIndicator($scope, $ionicLoading);
-<<<<<<< HEAD
+
   carregarCategorias($scope, restService, $timeout, ionicMaterialInk, ionicMaterialMotion, $ionicLoading);
-=======
+
   // carregarCategorias($scope, restService, $timeout, ionicMaterialInk, ionicMaterialMotion, $ionicLoading);
->>>>>>> f2b9de54f589d54eb4ddc45aa69e683d1579a9bb
+
 
   $scope.goToCategory = function ($local) {
       $state.go('application.' + $local);

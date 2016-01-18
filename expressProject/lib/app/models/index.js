@@ -1,11 +1,7 @@
 "use strict";
 var loader = require('../../util/loader');
 var path = require('path');
-<<<<<<< HEAD
 var env = process.env.NODE_ENV || 'development';
-=======
-var env = process.env.NODE_ENV || 'localhost';
->>>>>>> f2b9de54f589d54eb4ddc45aa69e683d1579a9bb
 var config = require('./databaseconfig.json')[env];
 var uriUtil = require('mongodb-uri');
 var mongoose = require('mongoose');
