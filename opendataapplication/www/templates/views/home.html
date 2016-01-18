@@ -1,5 +1,5 @@
-<ion-view view-title="Home">
-  
+<!-- <ion-view view-title="Home">
+
     <ion-content class='padding' ng-class="{expanded:isExpanded}">
       <div class="content has-header">
         <a class="button button-positive ink" href="#/mainscreen/map">
@@ -10,4 +10,38 @@
          </div>
       </div>
     </ion-content>
+</ion-view> -->
+
+<ion-view view-title="Categorias">
+<ion-content class='padding' ng-class="{expanded:isExpanded}">
+  <style>
+    .item{
+      margin:2px auto;
+      padding:0px;
+    }
+    .descricao{
+    }
+    .elementCenterAlign {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  </style>
+  </div>
+  <ion-list class="animate-blinds has-header">
+    <ion-item class="ink" ng-repeat="categoria in categorias" ng-click="goToCategory('{{categoria.label}}')">
+      <div style="height:30vh; background-image: url('img/{{categoria.label}}.jpg');background-repeat:no-repeat;background-size:100% 100%;">
+
+        <div class="elementCenterAlign row row-center text-center" style="margin: 0 auto;">
+          <div class="col col-center text-center">
+            <div class=" item-text-wrap" style="font-size:30px;font-weight:bold;color:white;">
+                {{categoria.descricao}}
+            </div>
+          </div>
+        </div>
+
+    </div>
+    </ion-item>
+  </ion-list>
+</ion-content>
 </ion-view>
