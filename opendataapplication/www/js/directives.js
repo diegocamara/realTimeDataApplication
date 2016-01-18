@@ -1,4 +1,6 @@
-angular.module('opendataapplication').directive('ionMdInput', function(){
+var modulo = angular.module('opendataapplication');
+
+modulo.directive('ionMdInput', function(){
 
   return {
     restrict: 'E',

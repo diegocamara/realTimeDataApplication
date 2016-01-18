@@ -1,23 +1,13 @@
-var express = require('express');
-var cors = require('cors');
-var io = require('socket.io').listen(app);
-var fs = require('fs');
-var json = require('./jsonloader');
+var cfg = require('_/config');
+var log = require('_/log');
+var models = require('_/app/models');
+var app = require('_/app');
 
-var app = express();
-app.use(cors());
+models.mongoose.connection.on('error', console.error.bind(console, 'Connection error:'));
 
-var jsonResult = undefined;
-
-app.listen(3000, function(){
-  console.log("Server is running baby!");
-
-  var url = 'http://dados.recife.pe.gov.br/storage/f/2016-01-12T201515/156_diario.csv';
-  json.getJsonFromWeb(url, function(json){
-    jsonResult = json;
-
-    console.log(jsonResult);
-
-  });
-
+models.mongoose.connection.once('open', function(callback){
+    console.log('Connected to mongodb');
+    app.listen(cfg.port, function(){
+        console.log('app listening on port', cfg.port);
+    });
 });

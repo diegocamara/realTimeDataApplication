@@ -1,4 +1,6 @@
-angular.module('opendataapplication').config(function($stateProvider, $urlRouterProvider){
+var modulo = angular.module('opendataapplication');
+
+modulo.config(function($stateProvider, $urlRouterProvider){
 
   $stateProvider.state('mainscreen',{
       url: '/mainscreen',
