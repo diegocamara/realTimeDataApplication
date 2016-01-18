@@ -4,7 +4,11 @@ var services = require('../services');
 exports.obterCategorias = function(req, res){
 
     models.Categoria.find(function(err, data){
+<<<<<<< HEAD
       console.log(data);
+=======
+
+>>>>>>> f2b9de54f589d54eb4ddc45aa69e683d1579a9bb
       if(err){
         throw err;
       }
