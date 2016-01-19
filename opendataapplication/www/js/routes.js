@@ -27,6 +27,16 @@ modulo.config(function($stateProvider, $urlRouterProvider){
           controller: 'mapController'
         }
       }
+    })
+
+    .state('mainscreen.bareres', {
+      url: '/bareres',
+      views:{
+        'menucontentview':{
+          templateUrl: 'templates/views/basreserestaurantes.html',
+          controller: 'baresERestaurantesController'
+        }
+      }
     });
 
     $urlRouterProvider.otherwise('mainscreen/home');

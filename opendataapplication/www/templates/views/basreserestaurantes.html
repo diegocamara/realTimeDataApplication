@@ -1,0 +1,22 @@
+<ion-view view-title="Bares e Restaurantes">
+    <ion-content>
+        <ion-list ng-repeat="place in places">
+            <ion-item class="animated fadeInLeft">
+                <div class="list card imagebg" data-ink-color="#387EF5">
+                    <div class="item item-avatar ink">
+                        <h2>{{place.nome}}</h2>
+                    </div>
+                    <div class="item item-body">
+                        <div>Especialidade : {{place.especialidade}}</div>
+                        <div>Telefone: {{place.telefone}}</div>
+                        <div>Endereço: {{place.endereco}}</div>
+                        <div>Site: <a ng-click="GotoLink('{{place.site}}')">Link</a>
+                        </div>
+                    </div>
+                </div>
+            </ion-item>
+        </ion-list>
+        <ion-infinite-scroll on-infinite="loadMore() " distance="20% " ng-if="moreDataCanBeLoad() " spinner="android ">
+        </ion-infinite-scroll>
+    </ion-content>
+</ion-view>

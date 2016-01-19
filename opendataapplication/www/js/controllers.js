@@ -4,11 +4,6 @@ var modulo = angular.module('opendataapplication');
 
 modulo.controller('appController', function($timeout, $scope, $http, ionicMaterialInk, ionicMaterialMotion, $ionicHistory){
 
-angular.module('opendataapplication', ['ionic', 'ionic-material', 'ngCordova'])
-
-.controller('appController', function($timeout, $scope, $http, ionicMaterialInk, ionicMaterialMotion, $ionicHistory){
-
-
     //////////////////////////////////////
     // Layout Methods
     ////////////////////////////////////////
@@ -80,7 +75,7 @@ angular.module('opendataapplication', ['ionic', 'ionic-material', 'ngCordova'])
 
 })
 
-.controller('homeController', function($timeout, $scope, $http, ionicMaterialInk, ionicMaterialMotion, $ionicLoading, restService){
+.controller('homeController', function($timeout, $scope, $state, $http, ionicMaterialInk, ionicMaterialMotion, $ionicLoading, restService){
 
 
   //$scope.$parent.showHeader();
@@ -101,8 +96,8 @@ angular.module('opendataapplication', ['ionic', 'ionic-material', 'ngCordova'])
   // carregarCategorias($scope, restService, $timeout, ionicMaterialInk, ionicMaterialMotion, $ionicLoading);
 
 
-  $scope.goToCategory = function ($local) {
-      $state.go('application.' + $local);
+  $scope.goToCategory = function (local) {
+      $state.go('mainscreen.' + local);
   }
 
   ionicMaterialInk.displayEffect();
@@ -136,11 +131,36 @@ angular.module('opendataapplication', ['ionic', 'ionic-material', 'ngCordova'])
 
   ionicMaterialInk.displayEffect();
 
+})
+
+.controller('baresERestaurantesController', function ($scope, restService, $timeout, ionicMaterialInk,
+    ionicMaterialMotion, restService) {
+
+    
+    $scope.page = 0;
+    $scope.pageSize = 5;
+    $scope.numeroDeRegistros = 0;
+    $scope.places = [];
+
+    ionicMaterialInk.displayEffect();
+
+    $scope.loadMore = function () {
+        carregarBarERes($scope, restService, $timeout, ionicMaterialInk, ionicMaterialMotion);
+    }
+
+    $scope.moreDataCanBeLoad = function () {
+        return $scope.places.length <= $scope.numeroDeRegistros;
+    }
+
+    $scope.GotoLink = function (url) {
+        window.open(url, '_system');
+    }
+
+    // $scope.$on('$stateChangeSuccess', function(){
+    //   $scope.loadMore();
+    // });
+
 });
-
-
-
-
 
 
 function executarLoadingIndicator($scope, $ionicLoading) {
