@@ -75,3 +75,7 @@ ion-md-input input:focus ~ .md-highlight {
 @keyframes inputHighlighter {
   from { background: #5264AE; }
   to { width: 0; background: transparent; } }
+
+.no-padding{
+  padding: 0px !important;
+}

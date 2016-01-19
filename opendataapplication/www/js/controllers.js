@@ -29,7 +29,7 @@ modulo.controller('appController', function($timeout, $scope, $http, ionicMateri
         $scope.isExpanded = bool;
     };
 
-    $scope.setHeaderFab = function(location) {
+    $scope.setHeaderisExibirLupaFab = function(location) {
         var hasHeaderFabLeft = false;
         var hasHeaderFabRight = false;
 
@@ -136,13 +136,10 @@ modulo.controller('appController', function($timeout, $scope, $http, ionicMateri
 .controller('baresERestaurantesController', function ($scope, restService, $timeout, ionicMaterialInk,
     ionicMaterialMotion, restService) {
 
-    
     $scope.page = 0;
     $scope.pageSize = 5;
     $scope.numeroDeRegistros = 0;
     $scope.places = [];
-
-    ionicMaterialInk.displayEffect();
 
     $scope.loadMore = function () {
         carregarBarERes($scope, restService, $timeout, ionicMaterialInk, ionicMaterialMotion);
@@ -155,6 +152,8 @@ modulo.controller('appController', function($timeout, $scope, $http, ionicMateri
     $scope.GotoLink = function (url) {
         window.open(url, '_system');
     }
+    
+    ionicMaterialInk.displayEffect();
 
     // $scope.$on('$stateChangeSuccess', function(){
     //   $scope.loadMore();
@@ -196,6 +195,7 @@ function carregarLugaresComVelocidade($scope, $timeout, response, velocidade) {
 function carregarLugares($scope, $timeout, response, place, velocidade) {
     $timeout(function () {
 
+        response[place].isExisteSite = isExisteSite(response[place].site);
         $scope.places.push(response[place]);
         place++;
         if (place < response.length) {
@@ -212,6 +212,10 @@ function aplicarEfeitoBlinds($timeout, ionicMaterialInk, ionicMaterialMotion, te
         ionicMaterialInk.displayEffect();
         ionicMaterialMotion.blinds();
     }, tempoDeEspera);
+}
+
+function isExisteSite(str){
+  return str != undefined && str.match(/[a-z]/i);
 }
 
 function redirecionar(path) {

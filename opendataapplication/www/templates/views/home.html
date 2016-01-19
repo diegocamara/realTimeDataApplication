@@ -15,12 +15,10 @@
 <ion-view view-title="Categorias">
 <ion-content ng-class="{expanded:isExpanded}">
   <style>
-    .item{
+    .categoriaClass{
       margin:2px auto;
       padding:0px;
-    }
-    .descricao{
-    }
+    }    
     .elementCenterAlign {
       position: absolute;
       top: 50%;
@@ -29,8 +27,8 @@
   </style>
   </div>
   <ion-list class="animate-blinds has-header">
-    <ion-item class="ink" ng-repeat="categoria in categorias" ng-click="goToCategory('{{categoria.label}}')">
-      <div style="height:30vh; background-image: url('img/{{categoria.label}}.jpg');background-repeat:no-repeat;background-size:100% 100%;">
+    <ion-item class="ink categoriaClass" ng-repeat="categoria in categorias" ng-click="goToCategory('{{categoria.label}}')">
+      <div style="height:30vh; background-image: url('img/{{categoria.label}}.jpg');background-repeat:no-repeat;background-size:100% 100%;margin:2px auto;">
 
         <div class="elementCenterAlign row row-center text-center" style="margin: 0 auto;">
           <div class="col col-center text-center">

@@ -1,18 +1,29 @@
 <ion-view view-title="Bares e Restaurantes">
+  <ion-nav-buttons side="right">
+      <!-- <button class="button button-icon button-clear ion-android-more-vertical" menu-toggle="right">
+      </button> -->
+      <button id="lupa" class="button button-icon button-clear ion-android-search ink">
+
+      </button>
+  </ion-nav-buttons>
     <ion-content>
         <ion-list ng-repeat="place in places">
-            <ion-item class="animated fadeInLeft">
-                <div class="list card imagebg" data-ink-color="#387EF5">
-                    <div class="item item-avatar ink">
-                        <h2>{{place.nome}}</h2>
-                    </div>
-                    <div class="item item-body">
-                        <div>Especialidade : {{place.especialidade}}</div>
-                        <div>Telefone: {{place.telefone}}</div>
-                        <div>Endereço: {{place.endereco}}</div>
-                        <div>Site: <a ng-click="GotoLink('{{place.site}}')">Link</a>
+            <ion-item class="animated fadeInLeft no-padding">
+                <div class="card">
+                  <div class="item item-text-wrap" style="padding-bottom:0px;">
+                    <h2>{{place.nome}}</h2>
+                  </div>
+                  <div class="item item-body item-text-wrap" style="padding-top:0px;">
+
+                        <b>Especialidade:</b> {{place.especialidade}}<br>
+                        <b>Telefone:</b> {{place.telefone}}<br>
+                        <b>Endereço:</b> {{place.endereco}}
+                        <div ng-if=place.isExisteSite>
+                          <br>
+                          <b>Site:</b> {{place.site}}
                         </div>
-                    </div>
+
+                  </div>
                 </div>
             </ion-item>
         </ion-list>
