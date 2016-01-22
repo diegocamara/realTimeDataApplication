@@ -1,17 +1,25 @@
-<ion-view view-title="Bares e Restaurantes">
+<ion-view view-title="Bares e Restaurantes" style="background-color:gray;">
   <ion-nav-buttons side="right">
-      <!-- <button class="button button-icon button-clear ion-android-more-vertical" menu-toggle="right">
-      </button> -->
-      <button id="lupa" class="button button-icon button-clear ion-android-search ink">
-
+      <button id="lupa" class="button button-icon button-clear ion-android-search ink" ng-show="!isExibirSearchBar" ng-click="showSearchbar()">
       </button>
   </ion-nav-buttons>
     <ion-content>
+        <form id="searchForm">
+          <div class="bar bar-stable static text-center" ng-show="isExibirSearchBar">
+            <label class="item item-input">
+              <i class="icon ion-search placeholder-icon"></i>
+              <input id="inputId" type="search" placeholder="Search" ng-model="filter">
+            </label>
+             <button class=" button button-icon icon ion-close" ng-click="hideSearchBar()"></button>
+
+          </div>
+        </form>
         <ion-list ng-repeat="place in places">
-            <ion-item class="animated fadeInLeft no-padding">
+            <ion-item class="animated fadeInLeft no-padding ink">
                 <div class="card">
                   <div class="item item-text-wrap" style="padding-bottom:0px;">
                     <h2>{{place.nome}}</h2>
+                    <h2>{{filter}}</h2>
                   </div>
                   <div class="item item-body item-text-wrap" style="padding-top:0px;">
 

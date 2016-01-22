@@ -2,7 +2,9 @@
 
 var modulo = angular.module('opendataapplication');
 
-modulo.controller('appController', function($timeout, $scope, $http, ionicMaterialInk, ionicMaterialMotion, $ionicHistory){
+modulo.controller('appController', function($timeout, $rootScope, $scope, $http, ionicMaterialInk, ionicMaterialMotion, $ionicHistory){
+
+    $rootScope.isExibirSearchBar = false;
 
     //////////////////////////////////////
     // Layout Methods
@@ -136,6 +138,8 @@ modulo.controller('appController', function($timeout, $scope, $http, ionicMateri
 .controller('baresERestaurantesController', function ($scope, restService, $timeout, ionicMaterialInk,
     ionicMaterialMotion, restService) {
 
+    $scope.isExibirSearchBar = false;
+    $scope.filter = "";
     $scope.page = 0;
     $scope.pageSize = 5;
     $scope.numeroDeRegistros = 0;
@@ -152,8 +156,24 @@ modulo.controller('appController', function($timeout, $scope, $http, ionicMateri
     $scope.GotoLink = function (url) {
         window.open(url, '_system');
     }
-    
-    ionicMaterialInk.displayEffect();
+
+    $scope.showSearchbar = function(){
+      $scope.isExibirSearchBar = true;
+
+      $timeout(function () {
+        var input = document.getElementById('inputId');
+        input.focus();
+      }, 100);
+
+    }
+
+    $scope.hideSearchBar = function(){
+
+      $scope.isExibirSearchBar = false;
+      console.log($scope.isExibirSearchBar);
+    }
+
+    // ionicMaterialInk.displayEffect();
 
     // $scope.$on('$stateChangeSuccess', function(){
     //   $scope.loadMore();
