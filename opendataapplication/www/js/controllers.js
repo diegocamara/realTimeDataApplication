@@ -107,35 +107,39 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 
 })
 
-.controller('mapController', function($scope, $state, $timeout, $cordovaGeolocation, $ionicLoading, ionicMaterialInk, ionicMaterialMotion){
+.controller('mapController', ['$scope',
+                              'leafletData',
+                              '$cordovaGeolocation',
+                              '$timeout',
+                              function($scope,
+                                       leafletData,
+                                       $cordovaGeolocation,
+                                       $timeout){
 
   $timeout(function () {
-    $scope.isHideNavbar = true;
+          $scope.isHideNavbar = true;
   }, 100);
+
+
+  $scope.map = {};
 
   var options = {timeout: 10000, enableHighAccuracy:true};
 
   $cordovaGeolocation.getCurrentPosition(options).then(function(position){
 
-      var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-      var mapOptions = {
-        center: latLng,
-        zoom: 15,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      };
-
-      $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    $scope.map.center = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude,
+      zoom: 20
+    }
 
   }, function(error){
     console.log("Could not get location");
   });
 
-  ionicMaterialInk.displayEffect();
+}])
 
-})
-
-.controller('baresERestaurantesController', function ($scope, restService, $timeout, ionicMaterialInk,
+.controller('baresERestaurantesController', function ($scope, $timeout, ionicMaterialInk,
     ionicMaterialMotion, restService) {
 
     $scope.isExibirSearchBar = false;
@@ -168,9 +172,7 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
     }
 
     $scope.hideSearchBar = function(){
-
-      $scope.isExibirSearchBar = false;
-      console.log($scope.isExibirSearchBar);
+      $scope.isExibirSearchBar = false;    
     }
 
     // ionicMaterialInk.displayEffect();
@@ -181,6 +183,37 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 
 });
 
+
+// var angularApp = angular.module('opendataapplication');
+//
+// angularApp.controller('mapController', ['$scope',
+//                                         'leafletData',
+//                                         '$cordovaGeolocation',
+//                                         '$timeout',
+//                                         function($scope, leafletData, $cordovaGeolocation, $timeout){
+//
+//   $timeout(function () {
+//           $scope.isHideNavbar = true;
+//   }, 100);
+//
+//
+//   $scope.map = {};
+//
+//   var options = {timeout: 10000, enableHighAccuracy:true};
+//
+//   $cordovaGeolocation.getCurrentPosition(options).then(function(position){
+//
+//     $scope.map.center = {
+//       lat: position.coords.latitude,
+//       lng: position.coords.longitude,
+//       zoom: 20
+//     }
+//
+//   }, function(error){
+//     console.log("Could not get location");
+//   });
+//
+// }]);
 
 function executarLoadingIndicator($scope, $ionicLoading) {
     $scope.loadingIndicator = $ionicLoading.show({

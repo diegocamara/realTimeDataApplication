@@ -1,6 +1,9 @@
 var modulo = angular.module('opendataapplication');
 
-modulo.config(function($stateProvider, $urlRouterProvider){
+modulo.config(function($stateProvider, $urlRouterProvider, $logProvider){
+
+  // Desabilitando log.
+  $logProvider.debugEnabled(false);
 
   $stateProvider.state('mainscreen',{
       url: '/mainscreen',

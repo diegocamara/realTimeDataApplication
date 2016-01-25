@@ -79,3 +79,8 @@ ion-md-input input:focus ~ .md-highlight {
 .no-padding{
   padding: 0px !important;
 }
+
+.angular-leaflet-map {
+    width: 640px;
+    height: 480px;
+}

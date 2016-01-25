@@ -1,5 +1,5 @@
 <ion-view title="Map" hide-nav-bar="isHideNavbar">
-	<ion-content id="map" data-tap-disabled="true">
-
-  </ion-content>
+	<ion-content scroll="false" data-tap-disabled="true">
+			<leaflet id="map" lf-center="map.center" ng-if="map.center" width="100%" height="100%"></leaflet>
+	</ion-content>
 </ion-view>
