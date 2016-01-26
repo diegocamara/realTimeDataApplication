@@ -4,38 +4,56 @@
       </button>
   </ion-nav-buttons>
     <ion-content>
-        <form id="searchForm">
-          <div class="bar bar-stable static text-center" ng-show="isExibirSearchBar">
-            <label class="item item-input">
+
+      <style>
+
+        .list .item.item-accordion {
+        line-height: 20px;
+        padding-top: 0;
+        padding-bottom: 0;
+        transition: 0.09s all linear;
+        }
+        .list .item.item-accordion.ng-hide {
+        line-height: 0px;
+        }
+        .list .item.item-accordion.ng-hide-add,
+        .list .item.item-accordion.ng-hide-remove {
+        display: block !important;
+        }
+
+      </style>
+
+          <div id="searchBar" class="bar bar-stable static text-center"
+               ng-show="isExibirSearchBar">
+            <div class="item item-input  animated fadeInDown">
               <i class="icon ion-search placeholder-icon"></i>
               <input id="inputId" type="search" placeholder="Search" ng-model="filter">
-            </label>
-             <button class=" button button-icon icon ion-close" ng-click="hideSearchBar()"></button>
-
+              <i class="icon ion-close padding" ng-click="hideSearchBar()"></i>
+            </div>
           </div>
-        </form>
-        <ion-list ng-repeat="place in places">
-            <ion-item class="animated fadeInLeft no-padding ink">
-                <div class="card">
-                  <div class="item item-text-wrap" style="padding-bottom:0px;">
-                    <h2>{{place.nome}}</h2>
-                    <h2>{{filter}}</h2>
-                  </div>
-                  <div class="item item-body item-text-wrap" style="padding-top:0px;">
 
-                        <b>Especialidade:</b> {{place.especialidade}}<br>
-                        <b>Telefone:</b> {{place.telefone}}<br>
-                        <b>Endereço:</b> {{place.endereco}}
+        <ion-list ng-repeat="place in places" class="animate-fade-slide-in">
+            <ion-item class="item-stable ink" ng-click="togglePlace(place)"
+                      ng-class="{active: isShowPlace(place)}"
+                      style="background-color:#f7f7f7;">
+              <i class="icon" ng-class="isShowPlace(place) ? 'ion-minus' : 'ion-plus'"></i>
+              &nbsp;
+              <b style="font-size:20px; color:#33393d;">{{place.nome}}</b>
+            </ion-item>
+            <ion-item class="item-accordion item-stable item-body ink"
+                      style="background-color:#dddfe0;"
+                      ng-show="isShowPlace(place)">
+
+                    <b>Especialidade:</b> {{place.especialidade}}<br>
+                    <b>Telefone:</b> {{place.telefone}}<br>
+                    <b>Endereço:</b> {{place.endereco}}
                         <div ng-if=place.isExisteSite>
                           <br>
                           <b>Site:</b> {{place.site}}
                         </div>
-
-                  </div>
-                </div>
-            </ion-item>
+          </ion-item>
         </ion-list>
-        <ion-infinite-scroll on-infinite="loadMore() " distance="20% " ng-if="moreDataCanBeLoad() " spinner="android ">
+        <ion-infinite-scroll on-infinite="loadMore() " distance="30%" ng-if="moreDataCanBeLoad() " spinner="android">
         </ion-infinite-scroll>
     </ion-content>
 </ion-view>
