@@ -23,7 +23,7 @@ exports.obterLocaisBaresERestaurantes = function(req, res){
 
   models.Restaurante.find(null, null,
     {skip:skip,
-     limit:size
+     limit:size     
     },function(err, data){
 
         models.Restaurante.count(function(err, count){
@@ -48,7 +48,7 @@ exports.obterBareResPorFiltro = function(req, res){
 
   var nome = req.query.nome;
 
-  models.Restaurante.find({"nome": {$regex: new RegExp(nome, "i")}}, function(err, data){
+  models.Restaurante.find({"nome": {$regex: new RegExp(nome, "i")}}, null,{sort:{nome: 1}}, function(err, data){
 
     models.Restaurante.count(function(err, count){
 

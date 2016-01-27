@@ -171,7 +171,7 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 
     $scope.hideSearchBar = function(){
       $scope.places = [];
-      $scope.isExibirSearchBar = false;      
+      $scope.isExibirSearchBar = false;
     }
 
     $scope.togglePlace = function(place){
@@ -192,30 +192,43 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 
     $scope.inputChange = function(filter){
 
+      if(filter !== ''){
 
+          if(timeoutDelay){
+            $timeout.cancel(timeoutDelay);
+          }
 
-      if(timeoutDelay){
-        $timeout.cancel(timeoutDelay);
+          executarLoadingIndicator($scope, $ionicLoading);
+
+          timeoutDelay = $timeout(function () {
+
+            var bareserestaurantes = restService.obterBareResPorNome($scope, filter);
+
+            bareserestaurantes.then(function(places){
+
+              $scope.places = places;
+
+              if(typeof $scope.places !== 'undefined' && $scope.places !== null){
+
+                if($scope.places.length > 0){
+
+                  $timeout(function () {
+                    ionicMaterialMotion.fadeSlideIn({startVelocity: 400});
+                    ionicMaterialInk.displayEffect();
+                    $scope.loadingIndicator = $ionicLoading.hide();
+                  }, 50);
+
+                }
+
+              }
+
+            });
+
+          }, 1000);
+
+      }else{
+        $scope.loadingIndicator = $ionicLoading.hide();
       }
-
-      timeoutDelay = $timeout(function () {
-
-        var bareserestaurantes = restService.obterBareResPorNome($scope, filter);
-
-        bareserestaurantes.then(function(places){
-
-          $scope.places = places;
-
-          $timeout(function () {
-
-            ionicMaterialMotion.fadeSlideIn();
-            ionicMaterialInk.displayEffect();
-          }, 100);
-
-
-        });
-
-      }, 1000);
 
     }
 
