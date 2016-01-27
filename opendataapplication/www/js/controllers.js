@@ -143,18 +143,18 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
     ionicMaterialMotion, restService) {
 
     $scope.isExibirSearchBar = false;
-    $scope.filter = "";
     $scope.page = 0;
     $scope.pageSize = 20;
     $scope.numeroDeRegistros = 0;
     $scope.places = [];
+
 
     $scope.loadMore = function () {
         carregarBarERes($scope, restService, $timeout, ionicMaterialInk, ionicMaterialMotion);
     }
 
     $scope.moreDataCanBeLoad = function () {
-        return $scope.places.length <= $scope.numeroDeRegistros;
+      return $scope.places.length <= $scope.numeroDeRegistros;
     }
 
     $scope.GotoLink = function (url) {
@@ -162,20 +162,16 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
     }
 
     $scope.showSearchbar = function(){
-      var searchBar = document.getElementById('searchBar');
-      searchBar.className += ' animated fadeInDown'
-
+    $scope.isExibirSearchBar = true;
       $timeout(function () {
-        $scope.isExibirSearchBar = true;
         var input = document.getElementById('inputId');
         input.focus();
       }, 100);
     }
 
     $scope.hideSearchBar = function(){
-      var searchBar = document.getElementById('searchBar');
-      searchBar.className = searchBar.className.replace(' animated fadeInDown', '');
-      $scope.isExibirSearchBar = false;
+      $scope.places = [];
+      $scope.isExibirSearchBar = false;      
     }
 
     $scope.togglePlace = function(place){
@@ -190,6 +186,37 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 
     $scope.isShowPlace = function(place){
       return $scope.selectedPlace === place;
+    }
+
+    var timeoutDelay;
+
+    $scope.inputChange = function(filter){
+
+
+
+      if(timeoutDelay){
+        $timeout.cancel(timeoutDelay);
+      }
+
+      timeoutDelay = $timeout(function () {
+
+        var bareserestaurantes = restService.obterBareResPorNome($scope, filter);
+
+        bareserestaurantes.then(function(places){
+
+          $scope.places = places;
+
+          $timeout(function () {
+
+            ionicMaterialMotion.fadeSlideIn();
+            ionicMaterialInk.displayEffect();
+          }, 100);
+
+
+        });
+
+      }, 1000);
+
     }
 
 

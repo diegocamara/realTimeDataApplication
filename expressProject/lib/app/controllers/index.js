@@ -44,6 +44,32 @@ exports.obterLocaisBaresERestaurantes = function(req, res){
   });
 }
 
+exports.obterBareResPorFiltro = function(req, res){
+
+  var nome = req.query.nome;
+
+  models.Restaurante.find({"nome": {$regex: new RegExp(nome, "i")}}, function(err, data){
+
+    models.Restaurante.count(function(err, count){
+
+      if(err){
+        throw err;
+      }
+
+      var result = {
+        numeroDeRegistros:count,
+        resultado: data
+      }
+
+      res.send(result);
+
+    });
+
+  });
+
+
+}
+
 exports.obterDemandasRecife = function(req, res){
     var url = 'http://dados.recife.pe.gov.br/storage/f/2016-01-12T201515/156_diario.csv';
    var jsonLoader = services.obterJsonLoaderDemandasRecife();

@@ -27,7 +27,7 @@
                ng-show="isExibirSearchBar">
             <div class="item item-input  animated fadeInDown">
               <i class="icon ion-search placeholder-icon"></i>
-              <input id="inputId" type="search" placeholder="Search" ng-model="filter">
+              <input id="inputId" type="search" placeholder="Search" ng-model="filter" ng-change="inputChange(filter)">
               <i class="icon ion-close padding" ng-click="hideSearchBar()"></i>
             </div>
           </div>
@@ -53,7 +53,9 @@
                         </div>
           </ion-item>
         </ion-list>
-        <ion-infinite-scroll on-infinite="loadMore() " distance="30%" ng-if="moreDataCanBeLoad() " spinner="android">
-        </ion-infinite-scroll>
+        <div  ng-if="!isExibirSearchBar">
+          <ion-infinite-scroll on-infinite="loadMore() " distance="30%" ng-if="moreDataCanBeLoad() " spinner="android">
+          </ion-infinite-scroll>
+        </div>
     </ion-content>
 </ion-view>

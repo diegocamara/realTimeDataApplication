@@ -6,6 +6,8 @@ router.get('/getcatrs', controllers.obterCategorias);
 
 router.get('/getres/', controllers.obterLocaisBaresERestaurantes);
 
+router.get('/getresfilter', controllers.obterBareResPorFiltro);
+
 router.get('/getservicedemands/', controllers.obterDemandasRecife);
 
 module.exports = router;

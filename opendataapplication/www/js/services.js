@@ -8,6 +8,7 @@ modulo.factory('restService', function($http){
 
 
   return{
+
     obterCategorias: function(){
       var url = webserver + "/getcatrs";
       var categorias = [];
@@ -16,7 +17,8 @@ modulo.factory('restService', function($http){
       },function(response){
         alert('error ao consultar as categorias!');
       });
-  },
+    },
+
     obterBareRes: function($scope, page, size){
 
       var url = webserver + "/getres?page=" + page + "&size=" + size;
@@ -29,7 +31,21 @@ modulo.factory('restService', function($http){
         alert('error ao consultar bares e restaurantes!');
       });
 
+    },
+
+    obterBareResPorNome: function($scope, filter){
+
+      var url = webserver + "/getresfilter?nome=" + filter;
+
+      return $http.get(url).then(function(response){        
+        $scope.numeroDeRegistros = response.data.numeroDeRegistros
+        return response.data.resultado;
+      }, function(response){
+        alert('Erro ao consultar bares e restaurantes!');
+      });
+
     }
+
   };
 
 });
