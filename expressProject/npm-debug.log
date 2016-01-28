@@ -1,0 +1,72 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'install', 'mongodd-uri' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.40
+4 verbose node symlink /usr/bin/node
+5 warn package.json expressapp@1.0.0 No description
+6 warn package.json expressapp@1.0.0 No repository field.
+7 warn package.json expressapp@1.0.0 No README data
+8 verbose readDependencies using package.json deps
+9 verbose cache add [ 'mongodd-uri', null ]
+10 verbose cache add name=undefined spec="mongodd-uri" args=["mongodd-uri",null]
+11 verbose parsed url { protocol: null,
+11 verbose parsed url   slashes: null,
+11 verbose parsed url   auth: null,
+11 verbose parsed url   host: null,
+11 verbose parsed url   port: null,
+11 verbose parsed url   hostname: null,
+11 verbose parsed url   hash: null,
+11 verbose parsed url   search: null,
+11 verbose parsed url   query: null,
+11 verbose parsed url   pathname: 'mongodd-uri',
+11 verbose parsed url   path: 'mongodd-uri',
+11 verbose parsed url   href: 'mongodd-uri' }
+12 silly lockFile e6c125ef-mongodd-uri mongodd-uri
+13 verbose lock mongodd-uri /home/dlbmc/.npm/e6c125ef-mongodd-uri.lock
+14 silly lockFile e6c125ef-mongodd-uri mongodd-uri
+15 silly lockFile e6c125ef-mongodd-uri mongodd-uri
+16 verbose addNamed [ 'mongodd-uri', '' ]
+17 verbose addNamed [ null, '*' ]
+18 silly lockFile b426a8fe-mongodd-uri mongodd-uri@
+19 verbose lock mongodd-uri@ /home/dlbmc/.npm/b426a8fe-mongodd-uri.lock
+20 silly addNameRange { name: 'mongodd-uri', range: '*', hasData: false }
+21 verbose request where is /mongodd-uri
+22 verbose request registry https://registry.npmjs.org/
+23 verbose request id 6816543bffbb00b9
+24 verbose url raw /mongodd-uri
+25 verbose url resolving [ 'https://registry.npmjs.org/', './mongodd-uri' ]
+26 verbose url resolved https://registry.npmjs.org/mongodd-uri
+27 verbose request where is https://registry.npmjs.org/mongodd-uri
+28 info trying registry request attempt 1 at 08:08:43
+29 http GET https://registry.npmjs.org/mongodd-uri
+30 http 404 https://registry.npmjs.org/mongodd-uri
+31 silly registry.get cb [ 404,
+31 silly registry.get   { 'content-type': 'application/json',
+31 silly registry.get     'cache-control': 'max-age=0',
+31 silly registry.get     'content-length': '2',
+31 silly registry.get     'accept-ranges': 'bytes',
+31 silly registry.get     date: 'Thu, 28 Jan 2016 11:09:54 GMT',
+31 silly registry.get     via: '1.1 varnish',
+31 silly registry.get     age: '0',
+31 silly registry.get     connection: 'keep-alive',
+31 silly registry.get     'x-served-by': 'cache-iad2127-IAD',
+31 silly registry.get     'x-cache': 'MISS',
+31 silly registry.get     'x-cache-hits': '0',
+31 silly registry.get     'x-timer': 'S1453979394.166377,VS0,VE62' } ]
+32 silly lockFile b426a8fe-mongodd-uri mongodd-uri@
+33 silly lockFile b426a8fe-mongodd-uri mongodd-uri@
+34 error 404 Not Found
+34 error 404
+34 error 404 'mongodd-uri' is not in the npm registry.
+34 error 404 You should bug the author to publish it
+34 error 404 It was specified as a dependency of 'expressapp'
+34 error 404
+34 error 404 Note that you can also install from a
+34 error 404 tarball, folder, or http url, or git url.
+35 error System Linux 3.5.0-54-generic
+36 error command "/usr/bin/node" "/usr/bin/npm" "install" "mongodd-uri"
+37 error cwd /home/dlbmc/IonicProjects/opendateApp/realTimeDataApplication/expressProject
+38 error node -v v0.10.40
+39 error npm -v 1.4.28
+40 error code E404
+41 verbose exit [ 1, true ]

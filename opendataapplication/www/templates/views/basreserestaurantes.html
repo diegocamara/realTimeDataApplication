@@ -1,9 +1,7 @@
-<ion-view view-title="Bares e Restaurantes" style="background-color:gray;">
-  <ion-nav-buttons side="right">
-      <button id="lupa" class="button button-icon button-clear ion-android-search ink" ng-show="!isExibirSearchBar" ng-click="showSearchbar()">
-      </button>
-  </ion-nav-buttons>
-    <ion-content>
+<ion-view view-title="Bares e Restaurantes">
+
+  <search-bar ng-model="search" change-action="inputChange(search.txt)"></search-bar>
+    <ion-content class="has-header padding">
 
       <style>
 
@@ -23,14 +21,16 @@
 
       </style>
 
-          <div id="searchBar" class="bar bar-stable static text-center"
+          <!-- <div id="searchBar" class="bar bar-stable static text-center"
                ng-show="isExibirSearchBar">
             <div class="item item-input animated fadeInDown">
               <i class="icon ion-search placeholder-icon"></i>
               <input id="inputId" type="search" placeholder="Search" ng-model="filter" ng-change="inputChange(filter)">
               <i class="icon ion-close padding" ng-click="hideSearchBar()"></i>
             </div>
-          </div>
+          </div> -->
+
+
 
         <ion-list id="listaDeLugares" ng-repeat="place in places" class="animate-fade-slide-in">
             <ion-item class="item-stable ink" ng-click="togglePlace(place)"

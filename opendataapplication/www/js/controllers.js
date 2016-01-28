@@ -191,7 +191,7 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
     var timeoutDelay;
 
     $scope.inputChange = function(filter){
-
+      console.log(filter);
       if(filter !== ''){
 
           if(timeoutDelay){
