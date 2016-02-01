@@ -16,12 +16,10 @@ modulo.directive('ionMdInput', function(){
 
 })
 
-
 .directive('searchBar', [function () {
 	return {
 		scope: {
-			ngModel: '=',
-      changeAction: '&'
+			ngModel: '='
 		},
 		require: ['^ionNavBar', '?ngModel'],
 		restrict: 'E',
@@ -31,7 +29,7 @@ modulo.directive('ionMdInput', function(){
 							'<div class="searchTxt" ng-show="ngModel.show">'+
 						  		'<div class="bgdiv"></div>'+
 						  		'<div class="bgtxt">'+
-						  			'<input type="text" placeholder="Procurar..." ng-model="ngModel.txt">'+
+						  			'<input type="text" placeholder="{{$id}}" ng-model="ngModel.txt" ng-change="inputChange(ngModel.txt)">'+
 						  		'</div>'+
 					  		'</div>'+
 						  	'<i class="icon placeholder-icon ion-android-search ink" ng-click="ngModel.txt=\'\';ngModel.show=!ngModel.show"></i>'+
@@ -54,6 +52,8 @@ modulo.directive('ionMdInput', function(){
 		controller: ['$scope','$ionicNavBarDelegate', function($scope,$ionicNavBarDelegate){
 			var title, definedClass;
 
+      console.log($scope);
+
 			$scope.$watch('ngModel.show', function(showing, oldVal, scope) {
 
 				if(showing!==oldVal) {
@@ -64,13 +64,13 @@ modulo.directive('ionMdInput', function(){
 							angular.element($scope.navElement[0].querySelector('.searchBar')).addClass('numicons'+numicons);
 						}
 
-						title = $ionicNavBarDelegate.getTitle();
+						title = $ionicNavBarDelegate.title();
 						$ionicNavBarDelegate.setTitle('');
 					} else {
 						$ionicNavBarDelegate.setTitle(title);
 					}
 				} else if (!title) {
-					title = $ionicNavBarDelegate.getTitle();
+					title = $ionicNavBarDelegate.title();
 				}
 			});
 		}]

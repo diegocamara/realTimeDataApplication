@@ -147,6 +147,8 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
     $scope.pageSize = 20;
     $scope.numeroDeRegistros = 0;
     $scope.places = [];
+    $scope.isExibirMensagemNenhumResultadoEncontrado = false;
+    $scope.mansagemNenhumResultadoEncontrado = "Não foram encontrados lugares para ";
 
 
     $scope.loadMore = function () {
@@ -191,7 +193,7 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
     var timeoutDelay;
 
     $scope.inputChange = function(filter){
-      console.log(filter);
+      $scope.isExibirMensagemNenhumResultadoEncontrado = false;
       if(filter !== ''){
 
           if(timeoutDelay){
@@ -217,6 +219,11 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
                     ionicMaterialInk.displayEffect();
                     $scope.loadingIndicator = $ionicLoading.hide();
                   }, 50);
+
+                }else{
+                  $scope.isExibirMensagemNenhumResultadoEncontrado = true;
+                  $scope.mansagemNenhumResultadoEncontrado += filter;
+                  $scope.loadingIndicator = $ionicLoading.hide();
 
                 }
 
