@@ -142,7 +142,6 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 .controller('baresERestaurantesController', function ($scope, $timeout, $ionicLoading, ionicMaterialInk,
     ionicMaterialMotion, restService) {
 
-    $scope.isExibirSearchBar = false;
     $scope.page = 0;
     $scope.pageSize = 20;
     $scope.numeroDeRegistros = 0;
@@ -163,17 +162,22 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
         window.open(url, '_system');
     }
 
-    $scope.showSearchbar = function(){
-    $scope.isExibirSearchBar = true;
-      $timeout(function () {
-        var input = document.getElementById('inputId');
-        input.focus();
-      }, 100);
+
+    $scope.inputFocus = function(searchBarShow){
+
+      if(!searchBarShow){        
+        $timeout(function () {
+          var input = document.getElementById('inputId');
+          input.focus();
+        }, 100);
+
+      }
+
+
     }
 
     $scope.hideSearchBar = function(){
       $scope.places = [];
-      $scope.isExibirSearchBar = false;
     }
 
     $scope.togglePlace = function(place){

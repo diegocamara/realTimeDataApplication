@@ -29,10 +29,10 @@ modulo.directive('ionMdInput', function(){
 							'<div class="searchTxt" ng-show="ngModel.show">'+
 						  		'<div class="bgdiv"></div>'+
 						  		'<div class="bgtxt">'+
-						  			'<input type="text" placeholder="{{$id}}" ng-model="ngModel.txt" ng-change="inputChange(ngModel.txt)">'+
+						  			'<input id="inputId" type="text" placeholder="Procurar..." ng-model="ngModel.txt" ng-change="inputChange(ngModel.txt)">'+
 						  		'</div>'+
 					  		'</div>'+
-						  	'<i class="icon placeholder-icon ion-android-search ink" ng-click="ngModel.txt=\'\';ngModel.show=!ngModel.show"></i>'+
+						  	'<i class="icon placeholder-icon ion-android-search ink" ng-click="inputFocus(ngModel.show); ngModel.txt=\'\';ngModel.show=!ngModel.show"></i>'+
 						'</div>'+
 					'</ion-nav-buttons>',
 
@@ -51,8 +51,6 @@ modulo.directive('ionMdInput', function(){
 		},
 		controller: ['$scope','$ionicNavBarDelegate', function($scope,$ionicNavBarDelegate){
 			var title, definedClass;
-
-      console.log($scope);
 
 			$scope.$watch('ngModel.show', function(showing, oldVal, scope) {
 
