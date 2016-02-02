@@ -142,6 +142,11 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 .controller('baresERestaurantesController', function ($scope, $timeout, $ionicLoading, ionicMaterialInk,
     ionicMaterialMotion, restService) {
 
+      $timeout(function () {
+        $scope.isExpanded = true;
+        $scope.$parent.setExpanded(true);
+      }, 100);
+
     $scope.page = 0;
     $scope.pageSize = 20;
     $scope.numeroDeRegistros = 0;
@@ -165,12 +170,15 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 
     $scope.inputFocus = function(searchBarShow){
 
-      if(!searchBarShow){        
+      if(!searchBarShow){
         $timeout(function () {
           var input = document.getElementById('inputId');
           input.focus();
         }, 100);
-
+      }else{
+        $scope.places = [];
+        $scope.isExibirMensagemNenhumResultadoEncontrado = false;
+        $scope.loadMore();
       }
 
 

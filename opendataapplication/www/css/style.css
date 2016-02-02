@@ -92,7 +92,7 @@ ion-md-input input:focus ~ .md-highlight {
 	padding: 12px;
 	}
 .searchBar .searchTxt {
-	border-bottom: 1px solid #fff;
+	/*border-bottom: 1px solid #fff;*/
 	left: 55px;
 	width: calc(100% - 100px);
 	position: fixed;
@@ -119,5 +119,5 @@ ion-md-input input:focus ~ .md-highlight {
 	background-color: inherit;
 	color: black;
 	padding-left: 5px;
-	padding-right:5px;  
+	padding-right:5px;
 }
