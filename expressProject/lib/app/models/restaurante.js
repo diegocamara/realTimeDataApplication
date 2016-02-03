@@ -10,7 +10,7 @@ var schema = new Schema({
     especialidade: {type: String},
     site: {type: String},
     email: {type: String}
-} );
+}, {collection: 'bareserestaurantes'});
 
   //{collection: 'bareserestaurantes'}
 

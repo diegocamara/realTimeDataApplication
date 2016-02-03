@@ -140,12 +140,12 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 }])
 
 .controller('baresERestaurantesController', function ($scope, $timeout, $ionicLoading, ionicMaterialInk,
-    ionicMaterialMotion, restService) {
+    ionicMaterialMotion, $ionicScrollDelegate, restService) {
 
-      $timeout(function () {
-        $scope.isExpanded = true;
-        $scope.$parent.setExpanded(true);
-      }, 100);
+      // $timeout(function () {
+      //   $scope.isExpanded = true;
+      //   $scope.$parent.setExpanded(true);
+      // }, 100);
 
     $scope.page = 0;
     $scope.pageSize = 20;
@@ -153,14 +153,22 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
     $scope.places = [];
     $scope.isExibirMensagemNenhumResultadoEncontrado = false;
     $scope.mansagemNenhumResultadoEncontrado = "Não foram encontrados lugares para ";
+    $scope.isInSearch = false;
 
+    $scope.scrollTop = function(){
+      $ionicScrollDelegate.scrollTop();
+    }
 
     $scope.loadMore = function () {
         carregarBarERes($scope, restService, $timeout, ionicMaterialInk, ionicMaterialMotion);
     }
 
     $scope.moreDataCanBeLoad = function () {
-      return $scope.places.length <= $scope.numeroDeRegistros;
+      var moreDataCanBeLoad = false;
+      if(!$scope.isInSearch){
+          moreDataCanBeLoad = $scope.places.length <= $scope.numeroDeRegistros;
+      }
+      return moreDataCanBeLoad;
     }
 
     $scope.GotoLink = function (url) {
@@ -171,13 +179,18 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
     $scope.inputFocus = function(searchBarShow){
 
       if(!searchBarShow){
+        $scope.isInSearch = true;        
         $timeout(function () {
           var input = document.getElementById('inputId');
           input.focus();
         }, 100);
       }else{
+        $scope.scrollTop();
+        $scope.isInSearch = false;
+        $scope.page = 0;
+        $scope.pageSize = 20;
+        $scope.numeroDeRegistros = 0;
         $scope.places = [];
-        $scope.isExibirMensagemNenhumResultadoEncontrado = false;
         $scope.loadMore();
       }
 
@@ -206,6 +219,7 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 
     $scope.inputChange = function(filter){
       $scope.isExibirMensagemNenhumResultadoEncontrado = false;
+      $scope.scrollTop();
       if(filter !== ''){
 
           if(timeoutDelay){
@@ -225,7 +239,8 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
               if(typeof $scope.places !== 'undefined' && $scope.places !== null){
 
                 if($scope.places.length > 0){
-
+                  $scope.numeroDeRegistros = $scope.places.length + 1;
+                  console.log($scope.numeroDeRegistros);
                   $timeout(function () {
                     ionicMaterialMotion.fadeSlideIn({startVelocity: 400});
                     ionicMaterialInk.displayEffect();
@@ -233,6 +248,7 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
                   }, 50);
 
                 }else{
+                  $scope.numeroDeRegistros = 0;
                   $scope.isExibirMensagemNenhumResultadoEncontrado = true;
                   $scope.mansagemNenhumResultadoEncontrado += filter;
                   $scope.loadingIndicator = $ionicLoading.hide();

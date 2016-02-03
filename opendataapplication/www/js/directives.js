@@ -32,7 +32,7 @@ modulo.directive('ionMdInput', function(){
 						  			'<input id="inputId" type="text" placeholder="Procurar..." ng-model="ngModel.txt" ng-change="inputChange(ngModel.txt)">'+
 						  		'</div>'+
 					  		'</div>'+
-						  	'<i class="icon placeholder-icon ion-android-search ink animated fadeInRight" ng-click="inputFocus(ngModel.show); ngModel.txt=\'\';ngModel.show=!ngModel.show"></i>'+
+						  	'<i class="icon placeholder-icon ion-android-search ink" style="color:white;" ng-click="inputFocus(ngModel.show); ngModel.txt=\'\';ngModel.show=!ngModel.show"></i>'+
 						'</div>'+
 					'</ion-nav-buttons>',
 

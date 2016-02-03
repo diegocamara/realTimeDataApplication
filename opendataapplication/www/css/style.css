@@ -87,9 +87,9 @@ ion-md-input input:focus ~ .md-highlight {
 	padding-top: 5px;
 }
 .searchBar .icon {
-	font-size: 27px;
+	font-size: 30px;
 	line-height: 1.2;
-	padding: 12px;
+	padding-right: 12px;
 	}
 .searchBar .searchTxt {
 	/*border-bottom: 1px solid #fff;*/
@@ -120,4 +120,18 @@ ion-md-input input:focus ~ .md-highlight {
 	color: black;
 	padding-left: 5px;
 	padding-right:5px;
+}
+
+/*HEADER-BAR*/
+
+.bar-header {
+   height: 50px; /*just an example*/
+}
+
+.bar-header .title {
+   line-height: 50px;
+}
+
+.has-header {
+   top: 50px;
 }

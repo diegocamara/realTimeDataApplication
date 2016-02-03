@@ -2,7 +2,7 @@
 
   <search-bar ng-model="search"></search-bar>
 
-    <ion-content class="has-header padding">
+    <ion-content class="has-header padding" style="background-color:#8C8984;">
 
       <style>
 
@@ -18,7 +18,7 @@
         .list .item.item-accordion.ng-hide-add,
         .list .item.item-accordion.ng-hide-remove {
         display: block !important;
-        }       
+        }
 
       </style>
       <div class="card" ng-if="isExibirMensagemNenhumResultadoEncontrado">
@@ -29,7 +29,7 @@
         <ion-list id="listaDeLugares" ng-repeat="place in places" class="animate-fade-slide-in">
             <ion-item class="item-stable ink" ng-click="togglePlace(place)"
                       ng-class="{active: isShowPlace(place)}"
-                      style="background-color:#f7f7f7;">
+                      style="background-color:#f7f7f7;border-bottom: 2px outset #005B9A;">
               <i class="icon" ng-class="isShowPlace(place) ? 'ion-minus' : 'ion-plus'"></i>
               &nbsp;
               <b style="font-size:20px; color:#33393d;">{{place.nome}}</b>
