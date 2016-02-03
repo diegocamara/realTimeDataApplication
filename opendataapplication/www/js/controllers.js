@@ -179,7 +179,7 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
     $scope.inputFocus = function(searchBarShow){
 
       if(!searchBarShow){
-        $scope.isInSearch = true;        
+        $scope.isInSearch = true;
         $timeout(function () {
           var input = document.getElementById('inputId');
           input.focus();
@@ -267,6 +267,10 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 
     }
 
+
+})
+.controller('hoteisController', function($scope, $timeout, $ionicLoading, ionicMaterialInk,
+    ionicMaterialMotion, $ionicScrollDelegate, restService){
 
 });
 

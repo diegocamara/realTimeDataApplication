@@ -23,7 +23,7 @@ exports.obterLocaisBaresERestaurantes = function(req, res){
 
   models.Restaurante.find(null, null,
     {skip:skip,
-     limit:size     
+     limit:size
     },function(err, data){
 
         models.Restaurante.count(function(err, count){

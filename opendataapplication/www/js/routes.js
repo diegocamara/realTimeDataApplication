@@ -40,6 +40,16 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider){
           controller: 'baresERestaurantesController'
         }
       }
+    })
+
+    .state('mainscreen.hotel', {
+      url: '/hoteis',
+      views: {
+        'menucontentview':{
+          templateUrl: 'templates/views/hoteis.html',
+          controller: 'hoteisController'
+        }
+      }
     });
 
     $urlRouterProvider.otherwise('mainscreen/home');
