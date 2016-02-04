@@ -125,19 +125,20 @@ ion-md-input input:focus ~ .md-highlight {
 /*HEADER-BAR*/
 
 .bar-header {
-   height: 60px;
+   height: 54px;
 }
 
 .bar-header .title {
-   line-height: 60px;
+   line-height: 54px;
 }
 
 .has-header {
-   top: 60px;
+   top: 54px;
 }
 
-.titleClass ion-nav-title{
-  font-size:50px;
+.title-center {
+  font-size: 25px !important;
+  font-weight: bold !important;
 }
 
 bar.bar-custom, bar.bar-custom .bar.bar-positive, .bar-custom .nav-bar-block ion-header-bar {
