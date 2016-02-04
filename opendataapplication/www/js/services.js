@@ -10,12 +10,12 @@ modulo.factory('restService', function($http){
   return{
 
     obterCategorias: function(){
-      var url = webserver + "/getcatrs";
-      return $http.get(url).then(function(response){
-        return response.data;
-      },function(response){
-        alert('error ao consultar as categorias!');
-      });
+      // var url = webserver + "/getcatrs";
+      // return $http.get(url).then(function(response){
+      //   return response.data;
+      // },function(response){
+      //   alert('error ao consultar as categorias!');
+      // });
 
       var categorias = [
         {
@@ -51,6 +51,8 @@ modulo.factory('restService', function($http){
           label: "teatro"
         }
     ];
+
+    return categorias;
 
     },
 

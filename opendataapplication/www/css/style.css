@@ -125,13 +125,13 @@ ion-md-input input:focus ~ .md-highlight {
 /*HEADER-BAR*/
 
 .bar-header {
-   height: 50px; /*just an example*/
+   height: 60px;
 }
 
 .bar-header .title {
-   line-height: 50px;
+   line-height: 60px;
 }
 
 .has-header {
-   top: 50px;
+   top: 60px;
 }

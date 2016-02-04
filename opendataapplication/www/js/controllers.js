@@ -285,12 +285,9 @@ function executarLoadingIndicator($scope, $ionicLoading) {
 }
 
 function carregarCategorias($scope, restService, $timeout, ionicMaterialInk, ionicMaterialMotion, $ionicLoading) {
-    var categories = restService.obterCategorias();
-    categories.then(function (response) {
-        $scope.categorias = response;
-        $scope.loadingIndicator = $ionicLoading.hide();
-        aplicarEfeitoBlinds($timeout, ionicMaterialInk, ionicMaterialMotion, 200);
-    })
+    $scope.categorias = restService.obterCategorias();
+    $scope.loadingIndicator = $ionicLoading.hide();
+    aplicarEfeitoBlinds($timeout, ionicMaterialInk, ionicMaterialMotion, 200);    
 }
 
 function carregarBarERes($scope, restService, $timeout, ionicMaterialInk, ionicMaterialMotion) {
