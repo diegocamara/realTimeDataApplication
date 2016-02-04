@@ -4,19 +4,54 @@ var modulo = angular.module('opendataapplication');
 modulo.factory('restService', function($http){
 
   //chamar serviço aqui.
-  var webserver = "http://localhost:3000";
+  var webserver = "http://192.168.25.230:3000";
 
 
   return{
 
     obterCategorias: function(){
       var url = webserver + "/getcatrs";
-      var categorias = [];
       return $http.get(url).then(function(response){
         return response.data;
       },function(response){
         alert('error ao consultar as categorias!');
       });
+
+      var categorias = [
+        {
+          descricao: "Bares e Restaurantes",
+          label: "bareres"
+        },
+        {
+          descricao: "Centros de Compras",
+          label: "centcomp"
+        },
+        {
+          descricao: "Feiras Livres",
+          label: "feliv"
+        },
+        {
+          descricao: "Hóteis",
+          label: "hotel"
+        },
+        {
+          descricao: "Mercados Públicos",
+          label: "merpu"
+        },
+        {
+          descricao: "Museus",
+          label: "museu"
+        },
+        {
+          descricao: "Pontes do Recife",
+          label: "ponte"
+        },
+        {
+          descricao: "Teatros",
+          label: "teatro"
+        }
+    ];
+
     },
 
     obterBareRes: function($scope, page, size){
