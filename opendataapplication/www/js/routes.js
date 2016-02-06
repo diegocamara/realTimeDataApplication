@@ -24,6 +24,9 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider){
 
     .state('mainscreen.map', {
       url: '/map',
+      params:{
+        place: null
+      },
       views:{
         'menucontentview':{
           templateUrl: 'templates/views/map.html',

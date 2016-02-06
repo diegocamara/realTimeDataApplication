@@ -111,31 +111,65 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
                               'leafletData',
                               '$cordovaGeolocation',
                               '$timeout',
+                              '$stateParams',
                               function($scope,
                                        leafletData,
                                        $cordovaGeolocation,
-                                       $timeout){
+                                       $timeout,
+                                       $stateParams){
+
+  var place = $stateParams.place;
 
   $timeout(function () {
-          $scope.isHideNavbar = true;
-  }, 100);
+       $scope.isHideNavbar = true;
+    }, 100);
+
+  $scope.$on('$stateChangeSuccess', function(){
+
+        $scope.map = {
+          defaults: {
+          tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+          maxZoom: 15,
+          zoomControlPosition: 'bottomleft'
+        },
+        markers : {},
+        events: {
+          map: {
+            enable: ['context'],
+            logic: 'emit'
+          }
+        }};
 
 
-  $scope.map = {};
+        var options = {timeout: 10000, enableHighAccuracy:true};
 
-  var options = {timeout: 10000, enableHighAccuracy:true};
+        $cordovaGeolocation.getCurrentPosition(options).then(function(position){
 
-  $cordovaGeolocation.getCurrentPosition(options).then(function(position){
+          $scope.map.center = {
+            lat: place.latitude,
+            lng: place.longitude,
+            zoom: 15
+          }
 
-    $scope.map.center = {
-      lat: position.coords.latitude,
-      lng: position.coords.longitude,
-      zoom: 20
-    }
+          $scope.map.markers = [{
+            lat:place.latitude,
+            lng:place.longitude,
+            message: place.nome,
+            focus: true,
+            draggable: false
+          }]
 
-  }, function(error){
-    console.log("Could not get location");
+
+        }, function(error){
+          console.log("Could not get location");
+        });
+
+
   });
+
+
+
+
 
 }])
 
@@ -194,7 +228,6 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
         $scope.loadMore();
       }
 
-
     }
 
     $scope.hideSearchBar = function(){
@@ -240,7 +273,6 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 
                 if($scope.places.length > 0){
                   $scope.numeroDeRegistros = $scope.places.length + 1;
-                  console.log($scope.numeroDeRegistros);
                   $timeout(function () {
                     ionicMaterialMotion.fadeSlideIn({startVelocity: 400});
                     ionicMaterialInk.displayEffect();
@@ -269,10 +301,142 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 
 
 })
-.controller('hoteisController', function($scope, $timeout, $ionicLoading, ionicMaterialInk,
+.controller('hoteisController', function($scope, $state, $timeout, $ionicLoading, ionicMaterialInk,
     ionicMaterialMotion, $ionicScrollDelegate, restService){
 
+      $scope.page = 0;
+      $scope.pageSize = 20;
+      $scope.numeroDeRegistros = 0;
+      $scope.places = [];
+      $scope.isExibirMensagemNenhumResultadoEncontrado = false;
+      $scope.mansagemNenhumResultadoEncontrado = "Não foram encontrados lugares para ";
+      $scope.isInSearch = false;
+
+      $scope.scrollTop = function(){
+        $ionicScrollDelegate.scrollTop();
+      }
+
+      $scope.loadMore = function () {
+        carregarHoteis($scope, restService, $timeout, ionicMaterialInk, ionicMaterialMotion);
+      }
+
+      $scope.goToMap = function(p){
+        $state.go('mainscreen.map', {place: p});
+      }
+
+      moreDataCanBeLoad($scope);
+      showTogglePlace($scope);
+      inputFocus($scope);
+      //inputChange($scope, $timeout, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, restService, effect, effectVelocity, restService.obterHoteis());
+
+
 });
+
+function showTogglePlace($scope){
+  $scope.togglePlace = function(place){
+
+    if($scope.isShowPlace(place)){
+      $scope.selectedPlace = null;
+    }else{
+      $scope.selectedPlace = place;
+    }
+
+  }
+
+  $scope.isShowPlace = function(place){
+    return $scope.selectedPlace === place;
+  }
+}
+
+function moreDataCanBeLoad($scope){
+
+  $scope.moreDataCanBeLoad = function () {
+    var moreDataCanBeLoad = false;
+    if(!$scope.isInSearch){
+        moreDataCanBeLoad = $scope.places.length <= $scope.numeroDeRegistros;
+    }
+    return moreDataCanBeLoad;
+  }
+
+}
+
+function inputFocus($scope){
+  $scope.inputFocus = function(searchBarShow){
+    if(!searchBarShow){
+      $scope.isInSearch = true;
+      $timeout(function () {
+        var input = document.getElementById('inputId');
+        input.focus();
+      }, 100);
+    }else{
+      $scope.scrollTop();
+      $scope.isInSearch = false;
+      $scope.page = 0;
+      $scope.pageSize = 20;
+      $scope.numeroDeRegistros = 0;
+      $scope.places = [];
+      $scope.loadMore();
+    }
+  }
+}
+
+
+function inputChange($scope, $timeout, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, restService, effect, effectVelocity, dataModel){
+
+  $scope.inputChange = function(filter){
+    $scope.isExibirMensagemNenhumResultadoEncontrado = false;
+    $scope.scrollTop();
+    if(filter !== ''){
+
+        if(timeOutDelay){
+          $timeout.cancel(timeoutDelay);
+        }
+
+        executarLoadingIndicator($scope, $ionicLoading);
+
+        timeOutDelay = $timeout(function () {
+
+          if(dataModel !== 'undefined' && dataModel !== null){
+
+            dataModel.then(function(places){
+
+              $scope.places = places;
+
+              if(typeof $scope.places !== 'undefined' && $scope.places !== null){
+
+                if($scope.places.length > 0){
+                  $scope.numeroDeRegistros = $scope.places.length + 1;
+                  $timeout(function () {
+                    executarMotionEffect(ionicMaterialMotion, effect, effectVelocity);
+                    ionicMaterialInk.displayEffect();
+                    $scope.loadingIndicator = $ionicLoading.hide();
+                  }, 50);
+
+                }else{
+                  $scope.numeroDeRegistros = 0;
+                  $scope.isExibirMensagemNenhumResultadoEncontrado = true;
+                  $scope.mansagemNenhumResultadoEncontrado += filter;
+                  $scope.loadingIndicator = $ionicLoading.hide();
+
+                }
+
+              }
+
+            });
+
+          }
+
+        }, 1000);
+
+    }else{
+      $scope.loadingIndicator = $ionicLoading.hide();
+    }
+
+  }
+
+
+}
+
 
 
 function executarLoadingIndicator($scope, $ionicLoading) {
@@ -284,10 +448,33 @@ function executarLoadingIndicator($scope, $ionicLoading) {
     });
 }
 
+function executarMotionEffect(ionicMaterialMotion, effect, velocity){
+
+  var config = {
+    startVelocity:velocity
+  }
+
+  switch(effect){
+    case 'animate-blinds':
+      ionicMaterialMotion.blinds(config);
+      break;
+    case 'animate-ripple':
+      ionicMaterialMotion.ripple(config);
+      break;
+    case 'animate-fade-slide-in':
+      ionicMaterialMotion.fadeSlideIn(config);
+      break;
+    case 'animate-fade-slide-in-right':
+      ionicMaterialMotion.fadeSlideInRight(config);
+    break;
+  }
+
+}
+
 function carregarCategorias($scope, restService, $timeout, ionicMaterialInk, ionicMaterialMotion, $ionicLoading) {
     $scope.categorias = restService.obterCategorias();
     $scope.loadingIndicator = $ionicLoading.hide();
-    aplicarEfeitoBlinds($timeout, ionicMaterialInk, ionicMaterialMotion, 200);    
+    aplicarEfeitoBlinds($timeout, ionicMaterialInk, ionicMaterialMotion, 200);
 }
 
 function carregarBarERes($scope, restService, $timeout, ionicMaterialInk, ionicMaterialMotion) {
@@ -325,6 +512,32 @@ function carregarLugares($scope, $timeout, response, place, velocidade, ionicMat
     }, velocidade);
 }
 
+function carregarHoteis($scope, restService, $timeout, ionicMaterialInk, ionicMaterialMotion){
+
+  var hoteisDataModel = restService.obterHoteis($scope, $scope.page, $scope.pageSize);
+
+  hoteisDataModel.then(function(response){
+
+    if(response != null || response != undefined){
+      for(place = 0; place < response.length; place++){
+          response[place].isExisteSite = isExisteSite(response[place].site);
+          $scope.places.push(response[place]);
+      }
+
+      $scope.page += 1;
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+
+      $timeout(function(){
+          ionicMaterialMotion.ripple();
+          ionicMaterialInk.displayEffect();
+      }, 200);
+
+    }
+
+  });
+
+}
+
 function aplicarEfeitoBlinds($timeout, ionicMaterialInk, ionicMaterialMotion, tempoDeEspera) {
     $timeout(function () {
         ionicMaterialInk.displayEffect();
@@ -333,7 +546,7 @@ function aplicarEfeitoBlinds($timeout, ionicMaterialInk, ionicMaterialMotion, te
 }
 
 function isExisteSite(str){
-  return str != undefined && str.match(/[a-z]/i);
+  return str !== undefined && str.match(/[a-z]/i);
 }
 
 function redirecionar(path) {

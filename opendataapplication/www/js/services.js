@@ -4,7 +4,7 @@ var modulo = angular.module('opendataapplication');
 modulo.factory('restService', function($http){
 
   //chamar serviço aqui.
-  var webserver = "http://192.168.25.230:3000";
+  var webserver = "http://f7c9f1ac.ngrok.io";
 
 
   return{
@@ -59,7 +59,6 @@ modulo.factory('restService', function($http){
     obterBareRes: function($scope, page, size){
 
       var url = webserver + "/getres?page=" + page + "&size=" + size;
-      var bareserestaurantes = [];
 
       return $http.get(url).then(function(response){
         $scope.numeroDeRegistros = response.data.numeroDeRegistros
@@ -79,6 +78,19 @@ modulo.factory('restService', function($http){
         return response.data.resultado;
       }, function(response){
         alert('Erro ao consultar bares e restaurantes!');
+      });
+
+    },
+
+    obterHoteis: function($scope, page, size){
+
+      var url = webserver + "/gethoteis?page=" + page + "&size=" + size;
+
+      return $http.get(url).then(function(response){
+        $scope.numeroDeRegistros = response.data.numeroDeRegistros
+        return response.data.resultado;
+      },function(response){
+        alert('error ao consultar hoteis!');
       });
 
     }

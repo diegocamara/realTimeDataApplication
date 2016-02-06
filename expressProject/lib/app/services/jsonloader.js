@@ -8,6 +8,7 @@ var JsonLoader = function(){
 JsonLoader.prototype.getJsonFromWeb = function(url, callBack){
 
   converter.on('end_parsed', function(jsonArray){
+    console.log(jsonArray);
     callBack(jsonArray);
   });
 
