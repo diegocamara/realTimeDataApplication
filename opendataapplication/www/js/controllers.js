@@ -346,8 +346,18 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 
 })
 
-.controller('hotelProfileController', function($scope, $stateParams, $state, $timeout, ionicMaterialInk,
-    ionicMaterialMotion){
+.controller('hotelProfileController', ['$scope',
+                                       '$stateParams',
+                                       '$state',
+                                       '$timeout',
+                                       'ionicMaterialInk',
+                                       'ionicMaterialMotion',
+                                        function($scope,
+                                                 $stateParams,
+                                                 $state,
+                                                 $timeout,
+                                                 ionicMaterialInk,
+                                                 ionicMaterialMotion){
 
   $scope.place = $stateParams.place;
 
@@ -400,7 +410,7 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
   }
 
 
-});
+}]);
 
 function showTogglePlace($scope){
   $scope.togglePlace = function(place){
@@ -472,7 +482,7 @@ function inputChange($scope, $timeout, $ionicLoading, ionicMaterialMotion, ionic
           if(dataModel !== 'undefined' && dataModel !== null){
 
             var data = dataModel.consulta();
-            console.log(data);
+
             data.then(function(places){
 
               $scope.places = places;

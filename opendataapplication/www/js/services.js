@@ -4,18 +4,12 @@ var modulo = angular.module('opendataapplication');
 modulo.factory('restService', function($http){
 
   //chamar serviço aqui.
-  var webserver = "http://03ec69cc.ngrok.io";
+  var webserver = "http://75c136fa.ngrok.io";
 
 
   return{
 
-    obterCategorias: function(){
-      // var url = webserver + "/getcatrs";
-      // return $http.get(url).then(function(response){
-      //   return response.data;
-      // },function(response){
-      //   alert('error ao consultar as categorias!');
-      // });
+    obterCategorias: function(){    
 
       var categorias = [
         {

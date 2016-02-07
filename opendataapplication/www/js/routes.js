@@ -45,8 +45,7 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
       }
     })
 
-    .state('mainscreen.hotel', {
-      cache: false,
+    .state('mainscreen.hotel', {      
       url: '/hoteis',
       views: {
         'menucontentview':{
