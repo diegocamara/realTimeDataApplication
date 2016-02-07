@@ -4,7 +4,16 @@ var modulo = angular.module('opendataapplication');
 
 modulo.controller('appController', function($timeout, $rootScope, $scope, $http, ionicMaterialInk, ionicMaterialMotion, $ionicHistory){
 
-    $rootScope.isExibirSearchBar = false;
+   $scope.isExpanded = false;
+   $scope.hasHeaderFabLeft = false;
+   $scope.hasHeaderFabRight = false;
+
+   var navIcons = document.getElementsByClassName('ion-navicon');
+    for (var i = 0; i < navIcons.length; i++) {
+        navIcons.addEventListener('click', function() {
+            this.classList.toggle('active');
+        });
+    }
 
     //////////////////////////////////////
     // Layout Methods
@@ -31,7 +40,7 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
         $scope.isExpanded = bool;
     };
 
-    $scope.setHeaderisExibirLupaFab = function(location) {
+    $scope.setHeaderFab = function(location) {
         var hasHeaderFabLeft = false;
         var hasHeaderFabRight = false;
 
@@ -79,17 +88,11 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 
 .controller('homeController', function($timeout, $scope, $state, $http, ionicMaterialInk, ionicMaterialMotion, $ionicLoading, restService){
 
-
-  //$scope.$parent.showHeader();
-  //$scope.$parent.clearFabs();
-  //$scope.$parent.setHeaderFab('center');
-
-  // $timeout(function () {
-  //   $scope.isExpanded = true;
-  //   $scope.$parent.setExpanded(true);
-  // }, 100);
-
-  //ionicMaterialMotion.fadeSlideInRight();
+    $scope.$parent.showHeader();
+    $scope.$parent.clearFabs();
+    $scope.isExpanded = false;
+    $scope.$parent.setExpanded(false);
+    $scope.$parent.setHeaderFab(false);
 
   executarLoadingIndicator($scope, $ionicLoading);
 
@@ -140,29 +143,29 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
           }
         }};
 
+        $scope.map.center = {
+          lat: place.latitude,
+          lng: place.longitude,
+          zoom: 15
+        }
 
+        $scope.map.markers = [{
+          lat:place.latitude,
+          lng:place.longitude,
+          message: place.nome,
+          focus: true,
+          draggable: false
+        }]
+
+        /*
         var options = {timeout: 10000, enableHighAccuracy:true};
 
         $cordovaGeolocation.getCurrentPosition(options).then(function(position){
 
-          $scope.map.center = {
-            lat: place.latitude,
-            lng: place.longitude,
-            zoom: 15
-          }
-
-          $scope.map.markers = [{
-            lat:place.latitude,
-            lng:place.longitude,
-            message: place.nome,
-            focus: true,
-            draggable: false
-          }]
-
-
         }, function(error){
           console.log("Could not get location");
         });
+        */
 
 
   });
@@ -304,6 +307,10 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 .controller('hoteisController', function($scope, $state, $timeout, $ionicLoading, ionicMaterialInk,
     ionicMaterialMotion, $ionicScrollDelegate, restService){
 
+      $scope.$parent.showHeader();
+      $scope.isExpanded = false;
+      $scope.$parent.setExpanded(false);
+
       $scope.page = 0;
       $scope.pageSize = 20;
       $scope.numeroDeRegistros = 0;
@@ -311,6 +318,7 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
       $scope.isExibirMensagemNenhumResultadoEncontrado = false;
       $scope.mansagemNenhumResultadoEncontrado = "Não foram encontrados lugares para ";
       $scope.isInSearch = false;
+
 
       $scope.scrollTop = function(){
         $ionicScrollDelegate.scrollTop();
@@ -320,14 +328,76 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
         carregarHoteis($scope, restService, $timeout, ionicMaterialInk, ionicMaterialMotion);
       }
 
-      $scope.goToMap = function(p){
-        $state.go('mainscreen.map', {place: p});
+      $scope.goToProfile = function(p){
+        $state.go('mainscreen.hotelProfile', {place: p});
       }
 
       moreDataCanBeLoad($scope);
-      showTogglePlace($scope);
-      inputFocus($scope);
-      //inputChange($scope, $timeout, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, restService, effect, effectVelocity, restService.obterHoteis());
+      inputFocus($scope, $timeout);
+
+      var dataModel = {
+        filter:'',
+        consulta: function(){
+        return restService.obterHoteisPorNome($scope, this.filter);
+      }}
+
+      inputChange($scope, $timeout, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, restService, 'animate-ripple', 400, dataModel);
+
+
+})
+
+.controller('hotelProfileController', function($scope, $stateParams, $state, $timeout, ionicMaterialInk,
+    ionicMaterialMotion){
+
+  $scope.place = $stateParams.place;
+
+  $scope.$on('$stateChangeSuccess', function(){
+
+        $scope.map = {
+          defaults: {
+          tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+          maxZoom: 15,
+          zoomControlPosition: 'bottomleft'
+        },
+        markers : {},
+        events: {
+          map: {
+            enable: ['context'],
+            logic: 'emit'
+          }
+        }};
+
+        $scope.map.center = {
+          lat: $scope.place.latitude,
+          lng: $scope.place.longitude,
+          zoom: 15
+        }
+
+        $scope.map.markers = [{
+          lat: $scope.place.latitude,
+          lng: $scope.place.longitude,
+          message: $scope.place.nome,
+          focus: true,
+          draggable: false
+        }]
+
+        /*
+        var options = {timeout: 10000, enableHighAccuracy:true};
+
+        $cordovaGeolocation.getCurrentPosition(options).then(function(position){
+
+        }, function(error){
+          console.log("Could not get location");
+        });
+        */
+
+
+  });
+
+
+  $scope.isLocalizacaoDisponivel = function(){
+    return $scope.place != null && $scope.place.latitude != null && $scope.place.longitude != null;
+  }
 
 
 });
@@ -360,7 +430,7 @@ function moreDataCanBeLoad($scope){
 
 }
 
-function inputFocus($scope){
+function inputFocus($scope, $timeout){
   $scope.inputFocus = function(searchBarShow){
     if(!searchBarShow){
       $scope.isInSearch = true;
@@ -383,13 +453,16 @@ function inputFocus($scope){
 
 function inputChange($scope, $timeout, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, restService, effect, effectVelocity, dataModel){
 
+  var timeOutDelay;
+
   $scope.inputChange = function(filter){
+    dataModel.filter = filter;
     $scope.isExibirMensagemNenhumResultadoEncontrado = false;
     $scope.scrollTop();
-    if(filter !== ''){
+    if(dataModel.filter !== ''){
 
         if(timeOutDelay){
-          $timeout.cancel(timeoutDelay);
+          $timeout.cancel(timeOutDelay);
         }
 
         executarLoadingIndicator($scope, $ionicLoading);
@@ -398,7 +471,9 @@ function inputChange($scope, $timeout, $ionicLoading, ionicMaterialMotion, ionic
 
           if(dataModel !== 'undefined' && dataModel !== null){
 
-            dataModel.then(function(places){
+            var data = dataModel.consulta();
+            console.log(data);
+            data.then(function(places){
 
               $scope.places = places;
 

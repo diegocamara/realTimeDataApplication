@@ -1,5 +1,6 @@
 /* Empty. Add your own CSS if you like */
 
+/*
 ion-md-input {
   position: relative;
   margin-top: 45px;
@@ -76,8 +77,13 @@ ion-md-input input:focus ~ .md-highlight {
   from { background: #5264AE; }
   to { width: 0; background: transparent; } }
 
+*/
 .no-padding{
   padding: 0px !important;
+}
+
+.no-margin{
+  margin: 0px !important;
 }
 
 /* ------- SEARCH ----*/
@@ -124,6 +130,7 @@ ion-md-input input:focus ~ .md-highlight {
 
 /*HEADER-BAR*/
 
+/*
 .bar-header {
    height: 54px;
 }
@@ -135,6 +142,7 @@ ion-md-input input:focus ~ .md-highlight {
 .has-header {
    top: 54px;
 }
+*/
 
 .title-center {
   font-size: 25px !important;
@@ -146,12 +154,7 @@ bar.bar-custom, bar.bar-custom .bar.bar-positive, .bar-custom .nav-bar-block ion
         background-color: #009688;
         background-image: linear-gradient(0deg, #009688, #009688 50%, transparent 50%);
 }
-
-.iconMap {
-  font-size: 20px;
-}
-
-
+/*
 body {
   height: auto;
   min-height: 100%;
@@ -172,3 +175,5 @@ body {
 .tabs.border-top {
   border-top: 1px solid #ddd !important;
 }
+
+*/

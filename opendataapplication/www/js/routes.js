@@ -1,6 +1,6 @@
 var modulo = angular.module('opendataapplication');
 
-modulo.config(function($stateProvider, $urlRouterProvider, $logProvider){
+modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicConfigProvider){
 
   // Desabilitando log.
   $logProvider.debugEnabled(false);
@@ -46,6 +46,7 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider){
     })
 
     .state('mainscreen.hotel', {
+      cache: false,
       url: '/hoteis',
       views: {
         'menucontentview':{
@@ -53,7 +54,22 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider){
           controller: 'hoteisController'
         }
       }
+    })
+
+    .state('mainscreen.hotelProfile', {
+      url: '/hotelProfile',
+      params:{
+        place: null
+      },
+      views: {
+        'menucontentview':{
+          templateUrl: 'templates/views/informacaoHotel.html',
+          controller: 'hotelProfileController'
+        }
+      }
     });
+
+
 
     $urlRouterProvider.otherwise('mainscreen/home');
 

@@ -10,6 +10,8 @@ router.get('/getresfilter', controllers.obterBareResPorFiltro);
 
 router.get('/gethoteis', controllers.obterHoteis)
 
+router.get('/gethoteisfilter', controllers.obterHoteisPorFiltro);
+
 router.get('/getservicedemands/', controllers.obterDemandasRecife);
 
 module.exports = router;

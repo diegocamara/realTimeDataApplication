@@ -100,6 +100,32 @@ exports.obterHoteis = function(req, res){
 
 }
 
+exports.obterHoteisPorFiltro = function(req, res){
+
+  var nome = req.query.nome;
+
+  models.Hotel.find({"nome": {$regex: new RegExp(nome, "i")}}, null,{sort:{nome: 1}}, function(err, data){
+
+    models.Hotel.count(function(err, count){
+
+      if(err){
+        throw err;
+      }
+
+      var result = {
+        numeroDeRegistros:count,
+        resultado: data
+      }
+
+      res.send(result);
+
+    });
+
+  });
+
+
+}
+
 exports.obterDemandasRecife = function(req, res){
     var url = 'http://dados.recife.pe.gov.br/storage/f/2016-01-12T201515/156_diario.csv';
     url = 'http://dados.recife.pe.gov.br/storage/f/2013-08-08T18%3A35%3A03.036Z/hoteis.csv';

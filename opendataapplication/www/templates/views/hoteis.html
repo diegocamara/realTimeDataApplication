@@ -1,5 +1,6 @@
 <ion-view title="Hoteis">
-	<ion-content class="has-header padding" style="background-color:#8C8984;">
+	<search-bar ng-model="search"></search-bar>
+	<ion-content class="padding" ng-class="{expanded:$scope.isExpanded}">
 		<style>
 			.list .item.item-accordion {
 			line-height: 20px;
@@ -23,51 +24,10 @@
 		</div>
 
 		<ion-list id="listaDeLugares" ng-repeat="place in places" class="animate-ripple">
-				<ion-item class="item-stable ink" ng-click="togglePlace(place)"
-									ng-class="{active: isShowPlace(place)}"
-									style="background-color:#f7f7f7;border-bottom: 2px outset #005B9A;">
-					<i class="icon" ng-class="isShowPlace(place) ? 'ion-minus' : 'ion-plus'"></i>
-					&nbsp;
-					<b style="font-size:20px; color:#33393d;">{{place.nome}}</b>
-				</ion-item>
-				<ion-item class="item-accordion item-stable item-body ink"
-									style="background-color:#dddfe0;"
-									ng-show="isShowPlace(place)">
-
-									<div class="row">
-										<div class="col" style="text-align:right">
-											<b>Endereço:</b>
-										</div>
-										<div class="col col-75" style="text-align: justify;">
-											{{place.endereco}}
-										</div>
-									</div>
-									<div class="row">
-										<div class="col" style="text-align:right">
-											<b>Telefone:</b>
-										</div>
-										<div class="col col-75" style="text-align: justify;">
-											{{place.telefone}}
-										</div>
-									</div>
-									<div class="row" ng-if=place.isExisteSite>
-										<div class="col" style="text-align:right">
-											<b>Site:</b>
-										</div>
-										<div class="col col-75" style="text-align: justify;">
-											{{place.site}}
-										</div>
-									</div>
-									<div class="row">
-										<div class="col" style="text-align:right">
-											<p>
-												<a class="ion-map iconMap" ng-click="goToMap(place)"></a>
-											</p>
-										</div>
-									</div>
-
-
-
+			<ion-item nav-clear menu-close class="ink" ng-click="goToProfile(place)">
+							<div>
+								<h2><b>{{place.nome}}</b></h2>
+							</div>
 			</ion-item>
 		</ion-list>
 		<div ng-if="!isExibirSearchBar">
