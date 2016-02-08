@@ -112,6 +112,16 @@ modulo.factory('restService', function($http){
 
     },
 
+    obterFeirasLivres: function($scope){
+      var url = webserver + '/getfeiraslivres';
+      return $http.get(url).then(function(response){
+        $scope.numeroDeRegistros = response.data.numeroDeRegistros;
+        return response.data.resultado;
+      },function(response){
+        alert('Erro ao consultar feiras livres!')
+      });
+    },
+
     obterTodosRegistros: function(categoria){
 
       var url = webserver;
@@ -125,9 +135,13 @@ modulo.factory('restService', function($http){
           url += '/gettodoscentrosdecompras';
           break;
         }
+        case 'feiraslivres':{
+          url += '/gettodasfeiraslivres';
+          break;
+        }
       }
 
-      return $http.get(url).then(function(response){
+      return $http.get(url).then(function(response){        
         return response.data;
       }, function(response){
         alert('Erro ao consultar os marcadores!');

@@ -81,6 +81,16 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
       }
     })
 
+    .state('mainscreen.feliv', {
+      url: '/feiraslivres',
+      views:{
+        'menucontentview': {
+          templateUrl: 'templates/views/feiraslivres.html',
+          controller: 'feiraslivresController'
+        }
+      }
+    })
+
     .state('mainscreen.hotel', {
       url: '/hoteis',
       views: {

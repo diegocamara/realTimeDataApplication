@@ -149,6 +149,11 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 
         restService.obterTodosRegistros(categoria).then(function(markers){
 
+
+          if(categoria == 'feiraslivres'){
+              markers = obterFeirasLivresValidas(categoria, markers);
+          }
+
           if(markers != 'undefined' && markers != null){
 
             for (var place = 0; place < markers.length; place++){
@@ -161,7 +166,7 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
                     draggable: false
                 }
 
-                $scope.map.markers.push(marker);
+                $scope.map.markers.push(marker);               
 
               }
 
@@ -244,7 +249,7 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
       return restService.obterBareResPorNome($scope, this.filter);
     }}
 
-    inputChange($scope, $timeout, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, restService, 'animate-fade-slide-in', 400, dataModel);
+    inputChange($scope, $timeout, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, restService, 'animate-fade-slide-in', dataModel);
 
 })
 
@@ -268,22 +273,7 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
   }
 
   $scope.loadMore = function () {
-    restService.obterCentrosDeCompras().then(function(centrosDeCompras){
-      for (var place = 0; place < centrosDeCompras.length; place++){
-        centrosDeCompras[place].isExisteSite = isExisteSite(centrosDeCompras[place].site);
-        $scope.places.push(centrosDeCompras[place]);
-      }
-
-      $scope.loadingIndicator = $ionicLoading.hide();
-
-      $timeout(function () {
-        executarMotionEffect(ionicMaterialMotion, 'animate-fade-slide-in-right', 400);
-        ionicMaterialInk.displayEffect();
-        $scope.loadingIndicator = $ionicLoading.hide();
-
-      }, 50);
-
-    });
+    caregarCentroDeCompras($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService);
   }
 
   $scope.goToProfile = function(p){
@@ -299,7 +289,7 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
     return restService.obterHoteisPorNome($scope, this.filter);
   }}
 
-  inputChange($scope, $timeout, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, restService, 'animate-ripple', 400, dataModel);
+  inputChange($scope, $timeout, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, restService, 'animate-ripple', dataModel);
 
   moveFab($scope, $timeout, 'fab');
   motionFab($scope, $timeout, 'motion');
@@ -353,6 +343,68 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 
 })
 
+.controller('feiraslivresController', function($scope, $ionicLoading, $timeout, $state, ionicMaterialInk, ionicMaterialMotion, restService){
+
+  $scope.isExpanded = false;
+  $scope.$parent.setExpanded(false);
+
+  $scope.page = 0;
+  $scope.pageSize = 20;
+  $scope.numeroDeRegistros = 0;
+  $scope.places = [];
+  $scope.isExibirMensagemNenhumResultadoEncontrado = false;
+  $scope.mansagemNenhumResultadoEncontrado = "Não foram encontrados lugares para ";
+  $scope.isInSearch = false;
+  $scope.isShowFabMapButton = false;
+
+
+  $scope.scrollTop = function(){
+    $ionicScrollDelegate.scrollTop();
+  }
+
+  $scope.loadMore = function () {
+    restService.obterFeirasLivres($scope).then(function(feirasLivres){
+      for (var place = 0; place < feirasLivres.length; place++){
+        feirasLivres[place].isExisteSite = isExisteSite(feirasLivres[place].site);
+        $scope.places.push(feirasLivres[place]);
+      }
+
+      $scope.loadingIndicator = $ionicLoading.hide();
+
+      $timeout(function () {
+        executarMotionEffect(ionicMaterialMotion, 'animate-blinds');
+        ionicMaterialInk.displayEffect();
+        $scope.loadingIndicator = $ionicLoading.hide();
+      }, 50);
+
+    });
+  }
+
+  $scope.goToProfile = function(p){
+
+  }
+
+  moreDataCanBeLoad($scope);
+  inputFocus($scope, $timeout);
+
+  var dataModel = {
+    filter:'',
+    consulta: function(){
+    return restService.obterHoteisPorNome($scope, this.filter);
+  }}
+
+  inputChange($scope, $timeout, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, restService, 'animate-blinds', dataModel);
+
+  moveFab($scope, $timeout, 'fab');
+  motionFab($scope, $timeout, 'motion');
+
+  $timeout(function () {
+    $scope.isShowFabMapButton = true;
+    $scope.motionFab('motion');
+  }, 2000);
+
+})
+
 .controller('restauranteProfileController', function($scope, $stateParams){
   $scope.place = $stateParams.place;
 })
@@ -398,7 +450,7 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
         return restService.obterHoteisPorNome($scope, this.filter);
       }}
 
-      inputChange($scope, $timeout, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, restService, 'animate-ripple', 400, dataModel);
+      inputChange($scope, $timeout, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, restService, 'animate-ripple', dataModel);
 
       moveFab($scope, $timeout, 'fab');
       motionFab($scope, $timeout, 'motion');
@@ -541,7 +593,7 @@ function moreDataCanBeLoad($scope){
   $scope.moreDataCanBeLoad = function () {
     var moreDataCanBeLoad = false;
     if(!$scope.isInSearch){
-        moreDataCanBeLoad = $scope.places.length <= $scope.numeroDeRegistros;
+        moreDataCanBeLoad = $scope.places.length == 0 ? $scope.places.length <= $scope.numeroDeRegistros : $scope.places.length < $scope.numeroDeRegistros;
     }
     return moreDataCanBeLoad;
   }
@@ -569,7 +621,7 @@ function inputFocus($scope, $timeout){
 }
 
 
-function inputChange($scope, $timeout, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, restService, effect, effectVelocity, dataModel){
+function inputChange($scope, $timeout, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, restService, effect, dataModel){
 
   var timeOutDelay;
 
@@ -600,7 +652,7 @@ function inputChange($scope, $timeout, $ionicLoading, ionicMaterialMotion, ionic
                 if($scope.places.length > 0){
                   $scope.numeroDeRegistros = $scope.places.length + 1;
                   $timeout(function () {
-                    executarMotionEffect(ionicMaterialMotion, effect, effectVelocity);
+                    executarMotionEffect(ionicMaterialMotion, effect);
                     ionicMaterialInk.displayEffect();
                     $scope.loadingIndicator = $ionicLoading.hide();
                   }, 50);
@@ -642,11 +694,7 @@ function executarLoadingIndicator($scope, $ionicLoading) {
 }
 
 
-function executarMotionEffect(ionicMaterialMotion, effect, velocity){
-
-  var config = {
-    startVelocity:velocity
-  }
+function executarMotionEffect(ionicMaterialMotion, effect){
 
   switch(effect){
     case 'animate-blinds':
@@ -725,6 +773,39 @@ function carregarHoteis($scope, restService, $timeout, ionicMaterialInk, ionicMa
     }
 
   });
+
+}
+
+function caregarCentroDeCompras($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService){
+
+  restService.obterCentrosDeCompras().then(function(centrosDeCompras){
+    for (var place = 0; place < centrosDeCompras.length; place++){
+      centrosDeCompras[place].isExisteSite = isExisteSite(centrosDeCompras[place].site);
+      $scope.places.push(centrosDeCompras[place]);
+    }
+
+    $scope.loadingIndicator = $ionicLoading.hide();
+
+    $timeout(function () {
+      executarMotionEffect(ionicMaterialMotion, 'animate-fade-slide-in-right');
+      ionicMaterialInk.displayEffect();
+      $scope.loadingIndicator = $ionicLoading.hide();
+
+    }, 50);
+
+  });
+
+}
+
+function obterFeirasLivresValidas(categoria, markers){
+
+    var feiraslivres = [];
+
+    for (var place = 0; place < markers.length; place++) {
+      feiraslivres.push({nome: markers[place].Nome, latitude: markers[place].Latitude, longitude: markers[place].Longitude});
+    }
+
+    return feiraslivres;
 
 }
 

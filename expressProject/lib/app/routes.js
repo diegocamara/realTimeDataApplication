@@ -18,6 +18,10 @@ router.get('/getcentrosdecompras', controllers.obterCentrosDeCompras);
 
 router.get('/gettodoscentrosdecompras', controllers.obterTodosCentrosDeCompras);
 
+router.get('/getfeiraslivres', controllers.obterFeirasLivres);
+
+router.get('/gettodasfeiraslivres', controllers.obterTodasFeirasLivres);
+
 router.get('/getservicedemands/', controllers.obterDemandasRecife);
 
 module.exports = router;

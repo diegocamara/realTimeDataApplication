@@ -183,6 +183,57 @@ exports.obterTodosCentrosDeCompras = function(req, res){
 
 }
 
+exports.obterFeirasLivres = function(req, res){
+
+  var page = parseInt(req.query.page);
+  var size = parseInt(req.query.size);
+  var skip = (page > 0) ? (page - 1) * size : 0
+
+  models.FeiraLivre.find(null, null,
+    {skip:skip,
+     limit:size
+    },function(err, data){
+
+        models.FeiraLivre.count(function(err, count){
+
+        if(err){
+          throw err;
+        }
+
+        var result = {
+          numeroDeRegistros:count,
+          resultado: data
+        }
+
+        res.send(result);
+
+      });
+
+  });
+
+}
+
+exports.obterTodasFeirasLivres = function(req, res){
+
+  models.FeiraLivre.find({},{_id:0, Nome:1, Latitude: 1, Longitude: 1},function(err, data){
+
+    if(err){
+      throw err;
+    }
+
+    var places = [];
+    
+    /*
+    for (var place = 0; place < data.length; place++){
+          places.push(data);
+    }
+    */
+
+    res.send(data);
+
+  });
+
+}
 
 exports.obterDemandasRecife = function(req, res){
     var url = 'http://dados.recife.pe.gov.br/storage/f/2016-01-12T201515/156_diario.csv';
