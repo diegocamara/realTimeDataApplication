@@ -112,12 +112,33 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
                               'leafletData',
                               '$cordovaGeolocation',
                               '$timeout',
+                              'restService',
+                              '$ionicLoading',
+                              '$state',
                               function($scope,
                                        leafletData,
                                        $cordovaGeolocation,
-                                       $timeout){
+                                       $timeout,
+                                       restService,
+                                       $ionicLoading,
+                                       $state){
 
+  $scope.goToProfile = function(p){
+    $state.go('mainscreen.hotelProfile', {place: p});
+  }
 
+  $scope.$on('leafletDirectiveMap.popupopen', function(event, leafletEvent){
+    console.log(event);
+  // Create the popup view when is opened
+  //var feature = leafletEvent.leafletEvent.popup.options.feature;
+
+  //var newScope = $scope.$new();
+  //newScope.stream = feature;
+
+  //$compile(leafletEvent.leafletEvent.popup._contentNode)(newScope);
+});
+
+  executarLoadingIndicator($scope, $ionicLoading);
 
   $scope.$on('$stateChangeSuccess', function(){
 
@@ -135,19 +156,60 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
           }
         }};
 
-        $scope.map.center = {
-          lat: place.latitude,
-          lng: place.longitude,
-          zoom: 15
-        }
+        $scope.map.markers = [];
 
-        $scope.map.markers = [{
-          lat:place.latitude,
-          lng:place.longitude,
-          message: place.nome,
-          focus: true,
-          draggable: false
-        }]
+        restService.obterTodosRegistros().then(function(markers){
+
+          if(markers != 'undefined' && markers != null){
+
+            for(var place = 0; place < markers.length; place++){
+              if(markers[place].latitude != null && markers[place].longitude != null){
+
+                var placeString = '\"mainscreen.hotelProfile\(\place:{nome:'+ markers[place].nome + ',' +
+                'telefone:' + markers[place].telefone + ',' +
+                'site:' + markers[place].site + ',' +
+                'latitude:' + markers[place].latitude + ',' +
+                'longitude:' + markers[place].longitude +
+                '\}\)\"';
+
+                var html = markers[place].nome +
+                          '<center><a class="button button-icon icon ion-ios-information" ui-sref=""></a></center>';
+
+                var marker = {
+                    lat: markers[place].latitude,
+                    lng: markers[place].longitude,
+                    message: html,
+                    draggable: false
+                }
+
+                $scope.map.markers.push(marker);
+
+              }
+
+            }
+
+
+
+            var place = {
+              name: "Recife - PE",
+              latitude: -8.0611257,
+              longitude: -34.8949907,
+              zoom: 12
+            }
+
+            $scope.map.center = {
+              lat: place.latitude,
+              lng: place.longitude,
+              zoom: place.zoom
+            }
+
+          }
+
+            $scope.loadingIndicator = $ionicLoading.hide();
+
+        });
+
+
 
         /*
         var options = {timeout: 10000, enableHighAccuracy:true};
@@ -527,6 +589,7 @@ function executarLoadingIndicator($scope, $ionicLoading) {
         showDelay: 0
     });
 }
+
 
 function executarMotionEffect(ionicMaterialMotion, effect, velocity){
 

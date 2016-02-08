@@ -9,7 +9,7 @@ modulo.factory('restService', function($http){
 
   return{
 
-    obterCategorias: function(){    
+    obterCategorias: function(){
 
       var categorias = [
         {
@@ -99,6 +99,15 @@ modulo.factory('restService', function($http){
         alert('Erro ao consultar hoteis!');
       });
 
+    },
+
+    obterTodosRegistros: function(){
+      var url = webserver + '/gettodoshoteis';
+      return $http.get(url).then(function(response){        
+        return response.data;
+      }, function(response){
+        alert('Erro ao consultar os marcadores!');
+      })
     }
 
   };

@@ -123,8 +123,23 @@ exports.obterHoteisPorFiltro = function(req, res){
 
   });
 
+}
+
+exports.obterTodosHoteis = function(req, res){
+
+  models.Hotel.find(function(err, data){
+
+    if(err){
+      throw err;
+    }
+
+    res.send(data);
+
+  });
 
 }
+
+
 
 exports.obterDemandasRecife = function(req, res){
     var url = 'http://dados.recife.pe.gov.br/storage/f/2016-01-12T201515/156_diario.csv';

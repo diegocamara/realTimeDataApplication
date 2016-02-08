@@ -12,6 +12,8 @@ router.get('/gethoteis', controllers.obterHoteis)
 
 router.get('/gethoteisfilter', controllers.obterHoteisPorFiltro);
 
+router.get('/gettodoshoteis', controllers.obterTodosHoteis);
+
 router.get('/getservicedemands/', controllers.obterDemandasRecife);
 
 module.exports = router;

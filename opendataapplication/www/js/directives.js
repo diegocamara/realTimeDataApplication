@@ -16,6 +16,17 @@ modulo.directive('ionMdInput', function(){
 
 })
 
+.directive('placeMarker', function(){
+  return{
+    restrict: 'EA',
+    replace: true,
+    scope:{
+      'nome': '@'
+    },
+    templateUrl: '/templates/views/markers/placeMarker.html'
+  }
+})
+
 .directive('searchBar', [function () {
 	return {
 		scope: {
