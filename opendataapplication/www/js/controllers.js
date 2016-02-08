@@ -151,7 +151,7 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 
           if(markers != 'undefined' && markers != null){
 
-            for(var place = 0; place < markers.length; place++){
+            for (var place = 0; place < markers.length; place++){
               if(markers[place].latitude != null && markers[place].longitude != null){
 
                 var marker = {
@@ -245,7 +245,69 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
     }}
 
     inputChange($scope, $timeout, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, restService, 'animate-fade-slide-in', 400, dataModel);
+
+})
+
+.controller('centroDeComprasController', function($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService){
   
+  $scope.isExpanded = false;
+  $scope.$parent.setExpanded(false);
+
+  $scope.page = 0;
+  $scope.pageSize = 20;
+  $scope.numeroDeRegistros = 0;
+  $scope.places = [];
+  $scope.isExibirMensagemNenhumResultadoEncontrado = false;
+  $scope.mansagemNenhumResultadoEncontrado = "Não foram encontrados lugares para ";
+  $scope.isInSearch = false;
+  $scope.isShowFabMapButton = false;
+
+
+  $scope.scrollTop = function(){
+    $ionicScrollDelegate.scrollTop();
+  }
+
+  $scope.loadMore = function () {
+    restService.obterCentrosDeCompras().then(function(centrosDeCompras){
+      for (var place = 0; place < centrosDeCompras.length; place++){
+        $scope.places.push(centrosDeCompras[place]);
+      }
+
+      $scope.loadingIndicator = $ionicLoading.hide();
+
+      $timeout(function () {
+        executarMotionEffect(ionicMaterialMotion, 'animate-fade-slide-in-right', 400);
+        ionicMaterialInk.displayEffect();
+        $scope.loadingIndicator = $ionicLoading.hide();
+
+      }, 50);
+
+    });
+  }
+
+  $scope.goToProfile = function(p){
+    $state.go('mainscreen.centroDeComprasProfile', {place: p});
+  }
+
+  moreDataCanBeLoad($scope);
+  inputFocus($scope, $timeout);
+
+  var dataModel = {
+    filter:'',
+    consulta: function(){
+    return restService.obterHoteisPorNome($scope, this.filter);
+  }}
+
+  inputChange($scope, $timeout, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, restService, 'animate-ripple', 400, dataModel);
+
+  moveFab($scope, $timeout, 'fab');
+  motionFab($scope, $timeout, 'motion');
+
+  $timeout(function () {
+    $scope.isShowFabMapButton = true;
+    $scope.motionFab('motion');
+  }, 2000);
+
 })
 
 .controller('restauranteProfileController', function($scope, $stateParams){
@@ -610,7 +672,7 @@ function carregarHoteis($scope, restService, $timeout, ionicMaterialInk, ionicMa
   hoteisDataModel.then(function(response){
 
     if(response != null || response != undefined){
-      for(place = 0; place < response.length; place++){
+      for (place = 0; place < response.length; place++){
           response[place].isExisteSite = isExisteSite(response[place].site);
           $scope.places.push(response[place]);
       }

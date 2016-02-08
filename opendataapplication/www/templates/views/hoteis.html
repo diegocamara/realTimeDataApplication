@@ -32,7 +32,7 @@
 							</div>
 			</ion-item>
 		</ion-list>
-		<div ng-if="!isExibirSearchBar">
+		<div ng-if="!isInSearch">
 			<ion-infinite-scroll on-infinite="loadMore() " distance="50%" ng-if="moreDataCanBeLoad() " spinner="android">
 			</ion-infinite-scroll>
 		</div>

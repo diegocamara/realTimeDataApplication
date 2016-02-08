@@ -1,5 +1,5 @@
 <ion-view view-title="Bares e Restaurantes">
-  <search-bar ng-model="search"></search-bar>  
+  <search-bar ng-model="search"></search-bar>
     <ion-content class="padding" ng-class="{expanded:$scope.isExpanded}">
       <style>
         .list .item.item-accordion {
@@ -28,7 +28,7 @@
                 </div>
         </ion-item>
       </ion-list>
-        <div  ng-if="!isExibirSearchBar">
+        <div  ng-if="!isInSearch">
           <ion-infinite-scroll on-infinite="loadMore() " distance="30%" ng-if="moreDataCanBeLoad() " spinner="android">
           </ion-infinite-scroll>
         </div>

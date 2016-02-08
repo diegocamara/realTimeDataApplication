@@ -4,7 +4,7 @@ var modulo = angular.module('opendataapplication');
 modulo.factory('restService', function($http){
 
   //chamar serviço aqui.
-  var webserver = "http://88164926.ngrok.io";
+  var webserver = "http://387d06ff.ngrok.io";
 
 
   return{
@@ -101,6 +101,17 @@ modulo.factory('restService', function($http){
 
     },
 
+    obterCentrosDeCompras: function(){
+
+      var url = webserver + '/getcentrosdecompras';
+      return $http.get(url).then(function(response){
+        return response.data.resultado;
+      }, function(response){
+        alert('Erro ao consultar centros de compras!');
+      });
+
+    },
+
     obterTodosRegistros: function(categoria){
 
       var url = webserver;
@@ -108,6 +119,10 @@ modulo.factory('restService', function($http){
       switch (categoria) {
         case 'hoteis':{
           url += '/gettodoshoteis';
+          break;
+        }
+        case 'centrosdecompras':{
+          url += '/gettodoscentrosdecompras';
           break;
         }
       }

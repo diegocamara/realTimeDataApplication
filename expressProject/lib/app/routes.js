@@ -14,6 +14,10 @@ router.get('/gethoteisfilter', controllers.obterHoteisPorFiltro);
 
 router.get('/gettodoshoteis', controllers.obterTodosHoteis);
 
+router.get('/getcentrosdecompras', controllers.obterCentrosDeCompras);
+
+router.get('/gettodoscentrosdecompras', controllers.obterTodosCentrosDeCompras);
+
 router.get('/getservicedemands/', controllers.obterDemandasRecife);
 
 module.exports = router;

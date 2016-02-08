@@ -127,7 +127,7 @@ exports.obterHoteisPorFiltro = function(req, res){
 
 exports.obterTodosHoteis = function(req, res){
 
-  models.Hotel.find(function(err, data){
+  models.Hotel.find({},{_id:0, nome:1, latitude:1, longitude:1},function(err, data){
 
     if(err){
       throw err;
@@ -139,6 +139,49 @@ exports.obterTodosHoteis = function(req, res){
 
 }
 
+exports.obterCentrosDeCompras = function(req, res){
+
+  var page = parseInt(req.query.page);
+  var size = parseInt(req.query.size);
+  var skip = (page > 0) ? (page - 1) * size : 0
+
+  models.CentroDeCompra.find(null, null,
+    {skip:skip,
+     limit:size
+    },function(err, data){
+
+        models.CentroDeCompra.count(function(err, count){
+
+        if(err){
+          throw err;
+        }
+
+        var result = {
+          numeroDeRegistros:count,
+          resultado: data
+        }
+
+        res.send(result);
+
+      });
+
+  });
+
+}
+
+exports.obterTodosCentrosDeCompras = function(req, res){
+
+  models.CentroDeCompra.find({},{_id:0, nome:1, latitude: 1, longitude: 1},function(err, data){
+
+    if(err){
+      throw err;
+    }
+
+    res.send(data);
+
+  });
+
+}
 
 
 exports.obterDemandasRecife = function(req, res){
