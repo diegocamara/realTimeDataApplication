@@ -4,7 +4,7 @@ var modulo = angular.module('opendataapplication');
 modulo.factory('restService', function($http){
 
   //chamar serviço aqui.
-  var webserver = "http://75c136fa.ngrok.io";
+  var webserver = "http://88164926.ngrok.io";
 
 
   return{
@@ -103,7 +103,7 @@ modulo.factory('restService', function($http){
 
     obterTodosRegistros: function(){
       var url = webserver + '/gettodoshoteis';
-      return $http.get(url).then(function(response){        
+      return $http.get(url).then(function(response){
         return response.data;
       }, function(response){
         alert('Erro ao consultar os marcadores!');

@@ -122,21 +122,7 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
                                        restService,
                                        $ionicLoading,
                                        $state){
-
-  $scope.goToProfile = function(p){
-    $state.go('mainscreen.hotelProfile', {place: p});
-  }
-
-  $scope.$on('leafletDirectiveMap.popupopen', function(event, leafletEvent){
-    console.log(event);
-  // Create the popup view when is opened
-  //var feature = leafletEvent.leafletEvent.popup.options.feature;
-
-  //var newScope = $scope.$new();
-  //newScope.stream = feature;
-
-  //$compile(leafletEvent.leafletEvent.popup._contentNode)(newScope);
-});
+  
 
   executarLoadingIndicator($scope, $ionicLoading);
 
@@ -165,20 +151,10 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
             for(var place = 0; place < markers.length; place++){
               if(markers[place].latitude != null && markers[place].longitude != null){
 
-                var placeString = '\"mainscreen.hotelProfile\(\place:{nome:'+ markers[place].nome + ',' +
-                'telefone:' + markers[place].telefone + ',' +
-                'site:' + markers[place].site + ',' +
-                'latitude:' + markers[place].latitude + ',' +
-                'longitude:' + markers[place].longitude +
-                '\}\)\"';
-
-                var html = markers[place].nome +
-                          '<center><a class="button button-icon icon ion-ios-information" ui-sref=""></a></center>';
-
                 var marker = {
                     lat: markers[place].latitude,
                     lng: markers[place].longitude,
-                    message: html,
+                    message: markers[place].nome,
                     draggable: false
                 }
 
@@ -187,8 +163,6 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
               }
 
             }
-
-
 
             var place = {
               name: "Recife - PE",
