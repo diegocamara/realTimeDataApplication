@@ -4,7 +4,7 @@ var modulo = angular.module('opendataapplication');
 modulo.factory('restService', function($http){
 
   //chamar serviço aqui.
-  var webserver = "http://387d06ff.ngrok.io";
+  var webserver = "http://f15916be.ngrok.io";
 
 
   return{

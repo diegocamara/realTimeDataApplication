@@ -68,6 +68,19 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
       }
     })
 
+    .state('mainscreen.centroDeComprasProfile', {
+      url: '/centroDeComprasProfile',
+      params: {
+        place: null
+      },
+      views: {
+        'menucontentview':{
+          templateUrl: 'templates/views/informacaoCentroDeCompras.html',
+          controller: 'centroDeComprasProfileController'
+        }
+      }
+    })
+
     .state('mainscreen.hotel', {
       url: '/hoteis',
       views: {

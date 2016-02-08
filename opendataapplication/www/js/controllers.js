@@ -248,8 +248,8 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 
 })
 
-.controller('centroDeComprasController', function($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService){
-  
+.controller('centroDeComprasController', function($scope, $ionicLoading, $timeout, $state, ionicMaterialInk, ionicMaterialMotion, restService){
+
   $scope.isExpanded = false;
   $scope.$parent.setExpanded(false);
 
@@ -270,6 +270,7 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
   $scope.loadMore = function () {
     restService.obterCentrosDeCompras().then(function(centrosDeCompras){
       for (var place = 0; place < centrosDeCompras.length; place++){
+        centrosDeCompras[place].isExisteSite = isExisteSite(centrosDeCompras[place].site);
         $scope.places.push(centrosDeCompras[place]);
       }
 
@@ -310,10 +311,50 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 
 })
 
-.controller('restauranteProfileController', function($scope, $stateParams){
+.controller('centroDeComprasProfileController', function($scope,  $stateParams){
 
   $scope.place = $stateParams.place;
 
+  $scope.isLocalizacaoDisponivel = function(){
+    return $scope.place != null && $scope.place.latitude != null && $scope.place.longitude != null;
+  }
+
+  $scope.$on('$stateChangeSuccess', function(){
+
+    $scope.map = {
+      defaults: {
+      tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+      maxZoom: 15,
+      zoomControlPosition: 'bottomleft'
+    },
+    markers : {},
+    events: {
+      map: {
+        enable: ['context'],
+        logic: 'emit'
+      }
+    }};
+
+    $scope.map.center = {
+      lat: $scope.place.latitude,
+      lng: $scope.place.longitude,
+      zoom: 15
+    }
+
+    $scope.map.markers = [{
+      lat: $scope.place.latitude,
+      lng: $scope.place.longitude,
+      message: $scope.place.nome,
+      focus: true,
+      draggable: false
+    }]
+
+  });
+
+})
+
+.controller('restauranteProfileController', function($scope, $stateParams){
+  $scope.place = $stateParams.place;
 })
 
 .controller('hoteisController', function($scope, $state, $timeout, $ionicLoading, ionicMaterialInk,
@@ -609,16 +650,16 @@ function executarMotionEffect(ionicMaterialMotion, effect, velocity){
 
   switch(effect){
     case 'animate-blinds':
-      ionicMaterialMotion.blinds(config);
+      ionicMaterialMotion.blinds();
       break;
     case 'animate-ripple':
-      ionicMaterialMotion.ripple(config);
+      ionicMaterialMotion.ripple();
       break;
     case 'animate-fade-slide-in':
-      ionicMaterialMotion.fadeSlideIn(config);
+      ionicMaterialMotion.fadeSlideIn();
       break;
     case 'animate-fade-slide-in-right':
-      ionicMaterialMotion.fadeSlideInRight(config);
+      ionicMaterialMotion.fadeSlideInRight();
     break;
   }
 
@@ -655,11 +696,7 @@ function carregarLugares($scope, $timeout, response, place, velocidade, ionicMat
             $scope.page += 1;
             $scope.$broadcast('scroll.infiniteScrollComplete');
 
-            var config = {
-              startVelocity: 800
-            }
-
-            ionicMaterialMotion.fadeSlideIn(config);
+            ionicMaterialMotion.fadeSlideIn();
             ionicMaterialInk.displayEffect();
         }
     }, velocidade);
