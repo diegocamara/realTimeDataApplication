@@ -149,11 +149,6 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 
         restService.obterTodosRegistros(categoria).then(function(markers){
 
-
-          if(categoria == 'feiraslivres'){
-              markers = obterFeirasLivresValidas(categoria, markers);
-          }
-
           if(markers != 'undefined' && markers != null){
 
             for (var place = 0; place < markers.length; place++){
@@ -166,7 +161,7 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
                     draggable: false
                 }
 
-                $scope.map.markers.push(marker);               
+                $scope.map.markers.push(marker);
 
               }
 
@@ -174,8 +169,8 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 
             var place = {
               name: "Recife - PE",
-              latitude: -8.0611257,
-              longitude: -34.8949907,
+              latitude: -8.0564394,
+              longitude: -34.9221501,
               zoom: 12
             }
 

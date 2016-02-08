@@ -222,14 +222,12 @@ exports.obterTodasFeirasLivres = function(req, res){
     }
 
     var places = [];
-    
-    /*
-    for (var place = 0; place < data.length; place++){
-          places.push(data);
-    }
-    */
 
-    res.send(data);
+    for (var place = 0; place < data.length; place++){
+          places.push({nome: data[place].Nome, latitude: data[place].Latitude, longitude: data[place].Longitude});
+    }
+
+    res.send(places);
 
   });
 
