@@ -24,9 +24,6 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
 
     .state('mainscreen.map', {
       url: '/map',
-      params:{
-        place: null
-      },
       views:{
         'menucontentview':{
           templateUrl: 'templates/views/map.html',
@@ -45,14 +42,14 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
       }
     })
 
-    .state('mainscreen.hotel', {      
+    .state('mainscreen.hotel', {
       url: '/hoteis',
       views: {
         'menucontentview':{
           templateUrl: 'templates/views/hoteis.html',
           controller: 'hoteisController'
+            }
         }
-      }
     })
 
     .state('mainscreen.hotelProfile', {

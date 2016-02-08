@@ -94,16 +94,14 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
     $scope.$parent.setExpanded(false);
     $scope.$parent.setHeaderFab(false);
 
-  executarLoadingIndicator($scope, $ionicLoading);
+    executarLoadingIndicator($scope, $ionicLoading);
 
-  carregarCategorias($scope, restService, $timeout, ionicMaterialInk, ionicMaterialMotion, $ionicLoading);
-
-  // carregarCategorias($scope, restService, $timeout, ionicMaterialInk, ionicMaterialMotion, $ionicLoading);
-
+    carregarCategorias($scope, restService, $timeout, ionicMaterialInk, ionicMaterialMotion, $ionicLoading);
 
   $scope.goToCategory = function (local) {
       $state.go('mainscreen.' + local);
   }
+
 
   ionicMaterialInk.displayEffect();
 
@@ -114,18 +112,12 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
                               'leafletData',
                               '$cordovaGeolocation',
                               '$timeout',
-                              '$stateParams',
                               function($scope,
                                        leafletData,
                                        $cordovaGeolocation,
-                                       $timeout,
-                                       $stateParams){
+                                       $timeout){
 
-  var place = $stateParams.place;
 
-  $timeout(function () {
-       $scope.isHideNavbar = true;
-    }, 100);
 
   $scope.$on('$stateChangeSuccess', function(){
 
@@ -308,6 +300,9 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
     ionicMaterialMotion, $ionicScrollDelegate, restService){
 
       $scope.$parent.showHeader();
+      $scope.$parent.clearFabs();
+      $scope.$parent.setHeaderFab('right');
+
       $scope.isExpanded = false;
       $scope.$parent.setExpanded(false);
 

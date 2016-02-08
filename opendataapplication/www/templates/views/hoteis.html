@@ -1,5 +1,8 @@
 <ion-view title="Hoteis">
 	<search-bar ng-model="search"></search-bar>
+	<button id="fab" ui-sref="mainscreen.map" class="button button-positive button-fab button-fab-bottom-right">
+			<i class="icon ion-map"></i>
+	</button>
 	<ion-content class="padding" ng-class="{expanded:$scope.isExpanded}">
 		<style>
 			.list .item.item-accordion {
