@@ -24,6 +24,9 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
 
     .state('mainscreen.map', {
       url: '/map',
+      params:{
+        categoria: ''
+      },
       views:{
         'menucontentview':{
           templateUrl: 'templates/views/map.html',
@@ -38,6 +41,19 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
         'menucontentview':{
           templateUrl: 'templates/views/basreserestaurantes.html',
           controller: 'baresERestaurantesController'
+        }
+      }
+    })
+
+    .state('mainscreen.restauranteProfile',{
+      url: '/restauranteProfile',
+      params:{
+        place: null
+      },
+      views: {
+        'menucontentview': {
+          templateUrl: 'templates/views/informacaoRestaurante.html',
+          controller: 'restauranteProfileController'
         }
       }
     })

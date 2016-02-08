@@ -101,8 +101,17 @@ modulo.factory('restService', function($http){
 
     },
 
-    obterTodosRegistros: function(){
-      var url = webserver + '/gettodoshoteis';
+    obterTodosRegistros: function(categoria){
+
+      var url = webserver;
+
+      switch (categoria) {
+        case 'hoteis':{
+          url += '/gettodoshoteis';
+          break;
+        }
+      }
+
       return $http.get(url).then(function(response){
         return response.data;
       }, function(response){

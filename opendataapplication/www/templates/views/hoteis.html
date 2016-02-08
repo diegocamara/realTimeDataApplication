@@ -1,6 +1,6 @@
 <ion-view title="Hoteis">
 	<search-bar ng-model="search"></search-bar>
-	<button id="fab" ui-sref="mainscreen.map" class="button button-positive button-fab button-fab-bottom-right">
+	<button id="fab" ui-sref="mainscreen.map({categoria:'hoteis'})" class="button button-positive button-fab button-fab-bottom-right" ng-show="isShowFabMapButton">
 			<i class="icon ion-map"></i>
 	</button>
 	<ion-content class="padding" ng-class="{expanded:$scope.isExpanded}">
@@ -18,7 +18,6 @@
 			.list .item.item-accordion.ng-hide-remove {
 			display: block !important;
 			}
-
 		</style>
 		<div class="card" ng-if="isExibirMensagemNenhumResultadoEncontrado">
 			<div class="item item-text-wrap">

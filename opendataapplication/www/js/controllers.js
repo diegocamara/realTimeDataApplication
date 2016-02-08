@@ -115,14 +115,17 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
                               'restService',
                               '$ionicLoading',
                               '$state',
+                              '$stateParams',
                               function($scope,
                                        leafletData,
                                        $cordovaGeolocation,
                                        $timeout,
                                        restService,
                                        $ionicLoading,
-                                       $state){
-  
+                                       $state,
+                                       $stateParams){
+
+  var categoria = $stateParams.categoria;
 
   executarLoadingIndicator($scope, $ionicLoading);
 
@@ -144,7 +147,7 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 
         $scope.map.markers = [];
 
-        restService.obterTodosRegistros().then(function(markers){
+        restService.obterTodosRegistros(categoria).then(function(markers){
 
           if(markers != 'undefined' && markers != null){
 
@@ -204,7 +207,7 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 
 }])
 
-.controller('baresERestaurantesController', function ($scope, $timeout, $ionicLoading, ionicMaterialInk,
+.controller('baresERestaurantesController', function ($scope, $timeout, $state, $ionicLoading, ionicMaterialInk,
     ionicMaterialMotion, $ionicScrollDelegate, restService) {
 
       // $timeout(function () {
@@ -228,110 +231,29 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
         carregarBarERes($scope, restService, $timeout, ionicMaterialInk, ionicMaterialMotion);
     }
 
-    $scope.moreDataCanBeLoad = function () {
-      var moreDataCanBeLoad = false;
-      if(!$scope.isInSearch){
-          moreDataCanBeLoad = $scope.places.length <= $scope.numeroDeRegistros;
-      }
-      return moreDataCanBeLoad;
+    $scope.goToProfile = function(p){
+      $state.go('mainscreen.restauranteProfile', {place: p});
     }
 
-    $scope.GotoLink = function (url) {
-        window.open(url, '_system');
-    }
+    moreDataCanBeLoad($scope);
+    inputFocus($scope, $timeout);
 
+    var dataModel = {
+      filter:'',
+      consulta: function(){
+      return restService.obterBareResPorNome($scope, this.filter);
+    }}
 
-    $scope.inputFocus = function(searchBarShow){
+    inputChange($scope, $timeout, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, restService, 'animate-fade-slide-in', 400, dataModel);
+  
+})
 
-      if(!searchBarShow){
-        $scope.isInSearch = true;
-        $timeout(function () {
-          var input = document.getElementById('inputId');
-          input.focus();
-        }, 100);
-      }else{
-        $scope.scrollTop();
-        $scope.isInSearch = false;
-        $scope.page = 0;
-        $scope.pageSize = 20;
-        $scope.numeroDeRegistros = 0;
-        $scope.places = [];
-        $scope.loadMore();
-      }
+.controller('restauranteProfileController', function($scope, $stateParams){
 
-    }
-
-    $scope.hideSearchBar = function(){
-      $scope.places = [];
-    }
-
-    $scope.togglePlace = function(place){
-
-      if($scope.isShowPlace(place)){
-        $scope.selectedPlace = null;
-      }else{
-        $scope.selectedPlace = place;
-      }
-
-    }
-
-    $scope.isShowPlace = function(place){
-      return $scope.selectedPlace === place;
-    }
-
-    var timeoutDelay;
-
-    $scope.inputChange = function(filter){
-      $scope.isExibirMensagemNenhumResultadoEncontrado = false;
-      $scope.scrollTop();
-      if(filter !== ''){
-
-          if(timeoutDelay){
-            $timeout.cancel(timeoutDelay);
-          }
-
-          executarLoadingIndicator($scope, $ionicLoading);
-
-          timeoutDelay = $timeout(function () {
-
-            var bareserestaurantes = restService.obterBareResPorNome($scope, filter);
-
-            bareserestaurantes.then(function(places){
-
-              $scope.places = places;
-
-              if(typeof $scope.places !== 'undefined' && $scope.places !== null){
-
-                if($scope.places.length > 0){
-                  $scope.numeroDeRegistros = $scope.places.length + 1;
-                  $timeout(function () {
-                    ionicMaterialMotion.fadeSlideIn({startVelocity: 400});
-                    ionicMaterialInk.displayEffect();
-                    $scope.loadingIndicator = $ionicLoading.hide();
-                  }, 50);
-
-                }else{
-                  $scope.numeroDeRegistros = 0;
-                  $scope.isExibirMensagemNenhumResultadoEncontrado = true;
-                  $scope.mansagemNenhumResultadoEncontrado += filter;
-                  $scope.loadingIndicator = $ionicLoading.hide();
-
-                }
-
-              }
-
-            });
-
-          }, 1000);
-
-      }else{
-        $scope.loadingIndicator = $ionicLoading.hide();
-      }
-
-    }
-
+  $scope.place = $stateParams.place;
 
 })
+
 .controller('hoteisController', function($scope, $state, $timeout, $ionicLoading, ionicMaterialInk,
     ionicMaterialMotion, $ionicScrollDelegate, restService){
 
@@ -349,6 +271,7 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
       $scope.isExibirMensagemNenhumResultadoEncontrado = false;
       $scope.mansagemNenhumResultadoEncontrado = "Não foram encontrados lugares para ";
       $scope.isInSearch = false;
+      $scope.isShowFabMapButton = false;
 
 
       $scope.scrollTop = function(){
@@ -373,6 +296,15 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
       }}
 
       inputChange($scope, $timeout, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, restService, 'animate-ripple', 400, dataModel);
+
+      moveFab($scope, $timeout, 'fab');
+      motionFab($scope, $timeout, 'motion');
+
+      $timeout(function () {
+        $scope.isShowFabMapButton = true;
+        $scope.motionFab('motion');
+      }, 2000);
+
 
 
 })
@@ -442,6 +374,48 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 
 
 }]);
+
+
+function moveFab($scope, $timeout, fabId){
+
+  $scope.fab = document.getElementById(fabId);
+
+  $scope.moveFab = function(dir) {
+      fab.style.display = 'none';
+      fab.className = fab.className.replace('button-fab-top-left', '');
+      fab.className = fab.className.replace('button-fab-top-right', '');
+      fab.className = fab.className.replace('button-fab-bottom-left', '');
+      fab.className = fab.className.replace('button-fab-bottom-right', '');
+      fab.className += ' button-fab-' + dir;
+      $timeout(function() {
+          fab.style.display = 'block';
+      }, 100);
+  };
+}
+
+function motionFab($scope, $timeout, type){
+
+  $scope.motionFab = function(type) {
+      var shouldAnimate = false;
+      var classes = type instanceof Array ? type : [type];
+
+      function toggleMotionClass (theClass) {
+          $timeout(function() {
+              fab.classList.toggle(theClass);
+          }, 300);
+      }
+
+      for (var i = 0; i < classes.length; i++) {
+          fab.classList.toggle(classes[i]);
+
+          shouldAnimate = fab.classList.contains(classes[i]);
+          if (shouldAnimate) {
+              (toggleMotionClass)(classes[i]);
+          }
+      }
+  };
+
+}
 
 function showTogglePlace($scope){
   $scope.togglePlace = function(place){
