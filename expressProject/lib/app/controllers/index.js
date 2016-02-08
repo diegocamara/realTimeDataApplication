@@ -215,19 +215,13 @@ exports.obterFeirasLivres = function(req, res){
 
 exports.obterTodasFeirasLivres = function(req, res){
 
-  models.FeiraLivre.find({},{_id:0, Nome:1, Latitude: 1, Longitude: 1},function(err, data){
+  models.FeiraLivre.find({},{_id:0, nome:1, latitude: 1, longitude: 1},function(err, data){
 
     if(err){
       throw err;
     }
 
-    var places = [];
-
-    for (var place = 0; place < data.length; place++){
-          places.push({nome: data[place].Nome, latitude: data[place].Latitude, longitude: data[place].Longitude});
-    }
-
-    res.send(places);
+    res.send(data);
 
   });
 

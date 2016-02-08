@@ -91,6 +91,19 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
       }
     })
 
+    .state('mainscreen.informacaoFeiraLivre',{
+      url: '/informacaoFeiraLivre',
+      params: {
+        place: null
+      },
+      views: {
+        'menucontentview': {
+          templateUrl: 'templates/views/informacaoFeiraLivre.html',
+          controller: 'feiraLivreProfileController'
+        }
+      }
+    })
+
     .state('mainscreen.hotel', {
       url: '/hoteis',
       views: {
