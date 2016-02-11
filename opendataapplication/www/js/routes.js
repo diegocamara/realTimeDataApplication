@@ -135,6 +135,19 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
           controller:'museusController'
         }
       }
+    })
+
+    .state('mainscreen.museuProfile', {
+      url: '/museuProfile',
+      params: {
+        place: null
+      },
+      views: {
+        'menucontentview':{
+          templateUrl: 'templates/views/informacaoMuseu.html',
+          controller:'museuProfileController'
+        }
+      }
     });
 
 
