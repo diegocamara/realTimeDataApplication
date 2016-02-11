@@ -259,7 +259,7 @@ exports.obterMuseus = function(req, res){
 
 exports.obterTodosMuseus = function(req, res){
 
-  models.FeiraLivre.find({},{_id:0, nome:1, latitude: 1, longitude: 1},function(err, data){
+  models.Museu.find({},{_id:0, nome:1, latitude: 1, longitude: 1},function(err, data){
 
     if(err){
       throw err;

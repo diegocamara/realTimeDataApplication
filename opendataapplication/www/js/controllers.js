@@ -567,7 +567,8 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 
 }])
 
-.controller('museuController', function($scope, $stateParams){
+.controller('museusController', function($scope, $state, $timeout, $ionicLoading, ionicMaterialInk,
+    ionicMaterialMotion, $ionicScrollDelegate, restService){
 
   $scope.isExpanded = false;
   $scope.$parent.setExpanded(false);
@@ -587,7 +588,7 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
   }
 
   $scope.loadMore = function () {
-    caregarCentroDeCompras($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService);
+    caregarMuseus($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService);
   }
 
   $scope.goToProfile = function(p){
@@ -867,6 +868,27 @@ function caregarCentroDeCompras($scope, $ionicLoading, $timeout, ionicMaterialIn
     for (var place = 0; place < centrosDeCompras.length; place++){
       centrosDeCompras[place].isExisteSite = isExisteSite(centrosDeCompras[place].site);
       $scope.places.push(centrosDeCompras[place]);
+    }
+
+    $scope.loadingIndicator = $ionicLoading.hide();
+
+    $timeout(function () {
+      executarMotionEffect(ionicMaterialMotion, 'animate-fade-slide-in-right');
+      ionicMaterialInk.displayEffect();
+      $scope.loadingIndicator = $ionicLoading.hide();
+
+    }, 50);
+
+  });
+
+}
+
+function caregarMuseus($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService){
+
+  restService.obterMuseus($scope).then(function(museus){
+    for (var place = 0; place < museus.length; place++){
+      museus[place].isExisteSite = isExisteSite(museus[place].site);
+      $scope.places.push(museus[place]);
     }
 
     $scope.loadingIndicator = $ionicLoading.hide();

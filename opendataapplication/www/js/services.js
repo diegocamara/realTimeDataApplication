@@ -4,7 +4,7 @@ var modulo = angular.module('opendataapplication');
 modulo.factory('restService', function($http){
 
   //chamar serviço aqui.
-  var webserver = "http://f15916be.ngrok.io";
+  var webserver = "http://localhost:3000";
 
 
   return{
@@ -34,7 +34,7 @@ modulo.factory('restService', function($http){
         },
         {
           descricao: "Museus",
-          label: "museu"
+          label: "museus"
         },
         {
           descricao: "Pontes do Recife",
@@ -122,6 +122,16 @@ modulo.factory('restService', function($http){
       });
     },
 
+    obterMuseus: function($scope){
+      var url = webserver + '/getmuseus';
+      return $http.get(url).then(function(response){
+        $scope.numeroDeRegistros = response.data.numeroDeRegistros;
+        return response.data.resultado;
+      }, function(response){
+        alert('Erro ao consultar museus!');
+      });
+    },
+
     obterTodosRegistros: function(categoria){
 
       var url = webserver;
@@ -139,9 +149,13 @@ modulo.factory('restService', function($http){
           url += '/gettodasfeiraslivres';
           break;
         }
+        case 'museus':{
+          url += '/gettodosmuseus'
+          break;
+        }
       }
 
-      return $http.get(url).then(function(response){        
+      return $http.get(url).then(function(response){
         return response.data;
       }, function(response){
         alert('Erro ao consultar os marcadores!');

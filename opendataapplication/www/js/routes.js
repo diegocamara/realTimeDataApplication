@@ -125,6 +125,16 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
           controller: 'hotelProfileController'
         }
       }
+    })
+
+    .state('mainscreen.museus', {
+      url: '/museus',
+      views: {
+        'menucontentview':{
+          templateUrl: 'templates/views/museus.html',
+          controller:'museusController'
+        }
+      }
     });
 
 

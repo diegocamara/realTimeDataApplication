@@ -22,6 +22,10 @@ router.get('/getfeiraslivres', controllers.obterFeirasLivres);
 
 router.get('/gettodasfeiraslivres', controllers.obterTodasFeirasLivres);
 
+router.get('/getmuseus', controllers.obterMuseus);
+
+router.get('/gettodosmuseus', controllers.obterTodosMuseus)
+
 router.get('/getservicedemands/', controllers.obterDemandasRecife);
 
 module.exports = router;
