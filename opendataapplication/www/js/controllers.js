@@ -127,6 +127,8 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 
   var categoria = $stateParams.categoria;
 
+  $scope.map;
+
   executarLoadingIndicator($scope, $ionicLoading);
 
   $scope.$on('$stateChangeSuccess', function(){
@@ -134,7 +136,7 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
         $scope.map = {
           defaults: {
           tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
-          maxZoom: 15,
+          maxZoom: 12,
           zoomControlPosition: 'bottomleft'
         },
         markers : {},
@@ -187,16 +189,61 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
         });
 
 
+        $scope.getCurrentPosition = function(){
 
-        /*
-        var options = {timeout: 10000, enableHighAccuracy:true};
+          var options = {timeout: 10000, enableHighAccuracy:true};
 
-        $cordovaGeolocation.getCurrentPosition(options).then(function(position){
+          $cordovaGeolocation.getCurrentPosition(options).then(function(position){
 
-        }, function(error){
-          console.log("Could not get location");
-        });
-        */
+            $scope.map.center = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+              zoom: 12
+            }
+
+
+
+
+            awesomeMarkerIcon = {
+                    type: 'awesomeMarker',
+                    icon: 'icon ion-social-tux',
+                    markerColor: 'red'
+                }
+
+
+
+
+            var marker = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                        message: 'Here are you baby!',
+                        getMessageScope: function() {return $scope; },
+                        getLabelScope: function() { return $scope },
+                        focus: true,
+                        icon: awesomeMarkerIcon,
+                        label: {
+                            message: '<button ng-click="var2 = var2 + 1">Say Hello</button>',
+                            options: {
+                                noHide: true,
+                                className : "class1"
+                            }
+
+                        }
+                    }
+
+
+            $scope.map.markers.push(marker);
+
+
+          }, function(error){
+            console.log("Could not get location");
+          });
+
+        }
+
+
+
+
 
 
   });
