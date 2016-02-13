@@ -4,7 +4,7 @@ var modulo = angular.module('opendataapplication');
 modulo.factory('restService', function($http){
 
   //chamar serviço aqui.
-  var webserver = "http://localhost:3000";
+  var webserver = "http://efeae167.ngrok.io";
 
 
   return{
@@ -30,7 +30,7 @@ modulo.factory('restService', function($http){
         },
         {
           descricao: "Mercados Públicos",
-          label: "merpu"
+          label: "mercadospublicos"
         },
         {
           descricao: "Museus",
@@ -132,6 +132,16 @@ modulo.factory('restService', function($http){
       });
     },
 
+    obterMercadosPublicos: function($scope){
+      var url = webserver + '/getmercadospublicos';
+      return $http.get(url).then(function(response){
+        $scope.numeroDeRegistros = response.data.numeroDeRegistros;
+        return response.data.resultado;
+      }, function(response){
+        alert('Erro ao consultar mercados publicos!');
+      });
+    },
+
     obterTodosRegistros: function(categoria){
 
       var url = webserver;
@@ -151,6 +161,10 @@ modulo.factory('restService', function($http){
         }
         case 'museus':{
           url += '/gettodosmuseus'
+          break;
+        }
+        case 'mercadospublicos':{
+          url += '/gettodosmercadospublicos';
           break;
         }
       }

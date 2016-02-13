@@ -148,6 +148,29 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
           controller:'museuProfileController'
         }
       }
+    })
+
+    .state('mainscreen.mercadospublicos', {
+      url: '/mercadospublicos',
+      views:{
+        'menucontentview':{
+          templateUrl: 'templates/views/mercadospublicos.html',
+          controller: 'mercadoPublicoController'
+        }
+      }
+    })
+
+    .state('mainscreen.mercadopublicopProfile', {
+      url: '/mercadopublicoProfile',
+      params:{
+        place: null
+      },
+      views:{
+        'menucontentview':{
+          templateUrl: 'templates/views/informacaoMercadoPublico.html',
+          controller: 'mercadoPublicoProfileController'
+        }
+      }
     });
 
 

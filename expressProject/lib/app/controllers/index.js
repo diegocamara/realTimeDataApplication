@@ -271,6 +271,52 @@ exports.obterTodosMuseus = function(req, res){
 
 }
 
+
+exports.obterMercadosPublicos = function(req, res){
+
+  var page = parseInt(req.query.page);
+  var size = parseInt(req.query.size);
+  var skip = (page > 0) ? (page - 1) * size : 0
+
+  models.MercadoPublico.find(null, null,
+    {skip:skip,
+     limit:size
+    },function(err, data){
+
+        models.MercadoPublico.count(function(err, count){
+
+        if(err){
+          throw err;
+        }
+
+        var result = {
+          numeroDeRegistros:count,
+          resultado: data
+        }
+
+        res.send(result);
+
+      });
+
+  });
+
+}
+
+exports.obterTodosMercadosPublicos = function(req, res){
+
+  models.MercadoPublico.find({},{_id:0, nome:1, latitude: 1, longitude: 1},function(err, data){
+
+    if(err){
+      throw err;
+    }
+
+    res.send(data);
+
+  });
+
+}
+
+
 exports.obterDemandasRecife = function(req, res){
     var url = 'http://dados.recife.pe.gov.br/storage/f/2016-01-12T201515/156_diario.csv';
     url = 'http://dados.recife.pe.gov.br/storage/f/2013-08-08T18%3A35%3A03.036Z/hoteis.csv';

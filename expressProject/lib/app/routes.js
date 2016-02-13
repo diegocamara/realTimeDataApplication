@@ -24,7 +24,11 @@ router.get('/gettodasfeiraslivres', controllers.obterTodasFeirasLivres);
 
 router.get('/getmuseus', controllers.obterMuseus);
 
-router.get('/gettodosmuseus', controllers.obterTodosMuseus)
+router.get('/gettodosmuseus', controllers.obterTodosMuseus);
+
+router.get('/getmercadospublicos', controllers.obterMercadosPublicos);
+
+router.get('/gettodosmercadospublicos', controllers.obterTodosMercadosPublicos);
 
 router.get('/getservicedemands/', controllers.obterDemandasRecife);
 

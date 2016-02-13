@@ -1,0 +1,36 @@
+<ion-view title="Mercado Público">
+	<ion-content has-header="true" data-tap-disabled="true" ng-class="{expanded:isExpanded}">
+
+    <leaflet id="map" defaults="map.defaults"
+		 				 center="map.center" markers="map.markers"
+						 width="100%"
+						 height="40%"
+						 ng-if="map.center"></leaflet>
+
+					 <div class="ink dark-bg item-text-wrap" style="font-size:18px;font-weight:bold;color:white;height:40%;" ng-if="!isLocalizacaoDisponivel()">
+				 			<div class="padding">
+				 				Localização não disponivel.
+				 			</div>
+				 		</div>
+
+		<div class="ink dark-bg item-text-wrap" style="font-size:18px;font-weight:bold;color:white;height:70px;">
+			<div class="padding">
+				{{place.nome}}
+			</div>
+		</div>
+
+		<div class="content double-padding">
+
+      <h4 class="positive">Descrição:</h4>
+			<p class="selecionavel text-muted">
+				{{place.descricao}}
+			</p>
+
+			<h4 class="positive">Endereço:</h4>
+			<p class="selecionavel text-muted">
+				{{place.bairro}}
+			</p>
+
+      
+  </ion-content>
+</ion-view>
