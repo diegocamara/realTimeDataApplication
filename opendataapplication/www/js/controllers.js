@@ -740,7 +740,7 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
       }
 
       $scope.goToProfile = function(p){
-        $state.go('mainscreen.mercadopublicopProfile', {place: p});
+        $state.go('mainscreen.mercadopublicoProfile', {place: p});
       }
 
       moreDataCanBeLoad($scope);
@@ -760,6 +760,88 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
 
   $scope.place = $stateParams.place;
 
+  $scope.$on('$stateChangeSuccess', function(){
+
+        $scope.map = {
+          defaults: {
+          tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+          maxZoom: 15,
+          zoomControlPosition: 'bottomleft'
+        },
+        markers : {},
+        events: {
+          map: {
+            enable: ['context'],
+            logic: 'emit'
+          }
+        }};
+
+        $scope.map.center = {
+          lat: $scope.place.latitude,
+          lng: $scope.place.longitude,
+          zoom: 15
+        }
+
+        $scope.map.markers = [{
+          lat: $scope.place.latitude,
+          lng: $scope.place.longitude,
+          message: $scope.place.nome,
+          focus: true,
+          draggable: false
+        }]
+
+  })
+
+  $scope.isLocalizacaoDisponivel = function(){
+    return $scope.place != null && $scope.place.latitude != null && $scope.place.longitude != null;
+  }
+
+})
+
+.controller('pontesController', function($scope, $state, $timeout, $ionicLoading, ionicMaterialInk,
+    ionicMaterialMotion, $ionicScrollDelegate, restService){
+
+      $scope.isExpanded = false;
+      $scope.$parent.setExpanded(false);
+
+      $scope.page = 0;
+      $scope.pageSize = 20;
+      $scope.numeroDeRegistros = 0;
+      $scope.places = [];
+      $scope.isExibirMensagemNenhumResultadoEncontrado = false;
+      $scope.mansagemNenhumResultadoEncontrado = "Não foram encontrados lugares para ";
+      $scope.isInSearch = false;
+      $scope.isShowFabMapButton = false;
+
+
+      $scope.scrollTop = function(){
+        $ionicScrollDelegate.scrollTop();
+      }
+
+      $scope.loadMore = function () {
+        caregarPontes($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService);
+      }
+
+      $scope.goToProfile = function(p){
+        $state.go('mainscreen.ponteProfile', {place: p});
+      }
+
+      moreDataCanBeLoad($scope);
+
+      moveFab($scope, $timeout, 'fab');
+      motionFab($scope, $timeout, 'motion');
+
+      $timeout(function () {
+        $scope.isShowFabMapButton = true;
+        $scope.motionFab('motion');
+      }, 2000);
+
+
+})
+
+.controller('ponteProfileController', function($scope, $stateParams){
+
+  $scope.place = $stateParams.place;  
   $scope.$on('$stateChangeSuccess', function(){
 
         $scope.map = {
@@ -1102,6 +1184,24 @@ function caregarMercadosPublicos($scope, $ionicLoading, $timeout, ionicMaterialI
       }, 50);
 
     });
+}
+
+function caregarPontes($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService){
+  restService.obterPontes($scope).then(function(pontes){
+    for (var place = 0; place < pontes.length; place++){
+      $scope.places.push(pontes[place]);
+    }
+
+    $scope.loadingIndicator = $ionicLoading.hide();
+
+    $timeout(function () {
+      executarMotionEffect(ionicMaterialMotion, 'animate-fade-slide-in-right');
+      ionicMaterialInk.displayEffect();
+      $scope.loadingIndicator = $ionicLoading.hide();
+
+    }, 50);
+
+  });
 }
 
 function obterFeirasLivresValidas(categoria, markers){

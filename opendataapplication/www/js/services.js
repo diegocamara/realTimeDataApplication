@@ -4,7 +4,7 @@ var modulo = angular.module('opendataapplication');
 modulo.factory('restService', function($http){
 
   //chamar serviço aqui.
-  var webserver = "http://efeae167.ngrok.io";
+  var webserver = "http://ccb6d1ff.ngrok.io";
 
 
   return{
@@ -142,6 +142,27 @@ modulo.factory('restService', function($http){
       });
     },
 
+    obterPontes: function($scope){
+      var url = webserver + '/getpontes';
+      return $http.get(url).then(function(response){
+        $scope.numeroDeRegistros = response.data.numeroDeRegistros;
+        console.log(response.data.resultado);
+        return response.data.resultado;
+      }, function(response){
+        alert('Erro ao consultar pontes!');
+      });
+    },
+
+    obterTeatros: function($scope){
+      var url = webserver + '/getteatros';
+      return $http.get(url).then(function(response){
+        $scope.numeroDeRegistros = response.data.numeroDeRegistros;
+        return response.data.resultado;
+      }, function(response){
+        alert('Erro ao consultar teatros!');
+      });
+    },
+
     obterTodosRegistros: function(categoria){
 
       var url = webserver;
@@ -165,6 +186,14 @@ modulo.factory('restService', function($http){
         }
         case 'mercadospublicos':{
           url += '/gettodosmercadospublicos';
+          break;
+        }
+        case 'pontes':{
+          url += '/gettodaspontes';
+          break;
+        }
+        case 'teatros':{
+          url += '/gettodosteatros';
           break;
         }
       }

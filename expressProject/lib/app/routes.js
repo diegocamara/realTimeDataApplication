@@ -30,6 +30,14 @@ router.get('/getmercadospublicos', controllers.obterMercadosPublicos);
 
 router.get('/gettodosmercadospublicos', controllers.obterTodosMercadosPublicos);
 
+router.get('/getpontes', controllers.obterPontes);
+
+router.get('/gettodaspontes', controllers.obterTodasPontes);
+
+router.get('/getteatros', controllers.obterTeatros);
+
+router.get('/gettodosteatros', controllers.obterTodosTeatros);
+
 router.get('/getservicedemands/', controllers.obterDemandasRecife);
 
 module.exports = router;

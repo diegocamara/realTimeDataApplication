@@ -316,6 +316,96 @@ exports.obterTodosMercadosPublicos = function(req, res){
 
 }
 
+exports.obterPontes = function(req, res){
+
+  var page = parseInt(req.query.page);
+  var size = parseInt(req.query.size);
+  var skip = (page > 0) ? (page - 1) * size : 0
+
+  models.Ponte.find(null, null,
+    {skip:skip,
+     limit:size
+    },function(err, data){
+
+        models.Ponte.count(function(err, count){
+
+        if(err){
+          throw err;
+        }
+
+        var result = {
+          numeroDeRegistros:count,
+          resultado: data
+        }
+
+        console.log(data);
+
+        res.send(result);
+
+      });
+
+  });
+
+}
+
+exports.obterTodasPontes = function(req, res){
+
+  models.Ponte.find({},{_id:0, nome:1, latitude: 1, longitude: 1},function(err, data){
+
+    if(err){
+      throw err;
+    }
+
+    res.send(data);
+
+  });
+
+}
+
+exports.obterTeatros = function(req, res){
+
+  var page = parseInt(req.query.page);
+  var size = parseInt(req.query.size);
+  var skip = (page > 0) ? (page - 1) * size : 0
+
+  models.Teatro.find(null, null,
+    {skip:skip,
+     limit:size
+    },function(err, data){
+
+        models.Teatro.count(function(err, count){
+
+        if(err){
+          throw err;
+        }
+
+        var result = {
+          numeroDeRegistros:count,
+          resultado: data
+        }
+
+        res.send(result);
+
+      });
+
+  });
+
+}
+
+exports.obterTodosTeatros = function(req, res){
+
+  models.Teatro.find({},{_id:0, nome:1, latitude: 1, longitude: 1},function(err, data){
+
+    if(err){
+      throw err;
+    }
+
+    res.send(data);
+
+  });
+
+}
+
 
 exports.obterDemandasRecife = function(req, res){
     var url = 'http://dados.recife.pe.gov.br/storage/f/2016-01-12T201515/156_diario.csv';

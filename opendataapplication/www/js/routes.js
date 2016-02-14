@@ -160,7 +160,7 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
       }
     })
 
-    .state('mainscreen.mercadopublicopProfile', {
+    .state('mainscreen.mercadopublicoProfile', {
       url: '/mercadopublicoProfile',
       params:{
         place: null
@@ -169,6 +169,29 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
         'menucontentview':{
           templateUrl: 'templates/views/informacaoMercadoPublico.html',
           controller: 'mercadoPublicoProfileController'
+        }
+      }
+    })
+
+    .state('mainscreen.ponte', {
+      url: '/pontes',
+      views:{
+        'menucontentview':{
+          templateUrl: 'templates/views/pontes.html',
+          controller: 'pontesController'
+        }
+      }
+    })
+
+    .state('mainscreen.ponteProfile', {
+      url: '/ponteProfile',
+      params:{
+        place: null
+      },
+      views:{
+        'menucontentview':{
+          templateUrl: 'templates/views/informacaoPonte.html',
+          controller: 'ponteProfileController'
         }
       }
     });
