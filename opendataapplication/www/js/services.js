@@ -4,7 +4,7 @@ var modulo = angular.module('opendataapplication');
 modulo.factory('restService', function($http){
 
   //chamar serviço aqui.
-  var webserver = "http://ccb6d1ff.ngrok.io";
+  var webserver = "http://localhost:3000";
 
 
   return{
@@ -155,7 +155,7 @@ modulo.factory('restService', function($http){
 
     obterTeatros: function($scope){
       var url = webserver + '/getteatros';
-      return $http.get(url).then(function(response){
+      return $http.get(url).then(function(response){        
         $scope.numeroDeRegistros = response.data.numeroDeRegistros;
         return response.data.resultado;
       }, function(response){

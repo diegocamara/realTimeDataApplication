@@ -194,9 +194,30 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
           controller: 'ponteProfileController'
         }
       }
+    })
+
+    .state('mainscreen.teatro',{
+      url: '/teatros',
+      views:{
+        'menucontentview':{
+          templateUrl:'templates/views/teatros.html',
+          controller: 'teatrosController'
+        }
+      }
+    })
+
+    .state('mainscreen.teatroProfile',{
+      url: '/teatroProfile',
+      params:{
+        place: null
+      },
+      views:{
+        'menucontentview':{
+          templateUrl: 'templates/views/informacaoTeatro.html',
+          controller: 'teatroProfileController'
+        }
+      }
     });
-
-
 
     $urlRouterProvider.otherwise('mainscreen/home');
 
