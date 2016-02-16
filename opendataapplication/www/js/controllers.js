@@ -336,10 +336,10 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
   moveFab($scope, $timeout, 'fab');
   motionFab($scope, $timeout, 'motion');
 
-  $timeout(function () {
+  $scope.$on('$ionicView.loaded', function(){
     $scope.isShowFabMapButton = true;
     $scope.motionFab('motion');
-  }, 2000);
+  });
 
 })
 
@@ -440,10 +440,10 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
   moveFab($scope, $timeout, 'fab');
   motionFab($scope, $timeout, 'motion');
 
-  $timeout(function () {
+  $scope.$on('$ionicView.loaded', function(){
     $scope.isShowFabMapButton = true;
     $scope.motionFab('motion');
-  }, 2000);
+  });
 
 })
 
@@ -539,11 +539,10 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
       moveFab($scope, $timeout, 'fab');
       motionFab($scope, $timeout, 'motion');
 
-      $timeout(function () {
+      $scope.$on('$ionicView.loaded', function(){
         $scope.isShowFabMapButton = true;
         $scope.motionFab('motion');
-      }, 2000);
-
+      });
 
 
 })
@@ -656,10 +655,10 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
   moveFab($scope, $timeout, 'fab');
   motionFab($scope, $timeout, 'motion');
 
-  $timeout(function () {
+  $scope.$on('$ionicView.loaded', function(){
     $scope.isShowFabMapButton = true;
     $scope.motionFab('motion');
-  }, 2000);
+  });
 
 })
 
@@ -748,11 +747,10 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
       moveFab($scope, $timeout, 'fab');
       motionFab($scope, $timeout, 'motion');
 
-      $timeout(function () {
+      $scope.$on('$ionicView.loaded', function(){
         $scope.isShowFabMapButton = true;
         $scope.motionFab('motion');
-      }, 2000);
-
+      });
 
 })
 
@@ -831,11 +829,10 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
       moveFab($scope, $timeout, 'fab');
       motionFab($scope, $timeout, 'motion');
 
-      $timeout(function () {
+      $scope.$on('$ionicView.loaded', function(){
         $scope.isShowFabMapButton = true;
         $scope.motionFab('motion');
-      }, 2000);
-
+      });
 
 })
 
@@ -913,10 +910,10 @@ modulo.controller('appController', function($timeout, $rootScope, $scope, $http,
       moveFab($scope, $timeout, 'fab');
       motionFab($scope, $timeout, 'motion');
 
-      $timeout(function () {
+      $scope.$on('$ionicView.loaded', function(){
         $scope.isShowFabMapButton = true;
         $scope.motionFab('motion');
-      }, 2000);
+      });
 
 })
 

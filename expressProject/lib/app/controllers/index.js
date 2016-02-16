@@ -336,9 +336,7 @@ exports.obterPontes = function(req, res){
         var result = {
           numeroDeRegistros:count,
           resultado: data
-        }
-
-        console.log(data);
+        }        
 
         res.send(result);
 
