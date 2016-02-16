@@ -5,6 +5,9 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
   // Desabilitando log.
   $logProvider.debugEnabled(false);
 
+  // Desabilitando jsScrolling
+  $ionicConfigProvider.scrolling.jsScrolling(false);
+
   $stateProvider.state('mainscreen',{
       url: '/mainscreen',
       templateUrl: 'templates/views/mainscreen.html',
