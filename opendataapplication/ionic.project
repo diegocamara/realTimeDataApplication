@@ -1,6 +1,10 @@
 {
   "name": "opendataapplication",
   "app_id": "",
+  "gulpStartupTasks": [
+     "index",
+     "watch"
+  ],
   "browsers": [
     {
       "platform": "android",

@@ -1,4 +1,4 @@
-angular.module('opendataapplication.controllers').controller('mapController', ['$scope',
+angular.module('opendataapplication').controller('mapController', ['$scope',
                               'leafletData',
                               '$cordovaGeolocation',
                               '$timeout',

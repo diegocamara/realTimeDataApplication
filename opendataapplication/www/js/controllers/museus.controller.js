@@ -1,4 +1,4 @@
-angular.module('opendataapplication.controllers').controller('museusController', function($scope, $state, $timeout, $ionicLoading, ionicMaterialInk,
+angular.module('opendataapplication').controller('museusController', function($scope, $state, $timeout, $ionicLoading, ionicMaterialInk,
     ionicMaterialMotion, $ionicScrollDelegate, restService){
 
   $scope.isExpanded = false;

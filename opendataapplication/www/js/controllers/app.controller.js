@@ -1,4 +1,4 @@
-angular.module('opendataapplication.controllers').controller('appController', function($timeout, $rootScope, $scope, $http, ionicMaterialInk, ionicMaterialMotion, $ionicHistory){
+angular.module('opendataapplication').controller('appController', function($timeout, $rootScope, $scope, $http, ionicMaterialInk, ionicMaterialMotion, $ionicHistory){
 
    $scope.isExpanded = false;
    $scope.hasHeaderFabLeft = false;

@@ -1,4 +1,4 @@
-angular.module('opendataapplication.controllers').controller('homeController', function($timeout, $scope, $state, $http, ionicMaterialInk, ionicMaterialMotion, $ionicLoading, restService){
+angular.module('opendataapplication').controller('homeController', function($timeout, $scope, $state, $http, ionicMaterialInk, ionicMaterialMotion, $ionicLoading, restService){
 
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();

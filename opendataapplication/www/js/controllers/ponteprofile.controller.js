@@ -1,4 +1,4 @@
-angular.module('opendataapplication.controllers').controller('ponteProfileController', function($scope, $stateParams){
+angular.module('opendataapplication').controller('ponteProfileController', function($scope, $stateParams){
 
   $scope.place = $stateParams.place;
   $scope.$on('$stateChangeSuccess', function(){

@@ -1,4 +1,4 @@
-angular.module('opendataapplication.controllers').controller('teatroProfileController', function($scope, $stateParams){
+angular.module('opendataapplication').controller('teatroProfileController', function($scope, $stateParams){
 
   $scope.place = $stateParams.place;
   $scope.$on('$stateChangeSuccess', function(){

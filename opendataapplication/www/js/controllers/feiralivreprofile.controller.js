@@ -1,4 +1,4 @@
-angular.module('opendataapplication.controllers').controller('feiraLivreProfileController', function($scope, $stateParams){
+angular.module('opendataapplication').controller('feiraLivreProfileController', function($scope, $stateParams){
   $scope.place = $stateParams.place;
   $scope.place.isExisteObservacao = $scope.place.observacao != null;
 

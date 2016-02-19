@@ -1,4 +1,4 @@
-angular.module('opendataapplication.controllers').controller('hotelProfileController', ['$scope',
+angular.module('opendataapplication').controller('hotelProfileController', ['$scope',
                                                              '$stateParams',
                                                              '$state',
                                                              '$timeout',

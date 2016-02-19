@@ -1,4 +1,4 @@
-angular.module('opendataapplication.controllers').controller('centroDeComprasController', function($scope, $ionicLoading, $timeout, $state, ionicMaterialInk, ionicMaterialMotion, restService){
+angular.module('opendataapplication').controller('centroDeComprasController', function($scope, $ionicLoading, $timeout, $state, ionicMaterialInk, ionicMaterialMotion, restService){
 
   $scope.isExpanded = false;
   $scope.$parent.setExpanded(false);

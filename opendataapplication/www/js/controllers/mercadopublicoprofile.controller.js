@@ -1,4 +1,4 @@
-angular.module('opendataapplication.controllers').controller('mercadoPublicoProfileController', function($scope, $stateParams){
+angular.module('opendataapplication').controller('mercadoPublicoProfileController', function($scope, $stateParams){
 
   $scope.place = $stateParams.place;
 

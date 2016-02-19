@@ -1,4 +1,4 @@
-angular.module('opendataapplication.controllers').controller('baresERestaurantesController', function ($scope, $timeout, $state, $ionicLoading, ionicMaterialInk,
+angular.module('opendataapplication').controller('baresERestaurantesController', function ($scope, $timeout, $state, $ionicLoading, ionicMaterialInk,
     ionicMaterialMotion, $ionicScrollDelegate, restService) {
 
       // $timeout(function () {

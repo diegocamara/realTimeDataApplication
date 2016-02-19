@@ -4,7 +4,7 @@ var modulo = angular.module('opendataapplication');
 modulo.factory('restService', function($http){
 
   //chamar serviço aqui.
-  var webserver = "http://localhost:3000";
+  var webserver = "http://nodejs-blankblank.rhcloud.com";
 
 
   return{

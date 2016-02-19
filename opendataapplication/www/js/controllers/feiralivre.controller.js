@@ -1,4 +1,4 @@
-angular.module('opendataapplication.controllers').controller('feiraslivresController', function($scope, $ionicLoading, $timeout, $state, ionicMaterialInk, ionicMaterialMotion, restService){
+angular.module('opendataapplication').controller('feiraslivresController', function($scope, $ionicLoading, $timeout, $state, ionicMaterialInk, ionicMaterialMotion, restService){
 
   $scope.isExpanded = false;
   $scope.$parent.setExpanded(false);

@@ -1,4 +1,4 @@
-angular.module('opendataapplication.controllers').controller('hoteisController', function($scope, $state, $timeout, $ionicLoading, ionicMaterialInk,
+angular.module('opendataapplication').controller('hoteisController', function($scope, $state, $timeout, $ionicLoading, ionicMaterialInk,
     ionicMaterialMotion, $ionicScrollDelegate, restService){
 
       $scope.$parent.showHeader();

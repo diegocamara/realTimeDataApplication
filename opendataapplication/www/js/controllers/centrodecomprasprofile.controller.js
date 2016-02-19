@@ -1,4 +1,4 @@
-angular.module('opendataapplication.controllers').controller('centroDeComprasProfileController', function($scope,  $stateParams){
+angular.module('opendataapplication').controller('centroDeComprasProfileController', function($scope,  $stateParams){
 
   $scope.place = $stateParams.place;
 

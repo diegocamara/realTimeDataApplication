@@ -1,4 +1,4 @@
-angular.module('opendataapplication.controllers').controller('museuProfileController', function($scope, $stateParams){
+angular.module('opendataapplication').controller('museuProfileController', function($scope, $stateParams){
 
   $scope.place = $stateParams.place;
 
