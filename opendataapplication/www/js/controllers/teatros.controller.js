@@ -18,9 +18,11 @@ angular.module('opendataapplication').controller('teatrosController', function($
         $ionicScrollDelegate.scrollTop();
       }
 
-      $scope.loadMore = function () {
-        caregarTeatros($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService);
-      }
+      $scope.$on('$ionicView.afterEnter', function(){
+        $scope.loadMore = function () {
+          caregarTeatros($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService);
+        }
+      });
 
       $scope.goToProfile = function(p){
         $state.go('mainscreen.teatroProfile', {place: p});

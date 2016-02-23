@@ -17,23 +17,16 @@ angular.module('opendataapplication').controller('feiraslivresController', funct
     $ionicScrollDelegate.scrollTop();
   }
 
-  $scope.loadMore = function () {
-    restService.obterFeirasLivres($scope).then(function(feirasLivres){
-      for (var place = 0; place < feirasLivres.length; place++){
-        feirasLivres[place].isExisteSite = isExisteSite(feirasLivres[place].site);
-        $scope.places.push(feirasLivres[place]);
-      }
 
-      $scope.loadingIndicator = $ionicLoading.hide();
+  $scope.$on('$ionicView.afterEnter', function(){
+    
+    $scope.loadMore = function () {
+      carregarFeirasLivres($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService);
+    }
 
-      $timeout(function () {
-        executarMotionEffect(ionicMaterialMotion, 'animate-blinds');
-        ionicMaterialInk.displayEffect();
-        $scope.loadingIndicator = $ionicLoading.hide();
-      }, 50);
+  });
 
-    });
-  }
+
 
   $scope.goToProfile = function(p){
     $state.go('mainscreen.informacaoFeiraLivre', {place:p});

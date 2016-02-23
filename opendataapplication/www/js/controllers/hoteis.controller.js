@@ -22,9 +22,11 @@ angular.module('opendataapplication').controller('hoteisController', function($s
         $ionicScrollDelegate.scrollTop();
       }
 
-      $scope.loadMore = function () {
-        carregarHoteis($scope, restService, $timeout, ionicMaterialInk, ionicMaterialMotion);
-      }
+      $scope.$on('$ionicView.afterEnter', function(){
+        $scope.loadMore = function () {
+          carregarHoteis($scope, restService, $timeout, ionicMaterialInk, ionicMaterialMotion);
+        }
+      });
 
       $scope.goToProfile = function(p){
         $state.go('mainscreen.hotelProfile', {place: p});

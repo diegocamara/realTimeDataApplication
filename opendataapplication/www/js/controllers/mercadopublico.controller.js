@@ -18,9 +18,11 @@ angular.module('opendataapplication').controller('mercadoPublicoController', fun
         $ionicScrollDelegate.scrollTop();
       }
 
-      $scope.loadMore = function () {
-        caregarMercadosPublicos($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService);
-      }
+      $scope.$on('$ionicView.afterEnter', function(){
+        $scope.loadMore = function () {
+          caregarMercadosPublicos($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService);
+        }
+      });      
 
       $scope.goToProfile = function(p){
         $state.go('mainscreen.mercadopublicoProfile', {place: p});

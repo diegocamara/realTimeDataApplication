@@ -17,9 +17,14 @@ angular.module('opendataapplication').controller('centroDeComprasController', fu
     $ionicScrollDelegate.scrollTop();
   }
 
-  $scope.loadMore = function () {
-    caregarCentroDeCompras($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService);
-  }
+
+  $scope.$on('$ionicView.afterEnter', function(){
+
+    $scope.loadMore = function () {
+      caregarCentroDeCompras($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService);
+    }
+    
+  });
 
   $scope.goToProfile = function(p){
     $state.go('mainscreen.centroDeComprasProfile', {place: p});

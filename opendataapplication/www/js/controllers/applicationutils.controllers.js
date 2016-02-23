@@ -264,6 +264,26 @@ function caregarCentroDeCompras($scope, $ionicLoading, $timeout, ionicMaterialIn
 
 }
 
+function carregarFeirasLivres($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService){
+
+  restService.obterFeirasLivres($scope).then(function(feirasLivres){
+    for (var place = 0; place < feirasLivres.length; place++){
+      feirasLivres[place].isExisteSite = isExisteSite(feirasLivres[place].site);
+      $scope.places.push(feirasLivres[place]);
+    }
+
+    $scope.loadingIndicator = $ionicLoading.hide();
+
+    $timeout(function () {
+      executarMotionEffect(ionicMaterialMotion, 'animate-blinds');
+      ionicMaterialInk.displayEffect();
+      $scope.loadingIndicator = $ionicLoading.hide();
+    }, 50);
+
+  });
+
+}
+
 function caregarMuseus($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService){
 
   restService.obterMuseus($scope).then(function(museus){

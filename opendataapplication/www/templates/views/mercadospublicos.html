@@ -2,7 +2,7 @@
 	<button id="fab" ui-sref="mainscreen.map({categoria:'mercadospublicos'})" class="button button-positive button-fab button-fab-bottom-right" ng-show="isShowFabMapButton">
 			<i class="icon ion-map"></i>
 	</button>
-	<ion-content class="padding" ng-class="{expanded:$scope.isExpanded}">		
+	<ion-content class="padding" ng-class="{expanded:$scope.isExpanded}">
 		<div class="card" ng-if="isExibirMensagemNenhumResultadoEncontrado">
 			<div class="item item-text-wrap">
 				{{mansagemNenhumResultadoEncontrado}}
@@ -16,7 +16,7 @@
 							</div>
 			</ion-item>
 		</ion-list>
-		<div ng-if="!isInSearch">
+		<div ng-if="!isInSearch && loadMore">
 			<ion-infinite-scroll on-infinite="loadMore() " distance="50%" ng-if="moreDataCanBeLoad() " spinner="android">
 			</ion-infinite-scroll>
 		</div>

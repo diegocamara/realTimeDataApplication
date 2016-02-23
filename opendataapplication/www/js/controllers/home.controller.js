@@ -8,14 +8,17 @@ angular.module('opendataapplication').controller('homeController', function($tim
 
     executarLoadingIndicator($scope, $ionicLoading);
 
-    carregarCategorias($scope, restService, $timeout, ionicMaterialInk, ionicMaterialMotion, $ionicLoading);
-
-  $scope.goToCategory = function (local) {
-      $state.go('mainscreen.' + local);
-  }
+    $scope.$on('$ionicView.loaded', function(){
+      carregarCategorias($scope, restService, $timeout, ionicMaterialInk, ionicMaterialMotion, $ionicLoading);
+    });
 
 
-  ionicMaterialInk.displayEffect();
+    $scope.goToCategory = function (local) {
+        $state.go('mainscreen.' + local);
+    }
+
+
+    ionicMaterialInk.displayEffect();
 
 
 })

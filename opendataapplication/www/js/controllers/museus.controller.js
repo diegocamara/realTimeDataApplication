@@ -18,9 +18,11 @@ angular.module('opendataapplication').controller('museusController', function($s
     $ionicScrollDelegate.scrollTop();
   }
 
-  $scope.loadMore = function () {
-    caregarMuseus($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService);
-  }
+  $scope.$on('$ionicView.afterEnter', function(){
+    $scope.loadMore = function () {
+      caregarMuseus($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService);
+    }
+  });
 
   $scope.goToProfile = function(p){
     $state.go('mainscreen.museuProfile', {place: p});

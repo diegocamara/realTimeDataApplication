@@ -18,9 +18,11 @@ angular.module('opendataapplication').controller('pontesController', function($s
         $ionicScrollDelegate.scrollTop();
       }
 
-      $scope.loadMore = function () {
-        caregarPontes($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService);
-      }
+      $scope.$on('$ionicView.afterEnter', function(){
+        $scope.loadMore = function () {
+          caregarPontes($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService);
+        }
+      });
 
       $scope.goToProfile = function(p){
         $state.go('mainscreen.ponteProfile', {place: p});
