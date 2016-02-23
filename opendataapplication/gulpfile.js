@@ -10,7 +10,8 @@ var inject = require('gulp-inject');
 
 var paths = {
   sass: ['./scss/**/*.scss'],
-  javascript: ['./www/js/controllers/*.js']
+  javascript: ['./www/js/**/*.js',
+               '!./www/js/app.js']
 };
 
 gulp.task('default', ['sass', 'index']);
@@ -29,6 +30,7 @@ gulp.task('sass', function(done) {
 });
 
 gulp.task('index', function(){
+
      return gulp.src('./www/index.html')
          .pipe(inject(
              gulp.src(paths.javascript,
