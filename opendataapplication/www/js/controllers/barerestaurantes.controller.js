@@ -18,7 +18,7 @@ angular.module('opendataapplication').controller('baresERestaurantesController',
       $ionicScrollDelegate.scrollTop();
     }
 
-    $scope.$on('$ionicView.afterEnter', function(){
+    $scope.$on('$ionicView.afterEnter', function(){      
 
       $scope.loadMore = function () {
           carregarBarERes($scope, restService, $timeout, ionicMaterialInk, ionicMaterialMotion);
@@ -26,7 +26,7 @@ angular.module('opendataapplication').controller('baresERestaurantesController',
 
     });
 
-    
+
     $scope.goToProfile = function(p){
       $state.go('mainscreen.restauranteProfile', {place: p});
     }

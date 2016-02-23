@@ -19,7 +19,7 @@ angular.module('opendataapplication').controller('feiraslivresController', funct
 
 
   $scope.$on('$ionicView.afterEnter', function(){
-    
+
     $scope.loadMore = function () {
       carregarFeirasLivres($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService);
     }

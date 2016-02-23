@@ -20,9 +20,9 @@ angular.module('opendataapplication').controller('mercadoPublicoController', fun
 
       $scope.$on('$ionicView.afterEnter', function(){
         $scope.loadMore = function () {
-          caregarMercadosPublicos($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService);
+          carregarMercadosPublicos($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService);
         }
-      });      
+      });
 
       $scope.goToProfile = function(p){
         $state.go('mainscreen.mercadopublicoProfile', {place: p});

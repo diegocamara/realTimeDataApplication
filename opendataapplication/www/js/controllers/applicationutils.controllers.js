@@ -191,7 +191,7 @@ function carregarBarERes($scope, restService, $timeout, ionicMaterialInk, ionicM
 
     barERelDataModel.then(function (response) {
         carregarLugaresComVelocidade($scope, $timeout, response, 0, ionicMaterialInk, ionicMaterialMotion);
-    })
+    });
 }
 
 function carregarLugaresComVelocidade($scope, $timeout, response, velocidade, ionicMaterialInk, ionicMaterialMotion) {
@@ -201,20 +201,25 @@ function carregarLugaresComVelocidade($scope, $timeout, response, velocidade, io
 }
 
 function carregarLugares($scope, $timeout, response, place, velocidade, ionicMaterialInk, ionicMaterialMotion) {
-    $timeout(function () {
-        response[place].isExisteSite = isExisteSite(response[place].site);
-        $scope.places.push(response[place]);
-        place++;
-        if (place < response.length) {
-            carregarLugares($scope, $timeout, response, place, velocidade,ionicMaterialInk, ionicMaterialMotion);
-        } else {
-            $scope.page += 1;
-            $scope.$broadcast('scroll.infiniteScrollComplete');
 
-            ionicMaterialMotion.fadeSlideIn();
-            ionicMaterialInk.displayEffect();
+    $timeout(function () {
+        if(response != undefined){
+          response[place].isExisteSite = isExisteSite(response[place].site);
+          $scope.places.push(response[place]);
+          place++;
+          if (place < response.length) {
+              carregarLugares($scope, $timeout, response, place, velocidade,ionicMaterialInk, ionicMaterialMotion);
+          } else {
+              $scope.page += 1;
+              $scope.$broadcast('scroll.infiniteScrollComplete');
+
+              ionicMaterialMotion.fadeSlideIn();
+              ionicMaterialInk.displayEffect();
+          }
         }
     }, velocidade);
+
+
 }
 
 function carregarHoteis($scope, restService, $timeout, ionicMaterialInk, ionicMaterialMotion){
@@ -243,72 +248,14 @@ function carregarHoteis($scope, restService, $timeout, ionicMaterialInk, ionicMa
 
 }
 
-function caregarCentroDeCompras($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService){
+function carregarCentroDeCompras($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService){
 
-  restService.obterCentrosDeCompras().then(function(centrosDeCompras){
-    for (var place = 0; place < centrosDeCompras.length; place++){
-      centrosDeCompras[place].isExisteSite = isExisteSite(centrosDeCompras[place].site);
-      $scope.places.push(centrosDeCompras[place]);
-    }
+  restService.obterCentrosDeCompras($scope).then(function(centrosDeCompras){
+    if(centrosDeCompras != undefined){
 
-    $scope.loadingIndicator = $ionicLoading.hide();
-
-    $timeout(function () {
-      executarMotionEffect(ionicMaterialMotion, 'animate-fade-slide-in-right');
-      ionicMaterialInk.displayEffect();
-      $scope.loadingIndicator = $ionicLoading.hide();
-
-    }, 50);
-
-  });
-
-}
-
-function carregarFeirasLivres($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService){
-
-  restService.obterFeirasLivres($scope).then(function(feirasLivres){
-    for (var place = 0; place < feirasLivres.length; place++){
-      feirasLivres[place].isExisteSite = isExisteSite(feirasLivres[place].site);
-      $scope.places.push(feirasLivres[place]);
-    }
-
-    $scope.loadingIndicator = $ionicLoading.hide();
-
-    $timeout(function () {
-      executarMotionEffect(ionicMaterialMotion, 'animate-blinds');
-      ionicMaterialInk.displayEffect();
-      $scope.loadingIndicator = $ionicLoading.hide();
-    }, 50);
-
-  });
-
-}
-
-function caregarMuseus($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService){
-
-  restService.obterMuseus($scope).then(function(museus){
-    for (var place = 0; place < museus.length; place++){
-      museus[place].isExisteSite = isExisteSite(museus[place].site);
-      $scope.places.push(museus[place]);
-    }
-
-    $scope.loadingIndicator = $ionicLoading.hide();
-
-    $timeout(function () {
-      executarMotionEffect(ionicMaterialMotion, 'animate-fade-slide-in-right');
-      ionicMaterialInk.displayEffect();
-      $scope.loadingIndicator = $ionicLoading.hide();
-
-    }, 50);
-
-  });
-
-}
-
-function caregarMercadosPublicos($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService){
-    restService.obterMercadosPublicos($scope).then(function(mercadosPublicos){
-      for (var place = 0; place < mercadosPublicos.length; place++){
-        $scope.places.push(mercadosPublicos[place]);
+      for (var place = 0; place < centrosDeCompras.length; place++){
+        centrosDeCompras[place].isExisteSite = isExisteSite(centrosDeCompras[place].site);
+        $scope.places.push(centrosDeCompras[place]);
       }
 
       $scope.loadingIndicator = $ionicLoading.hide();
@@ -320,42 +267,130 @@ function caregarMercadosPublicos($scope, $ionicLoading, $timeout, ionicMaterialI
 
       }, 50);
 
+   }
+
+  });
+
+}
+
+function carregarFeirasLivres($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService){
+
+  restService.obterFeirasLivres($scope).then(function(feirasLivres){
+
+    if(feirasLivres != undefined){
+
+      for (var place = 0; place < feirasLivres.length; place++){
+        feirasLivres[place].isExisteSite = isExisteSite(feirasLivres[place].site);
+        $scope.places.push(feirasLivres[place]);
+      }
+
+      $scope.loadingIndicator = $ionicLoading.hide();
+
+      $timeout(function () {
+        executarMotionEffect(ionicMaterialMotion, 'animate-blinds');
+        ionicMaterialInk.displayEffect();
+        $scope.loadingIndicator = $ionicLoading.hide();
+      }, 50);
+
+
+    }
+
+  });
+
+}
+
+function carregarMuseus($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService){
+
+  restService.obterMuseus($scope).then(function(museus){
+
+    if(museus != undefined){
+
+      for (var place = 0; place < museus.length; place++){
+        museus[place].isExisteSite = isExisteSite(museus[place].site);
+        $scope.places.push(museus[place]);
+      }
+
+      $scope.loadingIndicator = $ionicLoading.hide();
+
+      $timeout(function () {
+        executarMotionEffect(ionicMaterialMotion, 'animate-fade-slide-in-right');
+        ionicMaterialInk.displayEffect();
+        $scope.loadingIndicator = $ionicLoading.hide();
+
+      }, 50);
+
+  }
+
+  });
+
+}
+
+function carregarMercadosPublicos($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService){
+    restService.obterMercadosPublicos($scope).then(function(mercadosPublicos){
+
+      if(mercadosPublicos != undefined){
+
+        for (var place = 0; place < mercadosPublicos.length; place++){
+          $scope.places.push(mercadosPublicos[place]);
+        }
+
+        $scope.loadingIndicator = $ionicLoading.hide();
+
+        $timeout(function () {
+          executarMotionEffect(ionicMaterialMotion, 'animate-fade-slide-in-right');
+          ionicMaterialInk.displayEffect();
+          $scope.loadingIndicator = $ionicLoading.hide();
+
+        }, 50);
+
+      }
+
     });
 }
 
-function caregarPontes($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService){
+function carregarPontes($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService){
   restService.obterPontes($scope).then(function(pontes){
-    for (var place = 0; place < pontes.length; place++){
-      $scope.places.push(pontes[place]);
-    }
 
-    $scope.loadingIndicator = $ionicLoading.hide();
+    if(pontes != null){
 
-    $timeout(function () {
-      executarMotionEffect(ionicMaterialMotion, 'animate-fade-slide-in-right');
-      ionicMaterialInk.displayEffect();
+      for (var place = 0; place < pontes.length; place++){
+        $scope.places.push(pontes[place]);
+      }
+
       $scope.loadingIndicator = $ionicLoading.hide();
 
-    }, 50);
+      $timeout(function () {
+        executarMotionEffect(ionicMaterialMotion, 'animate-fade-slide-in-right');
+        ionicMaterialInk.displayEffect();
+        $scope.loadingIndicator = $ionicLoading.hide();
+
+      }, 50);
+
+    }
 
   });
 }
 
-function caregarTeatros($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService){
+function carregarTeatros($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService){
 
   restService.obterTeatros($scope).then(function(teatros){
-    for (var place = 0; place < teatros.length; place++){
-      $scope.places.push(teatros[place]);
-    }
 
-    $scope.loadingIndicator = $ionicLoading.hide();
+    if(teatros != undefined){
 
-    $timeout(function () {
-      executarMotionEffect(ionicMaterialMotion, 'animate-fade-slide-in-right');
-      ionicMaterialInk.displayEffect();
+      for (var place = 0; place < teatros.length; place++){
+        $scope.places.push(teatros[place]);
+      }
+
       $scope.loadingIndicator = $ionicLoading.hide();
 
-    }, 50);
+      $timeout(function () {
+        executarMotionEffect(ionicMaterialMotion, 'animate-fade-slide-in-right');
+        ionicMaterialInk.displayEffect();
+        $scope.loadingIndicator = $ionicLoading.hide();
+
+      }, 50);
+
+    }
 
   });
 

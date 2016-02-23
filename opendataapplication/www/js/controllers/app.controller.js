@@ -1,4 +1,4 @@
-angular.module('opendataapplication').controller('appController', function($timeout, $rootScope, $scope, $http, ionicMaterialInk, ionicMaterialMotion, $ionicHistory){
+angular.module('opendataapplication').controller('appController', function($timeout, $rootScope, $scope, $http, ionicMaterialInk, ionicMaterialMotion, $ionicHistory, $ionicPopup, $state){
 
    $scope.isExpanded = false;
    $scope.hasHeaderFabLeft = false;
@@ -79,5 +79,29 @@ angular.module('opendataapplication').controller('appController', function($time
             fabs[0].remove();
         }
     };
+
+    $scope.showPopup = function(){
+
+      var alertPopup = $ionicPopup.alert({
+        title: 'Ops!',
+        template: 'Parece que houve um proplema com os dados, tente novamente mais tarde.'
+      });
+
+      alertPopup.then(function(res){
+        $ionicHistory.clearCache().then(function(){
+          $ionicHistory.goBack();
+        });        
+      });
+
+
+
+
+      $timeout(function() {
+           ionicMaterialInk.displayEffect();
+       }, 0);
+
+
+
+    }
 
 })

@@ -4,7 +4,7 @@ var modulo = angular.module('opendataapplication');
 modulo.factory('restService', function($http){
 
   //chamar serviço aqui.
-  var webserver = "http://nodejs-blankblank.rhcloud.com";
+  var webserver = "http://nodejs-blankblank.rhcloud.co";
 
 
   return{
@@ -58,7 +58,7 @@ modulo.factory('restService', function($http){
         $scope.numeroDeRegistros = response.data.numeroDeRegistros
         return response.data.resultado;
       },function(response){
-        alert('error ao consultar bares e restaurantes!');
+        $scope.$parent.showPopup();
       });
 
     },
@@ -71,7 +71,7 @@ modulo.factory('restService', function($http){
         $scope.numeroDeRegistros = response.data.numeroDeRegistros
         return response.data.resultado;
       }, function(response){
-        alert('Erro ao consultar bares e restaurantes!');
+        $scope.$parent.showPopup();
       });
 
     },
@@ -84,7 +84,7 @@ modulo.factory('restService', function($http){
         $scope.numeroDeRegistros = response.data.numeroDeRegistros
         return response.data.resultado;
       },function(response){
-        alert('error ao consultar hoteis!');
+        $scope.$parent.showPopup();
       });
 
     },
@@ -96,18 +96,18 @@ modulo.factory('restService', function($http){
         $scope.numeroDeRegistros = response.data.numeroDeRegistros
         return response.data.resultado;
       }, function(response){
-        alert('Erro ao consultar hoteis!');
+        $scope.$parent.showPopup();
       });
 
     },
 
-    obterCentrosDeCompras: function(){
+    obterCentrosDeCompras: function($scope){
 
       var url = webserver + '/getcentrosdecompras';
       return $http.get(url).then(function(response){
         return response.data.resultado;
       }, function(response){
-        alert('Erro ao consultar centros de compras!');
+        $scope.$parent.showPopup();
       });
 
     },
@@ -118,7 +118,7 @@ modulo.factory('restService', function($http){
         $scope.numeroDeRegistros = response.data.numeroDeRegistros;
         return response.data.resultado;
       },function(response){
-        alert('Erro ao consultar feiras livres!')
+        $scope.$parent.showPopup();
       });
     },
 
@@ -128,7 +128,7 @@ modulo.factory('restService', function($http){
         $scope.numeroDeRegistros = response.data.numeroDeRegistros;
         return response.data.resultado;
       }, function(response){
-        alert('Erro ao consultar museus!');
+        $scope.$parent.showPopup();
       });
     },
 
@@ -138,7 +138,7 @@ modulo.factory('restService', function($http){
         $scope.numeroDeRegistros = response.data.numeroDeRegistros;
         return response.data.resultado;
       }, function(response){
-        alert('Erro ao consultar mercados publicos!');
+        $scope.$parent.showPopup();
       });
     },
 
@@ -148,7 +148,7 @@ modulo.factory('restService', function($http){
         $scope.numeroDeRegistros = response.data.numeroDeRegistros;
         return response.data.resultado;
       }, function(response){
-        alert('Erro ao consultar pontes!');
+        $scope.$parent.showPopup();
       });
     },
 
@@ -158,7 +158,7 @@ modulo.factory('restService', function($http){
         $scope.numeroDeRegistros = response.data.numeroDeRegistros;
         return response.data.resultado;
       }, function(response){
-        alert('Erro ao consultar teatros!');
+        $scope.$parent.showPopup();
       });
     },
 
@@ -200,7 +200,7 @@ modulo.factory('restService', function($http){
       return $http.get(url).then(function(response){
         return response.data;
       }, function(response){
-        alert('Erro ao consultar os marcadores!');
+        $scope.$parent.showPopup();
       })
     }
 

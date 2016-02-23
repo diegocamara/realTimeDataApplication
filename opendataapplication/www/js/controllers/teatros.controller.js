@@ -20,7 +20,7 @@ angular.module('opendataapplication').controller('teatrosController', function($
 
       $scope.$on('$ionicView.afterEnter', function(){
         $scope.loadMore = function () {
-          caregarTeatros($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService);
+          carregarTeatros($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService);
         }
       });
 

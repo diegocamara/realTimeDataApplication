@@ -20,7 +20,7 @@ angular.module('opendataapplication').controller('pontesController', function($s
 
       $scope.$on('$ionicView.afterEnter', function(){
         $scope.loadMore = function () {
-          caregarPontes($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService);
+          carregarPontes($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService);
         }
       });
 

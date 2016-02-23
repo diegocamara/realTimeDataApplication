@@ -21,9 +21,9 @@ angular.module('opendataapplication').controller('centroDeComprasController', fu
   $scope.$on('$ionicView.afterEnter', function(){
 
     $scope.loadMore = function () {
-      caregarCentroDeCompras($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService);
+      carregarCentroDeCompras($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService);
     }
-    
+
   });
 
   $scope.goToProfile = function(p){

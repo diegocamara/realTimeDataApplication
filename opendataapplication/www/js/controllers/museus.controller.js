@@ -20,7 +20,7 @@ angular.module('opendataapplication').controller('museusController', function($s
 
   $scope.$on('$ionicView.afterEnter', function(){
     $scope.loadMore = function () {
-      caregarMuseus($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService);
+      carregarMuseus($scope, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, restService);
     }
   });
 
