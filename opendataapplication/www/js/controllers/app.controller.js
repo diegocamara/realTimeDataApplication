@@ -90,10 +90,8 @@ angular.module('opendataapplication').controller('appController', function($time
       alertPopup.then(function(res){
         $ionicHistory.clearCache().then(function(){
           $ionicHistory.goBack();
-        });        
+        });
       });
-
-
 
 
       $timeout(function() {

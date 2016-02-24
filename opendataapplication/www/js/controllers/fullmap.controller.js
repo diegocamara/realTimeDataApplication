@@ -1,24 +1,29 @@
-angular.module('opendataapplication').controller('fullmapController', function($scope, $stateParams, $timeout, $state){
+angular.module('opendataapplication').controller('fullmapController', function($scope, $stateParams, $timeout, $state, $ionicPlatform){
 
-  $scope.place = $stateParams.place;  
+  $scope.place = $stateParams.place;
 
-  $timeout(function () {
-    $scope.$parent.hideHeader();
-  }, 10);
+
+    $scope.$parent.clearFabs();
+    $timeout(function() {
+        $scope.$parent.hideHeader();
+    }, 0);
 
   $scope.goToProfile = function(p){
     $state.go('mainscreen.centroDeComprasProfile', {place:p});
-    $timeout(function () {
-      $scope.$parent.showHeader();
-    }, 10);
   }
+
+  $scope.$on('$ionicView.beforeLeave', function(){
+    $scope.$parent.showHeader();
+    $scope.$parent.clearFabs();
+  });
 
   $scope.$on('$stateChangeSuccess', function(){
 
     $scope.map = {
       defaults: {
       tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
-      zoomControlPosition: 'bottomright'
+      zoomControlPosition: 'bottomright',
+      scrollWheelZoom: true
     },
     markers : {},
     events: {
