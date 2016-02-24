@@ -2,8 +2,8 @@
   "name": "opendataapplication",
   "app_id": "",
   "gulpStartupTasks": [
-     "index",
-     "watch"
+    "index",
+    "watch"
   ],
   "browsers": [
     {
