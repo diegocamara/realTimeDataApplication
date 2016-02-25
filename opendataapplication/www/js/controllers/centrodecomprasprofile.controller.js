@@ -25,7 +25,7 @@ angular.module('opendataapplication').controller('centroDeComprasProfileControll
     }};
 
     $scope.$on('leafletDirectiveMap.map.click', function(event){
-      $state.go('mainscreen.fullmap', {place: $scope.place});
+      $state.go('mainscreen.fullmap', {place: $scope.place, categoria: 'centrosdecompras'});
     });
 
     $scope.map.center = {
@@ -34,10 +34,22 @@ angular.module('opendataapplication').controller('centroDeComprasProfileControll
       zoom: 15
     }
 
+    var iconColor = getIconColor('centrosdecompras');
+
+    var icon = iconColor.icon;
+    var makerColor = iconColor.color;
+
+    awesomeMarkerIcon = {
+            type: 'awesomeMarker',
+            icon: icon,
+            markerColor: makerColor
+        }
+
     $scope.map.markers = [{
       lat: $scope.place.latitude,
       lng: $scope.place.longitude,
       message: $scope.place.nome,
+      icon: awesomeMarkerIcon,
       focus: true,
       draggable: false
     }]

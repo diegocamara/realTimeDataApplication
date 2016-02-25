@@ -8,6 +8,8 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
   // Desabilitando jsScrolling
   $ionicConfigProvider.scrolling.jsScrolling(false);
 
+  $ionicConfigProvider.navBar.alignTitle('center');
+
   $stateProvider.state('mainscreen',{
       url: '/mainscreen',
       templateUrl: 'templates/views/mainscreen.html',
@@ -225,7 +227,8 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
     .state('mainscreen.fullmap',{
       url: '/fullmap',
       params:{
-        place: null
+        place: null,
+        categoria: null
       },
       views:{
         'menucontentview': {

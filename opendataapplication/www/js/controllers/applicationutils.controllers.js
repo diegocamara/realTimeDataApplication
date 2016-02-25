@@ -422,3 +422,52 @@ function isExisteSite(str){
 function redirecionar(path) {
     $location.path(path);
 };
+
+
+
+function getIconColor(categoria){
+
+  var icon = 'icon ';
+  var color;
+
+  switch (categoria) {
+    case 'hoteis':{
+      icon += 'ion-android-star-outline';
+      color = 'blue'
+      break;
+    }
+    case 'centrosdecompras':{
+      icon += 'ion-bag';
+      color = 'purple'
+      break;
+    }
+    case 'feiraslivres':{
+      icon += 'ion-bag';
+      color = 'orange'
+      break;
+    }
+    case 'museus':{
+      icon += 'ion-ios-navigate'
+      color = 'red'
+      break;
+    }
+    case 'mercadospublicos':{
+      icon += 'ion-bag';
+      color = 'orange'
+      break;
+    }
+    case 'pontes':{
+      icon += 'ion-ios-navigate';
+      color = 'orange'
+      break;
+    }
+    case 'teatros':{
+      icon += 'ion-ios-navigate';
+      color = 'cadetblue'
+      break;
+    }
+  }
+
+  return {icon: icon, color: color};
+
+}

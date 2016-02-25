@@ -46,10 +46,23 @@ angular.module('opendataapplication').controller('mapController', ['$scope',
             for (var place = 0; place < markers.length; place++){
               if(markers[place].latitude != null && markers[place].longitude != null){
 
+
+                var iconColor = getIconColor(categoria);
+
+                var icon = iconColor.icon;
+                var makerColor = iconColor.color;
+
+                awesomeMarkerIcon = {
+                        type: 'awesomeMarker',
+                        icon: icon,
+                        markerColor: makerColor
+                    }
+
                 var marker = {
                     lat: markers[place].latitude,
                     lng: markers[place].longitude,
                     message: markers[place].nome,
+                    icon: awesomeMarkerIcon,
                     draggable: false
                 }
 
@@ -92,12 +105,11 @@ angular.module('opendataapplication').controller('mapController', ['$scope',
             }
 
 
-
-
             awesomeMarkerIcon = {
                     type: 'awesomeMarker',
-                    icon: 'icon ion-social-tux',
-                    markerColor: 'red'
+                    icon: 'icon ion-ios-navigate',
+                    markerColor: 'red',
+
                 }
 
 
@@ -111,6 +123,7 @@ angular.module('opendataapplication').controller('mapController', ['$scope',
                         getLabelScope: function() { return $scope },
                         focus: true,
                         icon: awesomeMarkerIcon,
+                        zIndexOffset: 0,
                         label: {
                             message: '<button ng-click="var2 = var2 + 1">Say Hello</button>',
                             options: {
@@ -132,14 +145,7 @@ angular.module('opendataapplication').controller('mapController', ['$scope',
         }
 
 
-
-
-
-
   });
-
-
-
 
 
 }])

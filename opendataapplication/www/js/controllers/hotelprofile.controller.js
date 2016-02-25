@@ -35,11 +35,23 @@ angular.module('opendataapplication').controller('hotelProfileController', ['$sc
           zoom: 15
         }
 
+        var iconColor = getIconColor('hoteis');
+
+        var icon = iconColor.icon;
+        var makerColor = iconColor.color;
+
+        awesomeMarkerIcon = {
+                type: 'awesomeMarker',
+                icon: icon,
+                markerColor: makerColor
+            }
+
         $scope.map.markers = [{
           lat: $scope.place.latitude,
           lng: $scope.place.longitude,
           message: $scope.place.nome,
           focus: true,
+          icon: awesomeMarkerIcon,
           draggable: false
         }]
 
