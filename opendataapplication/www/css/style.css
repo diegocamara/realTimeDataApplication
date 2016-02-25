@@ -160,6 +160,11 @@ bar.bar-custom, bar.bar-custom .bar.bar-positive, .bar-custom .nav-bar-block ion
     -webkit-user-select: auto;
 }
 
+.centerTitle{
+  left: 0px !important;
+  text-align: center !important;
+  width:auto !important;
+}
 
 /*
 body {

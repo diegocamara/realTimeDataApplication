@@ -1,4 +1,17 @@
 <ion-side-menus enable-menu-with-back-views="true">
+  <style media="screen">
+    .title-center{
+      left: 0px !important;
+      right: 0px !important;
+      text-align: center !important;
+      width:auto !important;
+    }
+    .header-item{
+      -webkit-transform: translateY(-23%) !important;
+      -ms-transform: translateY(-23%) !important;
+       transform: translateY(-23%) !important;
+    }
+  </style>
     <ion-side-menu-content>
         <ion-nav-bar class="nav-title-slide-ios7 bar-positive" ng-class="{expanded: isExpanded, 'has-header-fab-left': hasHeaderFabLeft, 'has-header-fab-right': hasHeaderFabRight, 'bar-custom':true}">
           <ion-nav-back-button class="no-text" ng-click>
