@@ -1,4 +1,19 @@
-angular.module('opendataapplication').controller('homeController', function($timeout, $scope, $state, $http, ionicMaterialInk, ionicMaterialMotion, $ionicLoading, restService){
+angular.module('opendataapplication').controller('homeController', function($timeout, $scope, $state,
+                                                                            $http, ionicMaterialInk,
+                                                                            ionicMaterialMotion, $ionicLoading,
+                                                                            $ionicNavBarDelegate, restService){
+
+
+                  $scope.$on('$ionicView.afterEnter', function(){
+
+                    $timeout(function () {
+                      $ionicNavBarDelegate.align('center');
+                    });
+
+                  });
+
+
+
 
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();

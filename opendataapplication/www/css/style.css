@@ -147,9 +147,9 @@ ion-md-input input:focus ~ .md-highlight {
 
 
 bar.bar-custom, bar.bar-custom .bar.bar-positive, .bar-custom .nav-bar-block ion-header-bar {
-        border-color: #009688;
-        background-color: #009688;
-        background-image: linear-gradient(0deg, #009688, #009688 50%, transparent 50%);
+        border-color: #303F9F;
+        background-color: #303F9F;
+        background-image: linear-gradient(0deg, #303F9F, #303F9F 50%, transparent 50%);
 }
 
 .scroll, .angular-leaflet-map {
