@@ -1,19 +1,10 @@
 angular.module('opendataapplication').controller('fullmapController', function($scope, $stateParams, $timeout, $state){
 
-  $scope.place = $stateParams.place;
-  $scope.isShowFabMapButton = false;
-
-  moveFab($scope, $timeout, 'fab');
-  motionFab($scope, $timeout, 'motion');
+  $scope.place = $stateParams.place;  
 
   $timeout(function () {
     $scope.$parent.hideHeader();
   }, 10);
-
-  $scope.$on('$ionicView.afterEnter', function(){
-    $scope.isShowFabMapButton = true;
-    $scope.motionFab('motion');
-  });
 
   $scope.goToProfile = function(p){
     $state.go('mainscreen.centroDeComprasProfile', {place:p});

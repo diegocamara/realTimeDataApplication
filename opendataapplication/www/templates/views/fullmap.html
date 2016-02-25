@@ -1,12 +1,36 @@
 <ion-view title="Map">
-  <button id="fab" ng-click="goToProfile(place)" class="button button-positive button-fab button-fab-bottom-left" ng-show="isShowFabMapButton">
-			<i class="icon ion-chevron-left"></i>
-	</button>
   <ion-content>
-    <leaflet id="map" defaults="map.defaults"
-		 				 center="map.center" markers="map.markers"
-						 width="100%"
-						 height="100%"
-						 ng-if="map.center"></leaflet>
+         <style media="screen">
+         		#map-content {
+         			width: 100%;
+         			height: 100%;;
+         			position: relative;
+         			border: 1px solid black;
+         		}
+
+         		#map {
+         			width: 100%;
+         			height: 100%;
+         		}
+
+         		#button-content {
+         			position: absolute;
+         			bottom: 2vh;
+         			width: 97%;
+         			border:4px;
+         		}
+         	</style>
+         <div id="map-content">
+            <leaflet id="map" defaults="map.defaults"
+                     center="map.center" markers="map.markers"
+                     width="100%"
+                     height="100%"
+                     ng-if="map.center"></leaflet>
+           <div id="button-content">
+           		<button class="button button-icon icon ion-arrow-left-b" ng-click="goToProfile(place)" style="float:left;margin:8px;padding-left:17px;padding-right:17px;"></button>
+           </div>
+         </div>
+
+
   </ion-content>
 </ion-view>
