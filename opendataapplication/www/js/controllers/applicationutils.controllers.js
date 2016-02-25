@@ -3,14 +3,14 @@ function moveFab($scope, $timeout, fabId){
   $scope.fab = document.getElementById(fabId);
 
   $scope.moveFab = function(dir) {
-      fab.style.display = 'none';
-      fab.className = fab.className.replace('button-fab-top-left', '');
-      fab.className = fab.className.replace('button-fab-top-right', '');
-      fab.className = fab.className.replace('button-fab-bottom-left', '');
-      fab.className = fab.className.replace('button-fab-bottom-right', '');
-      fab.className += ' button-fab-' + dir;
+      $scope.fab.style.display = 'none';
+      $scope.fab.className = $scope.fab.className.replace('button-fab-top-left', '');
+      $scope.fab.className = $scope.fab.className.replace('button-fab-top-right', '');
+      $scope.fab.className = $scope.fab.className.replace('button-fab-bottom-left', '');
+      $scope.fab.className = $scope.fab.className.replace('button-fab-bottom-right', '');
+      $scope.fab.className += ' button-fab-' + dir;
       $timeout(function() {
-          fab.style.display = 'block';
+          $scope.fab.style.display = 'block';
       }, 100);
   };
 }
@@ -23,14 +23,14 @@ function motionFab($scope, $timeout, type){
 
       function toggleMotionClass (theClass) {
           $timeout(function() {
-              fab.classList.toggle(theClass);
+              $scope.fab.classList.toggle(theClass);
           }, 300);
       }
 
       for (var i = 0; i < classes.length; i++) {
-          fab.classList.toggle(classes[i]);
+          $scope.fab.classList.toggle(classes[i]);
 
-          shouldAnimate = fab.classList.contains(classes[i]);
+          shouldAnimate = $scope.fab.classList.contains(classes[i]);
           if (shouldAnimate) {
               (toggleMotionClass)(classes[i]);
           }

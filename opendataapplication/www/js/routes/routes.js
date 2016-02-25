@@ -220,6 +220,19 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
           controller: 'teatroProfileController'
         }
       }
+    })
+
+    .state('mainscreen.fullmap',{
+      url: '/fullmap',
+      params:{
+        place: null
+      },
+      views:{
+        'menucontentview': {
+          templateUrl: 'templates/views/fullmap.html',
+          controller: 'fullmapController'
+        }
+      }
     });
 
     $urlRouterProvider.otherwise('mainscreen/home');

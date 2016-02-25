@@ -1,4 +1,4 @@
-angular.module('opendataapplication').controller('centroDeComprasProfileController', function($scope,  $stateParams){
+angular.module('opendataapplication').controller('centroDeComprasProfileController', function($scope, $state,  $stateParams, $timeout){
 
   $scope.place = $stateParams.place;
 
@@ -12,7 +12,9 @@ angular.module('opendataapplication').controller('centroDeComprasProfileControll
       defaults: {
       tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
       maxZoom: 15,
-      zoomControlPosition: 'bottomleft'
+      dragging: false,
+      zoomControl: false,
+      tap: false
     },
     markers : {},
     events: {
@@ -21,6 +23,10 @@ angular.module('opendataapplication').controller('centroDeComprasProfileControll
         logic: 'emit'
       }
     }};
+
+    $scope.$on('leafletDirectiveMap.map.click', function(event){
+      $state.go('mainscreen.fullmap', {place: $scope.place});
+    });
 
     $scope.map.center = {
       lat: $scope.place.latitude,
