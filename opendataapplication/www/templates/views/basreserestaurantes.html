@@ -1,32 +1,22 @@
 <ion-view view-title="Bares e Restaurantes">
   <search-bar ng-model="search"></search-bar>
-    <ion-content class="padding" ng-class="{expanded:$scope.isExpanded}">
-      <style>
-        .list .item.item-accordion {
-              line-height: 20px;
-              padding-top: 0;
-              padding-bottom: 0;
-              transition: 0.09s all linear;
-            }
-        .list .item.item-accordion.ng-hide {
-              line-height: 0px;
-            }
-        .list .item.item-accordion.ng-hide-add,
-        .list .item.item-accordion.ng-hide-remove {
-              display: block !important;
-            }
-      </style>
+    <ion-content class="dark-bg" ng-class="{expanded:$scope.isExpanded}">
       <div class="card" ng-if="isExibirMensagemNenhumResultadoEncontrado">
         <div class="item item-text-wrap">
           {{mansagemNenhumResultadoEncontrado}}
         </div>
       </div>
       <ion-list id="listaDeLugares" ng-repeat="place in places" class="animate-fade-slide-in">
-        <ion-item nav-clear menu-close class="ink" ng-click="goToProfile(place)" style="border-bottom: 2px outset #B6B6B6;">
-                <div>
-                  <h2><b>{{place.nome}}</b></h2>
-                </div>
-        </ion-item>
+        <ion-item nav-clear menu-close class="ink item-text-wrap" ng-click="goToProfile(place)" style="height:15vh; border-bottom: 2px outset #B6B6B6;">
+  							<div class="row padding">
+  								<div class="col-80" style="text-align:left;">
+  									<p class="item-text-wrap" style="font-size:23px;color:white;">{{place.nome}}</p>
+  								</div>
+  								<div class="col-20" style="text-align:right;">
+  									<a class="button-clear ion-chevron-right larger" style="width:100px;"></a>
+  								</div>
+  							</div>
+  			</ion-item>
       </ion-list>
         <div  ng-if="!isInSearch && loadMore">
           <ion-infinite-scroll on-infinite="loadMore() " distance="30%" ng-if="moreDataCanBeLoad() " spinner="android">
