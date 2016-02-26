@@ -1,6 +1,6 @@
 var modulo = angular.module('opendataapplication');
 
-modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicConfigProvider){
+modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicConfigProvider, $ionicNativeTransitionsProvider){
 
   // Desabilitando log.
   $logProvider.debugEnabled(false);
@@ -10,8 +10,12 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
 
   $ionicConfigProvider.navBar.alignTitle('center');
 
+
+  $ionicNativeTransitionsProvider.enable(false);
+
   $stateProvider.state('mainscreen',{
       url: '/mainscreen',
+      nativeTransitions: null,
       templateUrl: 'templates/views/mainscreen.html',
       abstract: true,
       controller: 'appController'
@@ -19,6 +23,7 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
 
     .state('mainscreen.home', {
       url: '/home',
+      nativeTransitions: null,
       views: {
         'menucontentview': {
           templateUrl: 'templates/views/home.html',
@@ -29,6 +34,7 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
 
     .state('mainscreen.map', {
       url: '/map',
+      nativeTransitions: null,
       params:{
         categoria: ''
       },
@@ -42,6 +48,7 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
 
     .state('mainscreen.bareres', {
       url: '/bareres',
+      nativeTransitions: null,
       views:{
         'menucontentview':{
           templateUrl: 'templates/views/basreserestaurantes.html',
@@ -52,6 +59,7 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
 
     .state('mainscreen.restauranteProfile',{
       url: '/restauranteProfile',
+      nativeTransitions: null,
       params:{
         place: null
       },
@@ -65,6 +73,7 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
 
     .state('mainscreen.centcomp',{
       url: '/centrosdecompras',
+      nativeTransitions: null,
       views:{
         'menucontentview':{
           templateUrl: 'templates/views/centrosdecompras.html',
@@ -75,6 +84,11 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
 
     .state('mainscreen.centroDeComprasProfile', {
       url: '/centroDeComprasProfile',
+      nativeTransitions: {
+        "type": "flip",
+        "direction": "right",
+        "duration": 2000
+      },
       params: {
         place: null
       },
@@ -88,6 +102,7 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
 
     .state('mainscreen.feliv', {
       url: '/feiraslivres',
+      nativeTransitions: null,
       views:{
         'menucontentview': {
           templateUrl: 'templates/views/feiraslivres.html',
@@ -98,6 +113,7 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
 
     .state('mainscreen.informacaoFeiraLivre',{
       url: '/informacaoFeiraLivre',
+      nativeTransitions: null,
       params: {
         place: null
       },
@@ -111,6 +127,7 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
 
     .state('mainscreen.hotel', {
       url: '/hoteis',
+      nativeTransitions: null,
       views: {
         'menucontentview':{
           templateUrl: 'templates/views/hoteis.html',
@@ -121,6 +138,7 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
 
     .state('mainscreen.hotelProfile', {
       url: '/hotelProfile',
+      nativeTransitions: null,
       params:{
         place: null
       },
@@ -134,6 +152,7 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
 
     .state('mainscreen.museus', {
       url: '/museus',
+      nativeTransitions: null,
       views: {
         'menucontentview':{
           templateUrl: 'templates/views/museus.html',
@@ -144,6 +163,7 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
 
     .state('mainscreen.museuProfile', {
       url: '/museuProfile',
+      nativeTransitions: null,
       params: {
         place: null
       },
@@ -157,6 +177,7 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
 
     .state('mainscreen.mercadospublicos', {
       url: '/mercadospublicos',
+      nativeTransitions: null,
       views:{
         'menucontentview':{
           templateUrl: 'templates/views/mercadospublicos.html',
@@ -167,6 +188,7 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
 
     .state('mainscreen.mercadopublicoProfile', {
       url: '/mercadopublicoProfile',
+      nativeTransitions: null,
       params:{
         place: null
       },
@@ -180,6 +202,7 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
 
     .state('mainscreen.ponte', {
       url: '/pontes',
+      nativeTransitions: null,
       views:{
         'menucontentview':{
           templateUrl: 'templates/views/pontes.html',
@@ -190,6 +213,7 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
 
     .state('mainscreen.ponteProfile', {
       url: '/ponteProfile',
+      nativeTransitions: null,
       params:{
         place: null
       },
@@ -203,6 +227,7 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
 
     .state('mainscreen.teatro',{
       url: '/teatros',
+      nativeTransitions: null,
       views:{
         'menucontentview':{
           templateUrl:'templates/views/teatros.html',
@@ -213,6 +238,7 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
 
     .state('mainscreen.teatroProfile',{
       url: '/teatroProfile',
+      nativeTransitions: null,
       params:{
         place: null
       },
@@ -226,6 +252,11 @@ modulo.config(function($stateProvider, $urlRouterProvider, $logProvider, $ionicC
 
     .state('mainscreen.fullmap',{
       url: '/fullmap',
+      nativeTransitions: {
+        "type": "flip",
+        "direction": "right",
+        "duration": 2000
+      },
       params:{
         place: null,
         categoria: null

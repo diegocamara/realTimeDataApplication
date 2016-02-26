@@ -1,10 +1,14 @@
-angular.module('opendataapplication').controller('centroDeComprasProfileController', function($scope, $state,  $stateParams, $timeout){
+angular.module('opendataapplication').controller('centroDeComprasProfileController', function($scope, $state,  $stateParams, $timeout, $ionicNativeTransitions){
 
   $scope.place = $stateParams.place;
 
   $scope.isLocalizacaoDisponivel = function(){
     return $scope.place != null && $scope.place.latitude != null && $scope.place.longitude != null;
   }
+
+  $scope.$on('$ionicView.enter', function(){
+    $ionicNativeTransitions.enable(false);
+  });
 
   $scope.$on('$stateChangeSuccess', function(){
 
@@ -25,6 +29,7 @@ angular.module('opendataapplication').controller('centroDeComprasProfileControll
     }};
 
     $scope.$on('leafletDirectiveMap.map.click', function(event){
+      //$ionicNativeTransitions.enable();
       $state.go('mainscreen.fullmap', {place: $scope.place, categoria: 'centrosdecompras'});
     });
 

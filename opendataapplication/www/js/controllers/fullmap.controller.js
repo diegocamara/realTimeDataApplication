@@ -8,7 +8,7 @@ angular.module('opendataapplication').controller('fullmapController', function($
         $scope.$parent.hideHeader();
     }, 0);
 
-  $scope.goToProfile = function(p){
+  $scope.goToProfile = function(p){    
     $ionicHistory.goBack();
   }
 

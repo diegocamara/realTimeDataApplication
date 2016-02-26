@@ -27,7 +27,12 @@
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
     "ionic-plugin-keyboard",
-    "cordova-plugin-geolocation"
+    "cordova-plugin-geolocation",
+    {
+      "locator": "https://github.com/Telerik-Verified-Plugins/NativePageTransitions#0.6.2",
+      "id": "com.telerik.plugins.nativepagetransitions"
+    },
+    "cordova-plugin-wkwebview"
   ],
   "cordovaPlatforms": [
     "android"
