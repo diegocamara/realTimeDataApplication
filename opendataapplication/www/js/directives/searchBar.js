@@ -6,17 +6,17 @@ angular.module('opendataapplication').directive('searchBar', [function () {
 		require: ['^ionNavBar', '?ngModel'],
 		restrict: 'E',
 		replace: true,
-		template: '<ion-nav-buttons side="right">'+
-						'<div class="searchBar">'+
-							'<div class="searchTxt" ng-show="ngModel.show">'+
-						  		'<div class="bgdiv animated fadeInRight"></div>'+
-						  		'<div class="bgtxt animated fadeInRight">'+
-						  			'<input id="inputId" type="text" placeholder="Procurar..." ng-model="ngModel.txt" ng-change="inputChange(ngModel.txt)">'+
-						  		'</div>'+
-					  		'</div>'+
-						  	'<i class="icon placeholder-icon ion-android-search ink" style="color:white;" ng-click="inputFocus(ngModel.show); ngModel.txt=\'\';ngModel.show=!ngModel.show"></i>'+
-						'</div>'+
-					'</ion-nav-buttons>',
+		template:
+
+		'<ion-nav-buttons side="right" class="header-item-search">'+
+		  '<label class="item-input-wrapper header-item-search" ng-show="ngModel.show">'+
+			'<style>.buttons-right{width:100%;position:relative;} .right-buttons{width:85%;} .ng-pristine{width:100% !important;} .button{position:fixed;right:2%;}</style>'+
+
+		      '<input id="inputId" type="search" placeholder="Procurar..." ng-model="ngModel.txt" ng-change="inputChange(ngModel.txt)" style="width:80%;">'+
+		  '</label>'+
+			'<button class="button icon no-text button-clear ion-android-search header-item-search" style="color:white;" ng-click="inputFocus(ngModel.show); ngModel.txt=\'\';ngModel.show=!ngModel.show" ng-show="!ngModel.show"></button>'+
+			'<button class="button icon no-text button-clear ion-close-round header-item-search" style="color:white;" ng-click="inputFocus(ngModel.show); ngModel.txt=\'\';ngModel.show=!ngModel.show" ng-show="ngModel.show"></button>'+
+		'</ion-nav-buttons>',
 
 		compile: function (element, attrs) {
 			var icon=attrs.icon
