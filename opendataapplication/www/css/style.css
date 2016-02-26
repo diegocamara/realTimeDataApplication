@@ -147,9 +147,9 @@ ion-md-input input:focus ~ .md-highlight {
 
 
 bar.bar-custom, bar.bar-custom .bar.bar-positive, .bar-custom .nav-bar-block ion-header-bar {
-        border-color: #0288D1;
-        background-color: #0288D1;
-        background-image: linear-gradient(0deg, #0288D1, #0288D1 50%, transparent 50%);
+        border-color: #eb474e;
+        background-color: #eb474e;
+        background-image: linear-gradient(0deg, #eb474e, #eb474e 50%, transparent 50%);
 }
 
 .scroll, .angular-leaflet-map {
@@ -192,6 +192,17 @@ body {
 
 .larger {
     font-size: larger;
+}
+
+.centerName{
+    left: 0px !important;
+    right: 0px !important;
+    text-align: center !important;
+    width:auto !important;
+    font-size: 20px !important;
+    -webkit-transform: translateY(14%) !important;
+    -ms-transform: translateY(14%) !important;
+    transform: translateY(14%) !important;
 }
 
 .rowCenter{
