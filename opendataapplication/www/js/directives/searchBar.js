@@ -9,9 +9,8 @@ angular.module('opendataapplication').directive('searchBar', [function () {
 		template:
 
 		'<ion-nav-buttons side="right" class="header-item-search">'+
-		  '<label class="item-input-wrapper header-item-search" ng-show="ngModel.show">'+
-			'<style>.buttons-right{width:100%;position:relative;} .right-buttons{width:85%;} .ng-pristine{width:100% !important;} .button{position:fixed;right:2%;}</style>'+
-
+		  '<label class="item-input-wrapper header-item-search" ng-show="ngModel.show" style="margin-right: 5%;">'+
+			'<style>.buttons-right{width:90%;position:relative;} .right-buttons{width:85%;} .ng-pristine{width:100% !important;} .ion-android-search, .ion-close-round{position:fixed;right:2%;}</style>'+
 		      '<input id="inputId" type="search" placeholder="Procurar..." ng-model="ngModel.txt" ng-change="inputChange(ngModel.txt)" style="width:80%;">'+
 		  '</label>'+
 			'<button class="button icon no-text button-clear ion-android-search header-item-search" style="color:white;" ng-click="inputFocus(ngModel.show); ngModel.txt=\'\';ngModel.show=!ngModel.show" ng-show="!ngModel.show"></button>'+
