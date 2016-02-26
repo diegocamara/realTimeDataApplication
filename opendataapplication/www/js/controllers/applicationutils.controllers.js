@@ -76,13 +76,21 @@ function inputFocus($scope, $timeout){
         input.focus();
       }, 100);
     }else{
-      $scope.scrollTop();
-      $scope.isInSearch = false;
-      $scope.page = 0;
-      $scope.pageSize = 20;
-      $scope.numeroDeRegistros = 0;
-      $scope.places = [];
-      $scope.loadMore();
+
+      if($scope.places.length == 0){
+
+        $scope.scrollTop();
+        $scope.isInSearch = false;
+        $scope.page = 0;
+        $scope.pageSize = 20;
+        $scope.numeroDeRegistros = 0;
+        $scope.places = [];
+        $scope.loadMore();
+        
+      }
+
+      $scope.isExibirMensagemNenhumResultadoEncontrado = false;
+
     }
   }
 }
